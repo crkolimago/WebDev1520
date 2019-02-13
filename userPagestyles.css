@@ -1,0 +1,6 @@
+
+ #main_nav { position:absolute; right:30px; top:40px;}
+  				 #main_nav li { float:left; margin-left:2px; }
+  				 #main_nav li a{ font-size:16px; color:#fff; text-decoration:none; padding:8px 15px; -moz-border-radius:7px; -webkit-border-radius:7px; border-radius:7px;} 
+  				 #main_nav li a.active,
+  			#main_nav li a:hover{  background-color:#0b86cb;  }
