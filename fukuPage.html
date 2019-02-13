@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+        
+
+<link rel="stylesheet" href="fukuStyle.css">
+<body>
+    
+         
+
+
+
+
+<div class="content">
+  <img id = "logo" src="fukuLogo.png" >
+  <div id="navbar">
+      <a class="active" href="javascript:void(0)">Home</a>
+      <a href="javascript:void(0)">Login</a>
+      <a href="#favshead">Order Now</a>
+
+    </div>
+<p>Some Text</p><br><br><br><br><br><br><br>
+<p>Some Text</p><br><br><br><br><br><br><br>
+</div>
+<div>
+  <h1 id= "favshead">
+    Customer Favorites
+  </h1>
+  <table id="favs" >
+    <tr>
+      <td><img class="custDrinks" id = "drink1" src="matcha.jpg" ></td>
+      <td><img class="custDrinks" id = "drink2" src="matcha.jpg" ></td>
+    </tr>
+    <tr>
+        <td><img class="custDrinks" id = "drink1" src="matcha.jpg" ></td>
+        <td><img class="custDrinks" id = "drink2" src="matcha.jpg" ></td>
+      </tr>
+</table>
+</div>
+
+
+<script>
+        window.onscroll = function() {myFunction()};
+        
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+        
+        function myFunction() {
+          if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+          } else {
+            navbar.classList.remove("sticky");
+          }
+        }
+</script>    
+</body>
+</html>
