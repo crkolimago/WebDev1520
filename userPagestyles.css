@@ -1,6 +1,25 @@
+  .grid-container {
+	  display: grid;
+  }
+  
+  .header {
+	  grid-row-start: 1;
+	  grid-row-end: 2;
+	  grid-column-start: 1;
+	  grid-column-end: 3;
+	  text-align: center;
+	  background-color: #3e2723;
+  }
+  
+  .menu {
+	  grid-row-start: 2;
+	  grid-row-end: 3;
+  }
+  
+  .cart {
+	  grid-row-start: 2;
+	  grid-row-end: 3;
+	  border: 2px solid black;
+	  border-radius: 5px;
+  }
 
- #main_nav { position:absolute; right:30px; top:40px;}
-  				 #main_nav li { float:left; margin-left:2px; }
-  				 #main_nav li a{ font-size:16px; color:#fff; text-decoration:none; padding:8px 15px; -moz-border-radius:7px; -webkit-border-radius:7px; border-radius:7px;} 
-  				 #main_nav li a.active,
-  			#main_nav li a:hover{  background-color:#0b86cb;  }

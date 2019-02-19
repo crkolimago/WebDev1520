@@ -3,35 +3,55 @@
 
 <HTML>
 <head>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="userPagestyles.css">
 </head>
 
 <body>
 
-  <div id="header">
-    <!-- Example
-	  <h1 class="entry-title"><?php the_title(); ?></h1>
-	-->
-	<!-- <h2>Sub Header</h2> -->
-  </div>
+  <div class="grid-container">
+	  <div class="header">
+		<h1>Nav bar goes here</h1>
+	  </div>
+  
+	  <div class="menu">
+	  <table>
+		<tr>
+		  <th><img src="matcha.jpg" alt="matcha"></th>
+		  <th><img src="matcha.jpg" alt="matcha"></th>
+		  <th><img src="matcha.jpg" alt="matcha"></th>
+		</tr>
+		<tr>
+		  <th><button id="1" onclick="add(this.id)" type="button">1</button></th>
+		  <th><button id="2" onclick="add(this.id)" type="button">2</button></th>
+		  <th><button type="button">3</button></th>
+		</tr>
+		<tr>
+		  <th><img src="matcha.jpg" alt="matcha"></th>
+		  <th><img src="matcha.jpg" alt="matcha"></th>
+		  <th><img src="matcha.jpg" alt="matcha"></th>
+		</tr>
+		<tr>
+		  <th><button type="button">4</button></th>
+		  <th><button type="button">5</button></th>
+		  <th><button type="button">6</button></th>
+		</tr>
+	  </table>
+	  </div>
 
-  <div id ="nav">
-    <ul id="main_nav">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Careers</a></li>
-    <li><a href="#">Contact</a></li>
-	</ul>
-  </div>
-
-  <div id="container"> <!-- section, article, aside -->
+	  <div class="cart">
+	    <h2>Shopping Cart</h2>
+		<p>When button is clicked, add small image and text + quantity</p>
+		<!-- <div id="cart_list">
+			<div id="item"></div>
+			<button onclick="clear()">Clear</button>
+		</div> -->
+		<ul id="cart_list"></ul>
+	  </div>
   </div>
 
   <div id="footer">
   </div>
 
-  <!-- Place JavaScript Below Here -->
-  <!-- Example
-       <script src="js/example"></script> -->
+  <script src="js/example.js"></script>
 </body>
 </HTML>
