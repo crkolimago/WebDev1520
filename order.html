@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Order Form</title>
+	</head>
+	<link rel="stylesheet" href="fukuStyle.css">
+	<body>
+		<div id="navbar">
+			<img id="logo" src="fukuLogo.png">
+      <a class="active" href="javascript:void(0)" onclick="goHome()">Home</a>
+      <a class="active" href="javascript:void(0)" onclick="goLogin()">Login</a>
+      <a class="active" href="#favshead" onclick="goOrder()">Order Now</a>
+    </div>
+    <div id="customOrderForm">
+    	<form name="CustomOrderForm">
+    		Size?
+        <br>
+    		<input type="radio" name="size" value="small">Small
+    		<input type="radio" name="size" value="Large">Large
+        <br>
+    		Tea?
+        <br>
+    		<input type="radio" name="tea" value="jasmine">Jasmine
+    		<input type="radio" name="tea" value="black">Black
+        <br>
+    		Flavor?
+        <br>
+        <input type="radio" name="flavor" value="original">Original
+        <input type="radio" name="flavor" value="mango">Mango
+        <input type="radio" name="flavor" value="strawberry">Strawberry
+        <input type="radio" name="flavor" value="Kiwi">Kiwi
+        <br>
+        Toppings?
+        <br>
+        <input type="radio" name="topping" value="none">None
+        <input type="radio" name="topping" value="tapioca">Tapioca
+        <input type="radio" name="topping" value="jelly">Jelly
+        <br>
+        Hot or Cold?
+        <br>
+        <input type="radio" name="temperature" value="hot">Hot
+        <input type="radio" name="temperature" value="Cold">Cold
+        <br>
+
+        <button type="button" onclick="confirmOrder()">Confirm</button>
+    	</form>
+    </div>
+    <img id ="image" src="bobaTea.jpg" >
+	</body>
+  <script>
+    function confirmOrder() {
+      
+    }
+  </script>
+<html>
