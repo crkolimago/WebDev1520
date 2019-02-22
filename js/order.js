@@ -14,7 +14,7 @@ function add(clicked_id) {
 		
 		var quantity_input = document.createElement("input");
 		quantity_input.type="number";
-		quantity_input.value="0";
+		quantity_input.value="1";
 		quantity_input.setAttribute('id',quantity_id);
 		list_item.appendChild(quantity_input);
 	}
@@ -28,18 +28,27 @@ function add(clicked_id) {
 function clear_cart() {
 	var ul = document.getElementById('cart_list');
 	while(ul.firstChild) ul.removeChild(ul.firstChild);
+	
+	document.getElementById('total').style.display = "none";
 }
 
 function print_cart() {
-	var nodeList = document.querySelectorAll('cart_list');
-	// Calling nodeList.item(i) isn't necessary in JavaScript
-	for(var i = 0; i < nodeList.length; i++)
-		console.log(nodeList[i].value); //trust, credit, confidence
-}
-
-/* 
-function clear() {
-	var list_id = document.getElementById('cart_list');
+	var nodeList = document.getElementById('cart_list');
+	nodeList = nodeList.childNodes;
 	
-	while(list_id.firstChild) list_id.removeChild(list_id.firstChild);
-} */
+	var total = 0;
+	
+	for (var i=0; i<nodeList.length;i++) {
+		console.log(nodeList[i].id);
+		console.log(typeof(document.getElementById(nodeList[i].childNodes[1].id).value));
+		var q = parseInt(document.getElementById(nodeList[i].childNodes[1].id).value);
+		total+=q;
+		console.log(total);
+	}
+	var pString = "Total: ".concat(total);
+	
+	if(total != 0) {
+		document.getElementById('total').style.display = "block";
+		document.getElementById('total').innerHTML = pString;
+	}
+}

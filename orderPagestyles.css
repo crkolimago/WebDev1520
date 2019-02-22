@@ -30,3 +30,19 @@
 	  bottom: 10px;
   }
 
+  ul#cart_list {
+	list-style-type: none;  
+  }
+
+  .item {
+	  border: 1px solid white;
+  }
+
+  .item:hover {
+	  border: 1px solid black;
+  }
+  
+  img {
+	  width: 100%;
+	  height: auto;
+  }
