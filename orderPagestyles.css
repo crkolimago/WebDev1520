@@ -1,5 +1,8 @@
   .grid-container {
 	  display: grid;
+	  position: relative;
+	  margin: 0;
+	  padding: 0;
   }
   
   .header {
@@ -21,5 +24,9 @@
 	  grid-row-end: 3;
 	  border: 2px solid black;
 	  border-radius: 5px;
+  }
+  .bottom {
+	  position: absolute;
+	  bottom: 10px;
   }
 
