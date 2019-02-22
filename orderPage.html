@@ -17,9 +17,9 @@
 	  <div class="menu">
 	  <table>
 		<tr>
-		  <th><img src="matcha.jpg" alt="matcha"></th>
-		  <th><img src="matcha.jpg" alt="matcha"></th>
-		  <th><img src="matcha.jpg" alt="matcha"></th>
+		  <th><img class="item" src="matcha.jpg" alt="matcha"></th>
+		  <th><img class="item" src="matcha.jpg" alt="matcha"></th>
+		  <th><img class="item" src="matcha.jpg" alt="matcha"></th>
 		</tr>
 		<tr>
 		  <th><button id="1" onclick="add(this.id)" type="button">1</button></th>
@@ -27,14 +27,14 @@
 		  <th><button id="3" onclick="add(this.id)"type="button">3</button></th>
 		</tr>
 		<tr>
-		  <th><img src="matcha.jpg" alt="matcha"></th>
-		  <th><img src="matcha.jpg" alt="matcha"></th>
-		  <th><img src="matcha.jpg" alt="matcha"></th>
+		  <th><img class="item" src="matcha.jpg" alt="matcha"></th>
+		  <th><img class="item" src="matcha.jpg" alt="matcha"></th>
+		  <th><img class="item" src="matcha.jpg" alt="matcha"></th>
 		</tr>
 		<tr>
-		  <th><button type="button">4</button></th>
-		  <th><button type="button">5</button></th>
-		  <th><button type="button">6</button></th>
+		  <th><button id="4" onclick="add(this.id)" type="button">4</button></th>
+		  <th><button id="5" onclick="add(this.id)" type="button">5</button></th>
+		  <th><button id="6" onclick="add(this.id)"type="button">6</button></th>
 		</tr>
 	  </table>
 	  </div>
@@ -45,6 +45,7 @@
 		<ul id="cart_list"></ul>
 		<button class="bottom" onclick="clear_cart()">Clear</button>
 		<button onclick="print_cart()">Print</button>
+		<p id="total"></p>
 	  </div>
   </div>
 
