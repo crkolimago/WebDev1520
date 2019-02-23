@@ -1,14 +1,18 @@
 function add(clicked_id) {
-	var item_msg = "item: ";
+	//var item_msg = "item: ";
 	var item_id="item-".concat(clicked_id);
 	var quantity_id="quantity-".concat(clicked_id);
 	var list_id = document.getElementById('cart_list');
+	var v = document.getElementById(clicked_id).value;
+	var quantity_class = "quantity_class";
+	var item_class = "item_class";
 	
 	//if id doesn't exist - add
 	if(!document.getElementById(item_id)) {
 		var list_item = document.createElement("li");
-		var item_txt = document.createTextNode(item_msg.concat(clicked_id));
+		var item_txt = document.createTextNode(v);
 		list_item.setAttribute('id',item_id);
+		list_item.setAttribute('class',item_class);
 		list_item.appendChild(item_txt);
 		list_id.appendChild(list_item);
 		
@@ -16,6 +20,7 @@ function add(clicked_id) {
 		quantity_input.type="number";
 		quantity_input.value="1";
 		quantity_input.setAttribute('id',quantity_id);
+		quantity_input.setAttribute('class',quantity_class);
 		list_item.appendChild(quantity_input);
 	}
 	else { //update quantity

@@ -11,45 +11,56 @@
 
   <div class="grid-container">
 	  <div class="header">
-		<h1>Nav bar goes here</h1>
+      <h1>Nav bar goes here</h1>
 	  </div>
   
 	  <div class="menu">
-	  <table>
-		<tr>
-		  <th><img class="item" src="matcha.jpg" alt="matcha"></th>
-		  <th><img class="item" src="matcha.jpg" alt="matcha"></th>
-		  <th><img class="item" src="matcha.jpg" alt="matcha"></th>
-		</tr>
-		<tr>
-		  <th><button id="1" onclick="add(this.id)" type="button">1</button></th>
-		  <th><button id="2" onclick="add(this.id)" type="button">2</button></th>
-		  <th><button id="3" onclick="add(this.id)"type="button">3</button></th>
-		</tr>
-		<tr>
-		  <th><img class="item" src="matcha.jpg" alt="matcha"></th>
-		  <th><img class="item" src="matcha.jpg" alt="matcha"></th>
-		  <th><img class="item" src="matcha.jpg" alt="matcha"></th>
-		</tr>
-		<tr>
-		  <th><button id="4" onclick="add(this.id)" type="button">4</button></th>
-		  <th><button id="5" onclick="add(this.id)" type="button">5</button></th>
-		  <th><button id="6" onclick="add(this.id)"type="button">6</button></th>
-		</tr>
-	  </table>
+      <table>
+        <tr>
+          <td><img class="item" src="img/thai_iced_tea.jpg" alt="thai_iced_tea"></td>
+          <td><img class="item" src="img/matcha_latte.jpg" alt="matcha_latte"></td>
+          <td><img class="item" src="img/original_milk_tea.jpg" alt="original_milk_tea"></td>
+        </tr>
+        <tr>
+          <td><button class="item_button" id="Thai_Tea" onclick="add(this.id)" type="button" value="Thai Tea">Thai Tea</button></td>
+          <td><button class="item_button" id="Matcha_Latte" onclick="add(this.id)" type="button" value="Matcha Latte">Matcha Latte</button></td>
+          <td><button class="item_button" id="Original_Milk_Tea" onclick="add(this.id)" type="button" value="Original Milk Tea">Original Milk Tea</button></td>
+        </tr>
+        <tr>
+          <td><img class="item" src="img/green_thai_tea.png" alt="green_thai_tea"></td>
+          <td><img class="item" src="img/masala_chai_latte.jpg" alt="masala_chai_latte"></td>
+          <td><img class="item" src="img/vanilla_chai_latte.png" alt="vanilla_chai_latte"></td>
+        </tr>
+        <tr>
+          <td><button class="item_button" id="Green_Thai_Tea" onclick="add(this.id)" type="button" value="Green Thai Tea">Green Thai Tea</button></td>
+          <td><button class="item_button" id="Masala_Chai_Latte" onclick="add(this.id)" type="button" value="Masala Chai Latte">Masala Chai Latte</button></td>
+          <td><button class="item_button" id="Vanilla_Chai_Latte" onclick="add(this.id)" type="button" value="Vanilla Chai Latte">Vanilla Chai Latte</button></td>
+        </tr>
+        <tr>
+          <td><img class="item" src="img/hong_kong_milk_tea.jpg" alt="hong_kong_milk_tea"></td>
+          <td><img class="item" src="img/taro_milk_tea.jpg" alt="taro_milk_tea"></td>
+          <td><img class="item" src="img/black_and_gold.jpg" alt="black_and_gold"></td>
+        </tr>
+        <tr>
+          <td><button class="item_button" id="Hong_Kong_Milk_Tea" onclick="add(this.id)" type="button" value="Hong Kong Milk Tea">Hong Kong Milk Tea</button></td>
+          <td><button class="item_button" id="Taro_Milk_Tea" onclick="add(this.id)" type="button" value="Taro Milk Tea">Taro Milk Tea</button></td>
+          <td><button class="item_button" id="Black_and_Gold" onclick="add(this.id)" type="button" value="Black and Gold">Black and Gold</button></td>
+        </tr>
+      </table>
 	  </div>
 
 	  <div class="cart">
-	    <h2>Shopping Cart</h2>
-		<p>When button is clicked, add small image and text + quantity</p>
-		<ul id="cart_list"></ul>
-		<button class="bottom" onclick="clear_cart()">Clear</button>
-		<button onclick="print_cart()">Print</button>
-		<p id="total"></p>
+      <div><h2 class="header2">Shopping Cart</h2></div>
+      <div class="cart_item">
+        <p>List Items</p>
+        <ul id="cart_list"></ul>
+      </div>
+      <div class="cart_button">
+        <button onclick="clear_cart()">Clear</button>
+        <button onclick="print_cart()">Print</button>
+        <p id="total"></p>
+      </div>
 	  </div>
-  </div>
-
-  <div id="footer">
   </div>
 
   <script src="js/order.js"></script>
