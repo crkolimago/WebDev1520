@@ -68,9 +68,9 @@ function print_cart() {
   disp_tax = CurrencyFormatted(tax);
   disp_priceAndTax = CurrencyFormatted(price+tax);
   
-  var priceString = "Price: ".concat(disp_price);
-  var taxString = "Tax: ".concat(tax);
-  var totalString = "Total: ".concat(disp_priceAndTax);
+  var priceString = "Price: $".concat(disp_price);
+  var taxString = "Tax: $".concat(tax);
+  var totalString = "Total: $".concat(disp_priceAndTax);
   
   if(total != 0) {
 		document.getElementById('price').style.display = "block";
