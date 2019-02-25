@@ -44,7 +44,7 @@
   
   .cart_button {
     position: fixed;
-    bottom: 20%;
+    bottom: 0%;
   }
 
   ul#cart_list {
@@ -68,7 +68,7 @@
   
   .item_button {
 	  width: 140px;
-    height: 30px;
+      height: 30px;
 	  border-radius:10px;
 	  background-color: #cacfd2 ;
   }

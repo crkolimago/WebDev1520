@@ -38,7 +38,6 @@ body {
     overflow: hidden;
     background-color: none;
     border-radius: 30px;
-    
   }
   
   #navbar a {
@@ -83,3 +82,30 @@ body {
     width:25%;
     height:25%;
   }
+
+#history {
+    padding-top: 10px;
+  background-color: white;
+  border: 5px black;
+  line-height: 1.5em;
+  border-radius: 10px;
+}
+
+.main_text {
+    display: inline;
+    font-size: 20px;
+    font-family: "Arial", Arial, sans-serif;
+}
+
+#favlink:link {
+    text-decoration: none;
+    color: black;
+}
+#favlink:visited {
+    color: rgb(129, 176, 191);
+    text-decoration: none;
+}
+#favlink:hover {
+    color:blue;
+    text-decoration: none;
+}
