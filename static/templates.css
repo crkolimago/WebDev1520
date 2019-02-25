@@ -1,0 +1,32 @@
+  #loginBox {
+    float: center;
+    vertical-align:center;
+    border-style: outset;
+    border-width: 4px;
+    border-color:rgba(0, 0, 0, 0.683);
+    border-radius: 6px;
+    padding : 50px 50px 50px 50px;
+    width: 20%;
+    margin-top:200px;
+    margin-left:500px;
+  }
+    #loginForm {
+    padding : 50px 50px 50px 50px;  
+    float: center;
+    vertical-align:center;
+    width: 300px
+  }
+
+  #submitButton
+  {
+    font: Comic;
+    width:150px;
+    border-style:outset;
+    background-color: rgba(37, 175, 37, 0.395);
+  }
+  h1
+  {
+      
+      font: Comic;
+      color: rgba(37, 175, 37, 0.395);
+  }
