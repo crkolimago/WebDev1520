@@ -34,12 +34,6 @@
         Check out our menu and place an order <a href="/order">here</a>.
       </p>
     </div>
-    
-    <div id="reviews">
-      <h3>Reviews</h3>
-      <p>Review 1</p>
-    </div>
-    
     <div id="inner_content">
       <div id="map_div">
         <div id="map_info">
@@ -56,6 +50,30 @@
       </div>
     </div>
   </div> 
+   <div id=Reviews>
+       {%extends '_base.html' %}
+        {% block content %}
+        <div id="DisplayArea"></div>
+        <h3>Write a New Review</h3>
+        <table>
+            <tr>
+            <td>Enter Username:</td>
+            </tr>
+            <tr>
+            <td><input type="text" id="userName"></td>
+            </tr>
+            <tr>
+            <td>Enter Review:</td> 
+            </tr>
+            <tr>
+            <td><input type="text" id="item_title"></td>
+            <td><button onclick="saveItem();">Post</button></td>
+            </tr>
+        </table>
+        <script src="static/js/shopping_list.js"></script>
+        {% endblock %} 
+    </div>
+   
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAeP-cssxFr53LM4wEnmR_SPvSXdFrIR4&callback=initMap"></script>
   <script src="static/js/main.js"></script>
 </body>

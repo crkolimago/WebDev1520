@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+{% block content %}
+<div id="DisplayArea">
+<div>
+  <h3>Write a Review</h3>
+  <table>
+    <tr>
+      <td>Enter Username:</td>
+    </tr>
+    <tr>
+      <td><input type="text" id="userName"></td>
+    </tr>
+    <tr>
+      <td>Enter Review:</td> 
+    </tr>
+    <tr>
+      <td><input type="text" id="item_title"></td>
+      <td><button onclick="saveItem();">Post</button></td>
+    </tr>
+  </table>
+</div>
+<script src="static/js/shopping_list.js"></script>
+{% endblock %}
