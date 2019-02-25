@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    return redirect("/static/fukuPage.html", code=302)
+    return redirect("fukuPage.html", code=302)
 
 @app.route('/login', methods=['GET', 'POST'] )
 def login():
@@ -15,7 +15,7 @@ def login():
         password = request.form["password"]
         return redirect("/static/fukuPage.html", userName=userName, password=password)
     else: 
-    	return "jello"
+    	return "Invalid"
 
 
 if __name__ == '__main__':
