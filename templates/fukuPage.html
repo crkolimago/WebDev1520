@@ -4,55 +4,59 @@
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Expires" content="0" />
+    <meta charset="utf-8"/>
     <title>Fuku Tea by Group 5</title>
     <link rel="icon" href="static/img/favicon.ico">
+    <link rel="stylesheet" href="static/styles/fukuStyle.css">
 </head>
 
-<link rel="stylesheet" href="static/fukuStyle.css?Sunday 25th of February 2019 12:37:00 PM">
 <body>
-
-<div class="content">
+  <div class="content">
     <div id="userWelcome">{{userName}}</div>
-  <img id = "logo" src="static/fukuLogo.png" >
-  <div id="navbar">
-      <a class="active" href="/">Home</a>
-      <a href="/login">Login</a>
-      <a href="/order">Order Now</a>
-
+    <img id = "logo" src="static/img/fukuLogo.png" >
+    <div id="navbar">
+      <a class="navbutton" href="/">Home</a>
+      <a class="navbutton" href=#userWelcome>About</a>
+      <a class="navbutton" href=#map>Maps</a>
+      <a class="navbutton" href=#reviews>Reviews</a>
+      <a class="navbutton" href="/login">Login</a>
+      <a class="navbutton" href="/order">Order Now</a>
     </div>
-<p>Some Text</p><br><br><br><br><br><br><br>
-<p>Some Text</p><br><br><br><br><br><br><br>
-</div>
-<div>
-  <h1 id= "favshead">
-    Customer Favorites
-  </h1>
-  <table id="favs" >
-    <tr>
-      <td><img class="custDrinks" id = "drink1" src="static/matcha.jpg" ></td>
-      <td><img class="custDrinks" id = "drink2" src="static/matcha.jpg" ></td>
-    </tr>
-    <tr>
-        <td><img class="custDrinks" id = "drink1" src="static/matcha.jpg" ></td>
-        <td><img class="custDrinks" id = "drink2" src="static/matcha.jpg" ></td>
-      </tr>
-</table>
-</div>
-
-
-<script>
-        window.onscroll = function() {myFunction()};
-        
-        var navbar = document.getElementById("navbar");
-        var sticky = navbar.offsetTop;
-        
-        function myFunction() {
-          if (window.pageYOffset >= sticky) {
-            navbar.classList.add("sticky")
-          } else {
-            navbar.classList.remove("sticky");
-          }
-        }
-</script>    
+    <div id="about">
+      <h3>About</h3>
+      <p>
+        In 2015, inspired by the success of Taiwanese "Tapioca Tea" in California and all over the world, Ting Yen set out to create Fuku Tea.
+        Fuku Tea specializes in bubble tea with an added twist. With over 25 drinks to choose from, and up to 6 options for customization for each,
+        the combinations are endless. From premium hot loose leaf teas to delicious specialty milk teas to snacks and toppings and smoothies
+        , there truly is something for everybody at Fuku Tea.
+      </p>
+      <p>
+        Check out our menu and place an order <a href="/order">here</a>.
+      </p>
+    </div>
+    
+    <div id="reviews">
+      <h3>Reviews</h3>
+      <p>Review 1</p>
+    </div>
+    
+    <div id="inner_content">
+      <div id="map_div">
+        <div id="map_info">
+          <h3>Information</h3>
+          <p>
+            See the marker to the right to easily locate Fuku Tea!
+            <br><br>
+            Also check out Sushi Fuku on Oakland Ave or Craig Street for more fresh and delicious options!
+          </p>
+        </div>
+        <div id="map">
+          <p>Map loading...</p>
+        </div>
+      </div>
+    </div>
+  </div> 
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAeP-cssxFr53LM4wEnmR_SPvSXdFrIR4&callback=initMap"></script>
+  <script src="main.js"></script>
 </body>
 </html>

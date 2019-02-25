@@ -2,8 +2,10 @@ body {
     margin: 0;
     font-size: 28px;
     font-family: Arial, Helvetica, sans-serif;
+    background-color:  #b7edb1;
   }
   .content{
+    position: relative;
     margin: 0;
     font-size: 28px;
     font-family: Arial, Helvetica, sans-serif;
@@ -24,7 +26,7 @@ body {
   }
   #favshead{
     size: 36px;
-    colo/*/*????????/?;sldktns;dklgijLSKdnf;alekng;nds'lknanfpdonasdfadfasdfasdf   font: Roboto;
+    font: Roboto;
     text-align: center;
   }
   #userWelcome{
@@ -44,7 +46,7 @@ body {
     overflow: hidden;
     background-color: none;
     border-radius: 30px;
-    
+    padding: 10px;
   }
   
   #navbar a {
@@ -53,23 +55,17 @@ body {
     text-align: center;
     padding-left: 30px ;
     padding-right: 30px ;
-    padding-top: 3px ;
-    padding-bottom: 3px ;
     text-decoration: none;
     font-size: 24px;
     border-radius: 30px;
+    background-color: #5d9e56;
+    margin: 10px;
   }
   
   #navbar a:hover {
-    background-color: #ddd;
+    background-color: #5f765c;
     color: black;
     border-radius:30px;
-  }
-  
-  #navbar a.active {
-    background-color: #4CAF50;
-    color: white;
-
   }
   
   .content {
@@ -88,4 +84,58 @@ body {
   .custDrinks{
     width:25%;
     height:25%;
+  }
+  
+  #map_div {
+    position: relative;
+    margin: auto;
+  }
+  
+  #map {
+    width:49%;
+    height:400px;
+    float: right;
+    background-color: #f8f9f9;
+    border-radius: 10px;
+  }
+  
+  #map_info {
+    float: left;
+    width: 49%;
+    height:400px;
+    background-color: #f8f9f9;
+    border-radius: 10px;
+  } 
+  
+  #about {
+    background-color: #f8f9f9;
+    border-radius: 10px;
+  }
+  
+  #about p {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  #about h3 {
+    padding: 10px;
+  }
+  
+  #map_info p {
+    font-size: 16px;
+    padding: 10px;
+  }
+  
+  #reviews {
+    background-color: #f8f9f9;
+    border-radius: 10px;
+  }
+  
+  #reviews p {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  #reviews h3 {
+    padding: 10px;
   }
