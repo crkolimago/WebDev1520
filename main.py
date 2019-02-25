@@ -15,7 +15,7 @@ def login():
         password = request.form["password"]
         return render_template("loginConfirmation.html", userName=userName, password=password)
     else: 
-    	return "jello"
+    	return "Hello"
 
 
 if __name__ == '__main__':
