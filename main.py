@@ -1,5 +1,4 @@
-from flask import Flask, redirect, render_template, request 
-
+from flask import Flask, redirect, render_template, request
 
 app = Flask(__name__)
 
@@ -21,3 +20,11 @@ def login():
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
+
+
+@app.after_request
+def set_response_headers(response):
+  response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+  response.headers['Pragma'] = 'no-cache'
+  response.headers['Expires'] = '0'
+  return response
