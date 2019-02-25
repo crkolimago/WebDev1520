@@ -5,18 +5,19 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Expires" content="0" />
     <title>Fuku Tea by Group 5</title>
-    <link rel="icon" href="img/favicon.ico">
+    <link rel="icon" href="static/img/favicon.ico">
 </head>
 
-<link rel="stylesheet" href="fukuStyle.css">
+<link rel="stylesheet" href="static/fukuStyle.css">
 <body>
 
 <div class="content">
-  <img id = "logo" src="fukuLogo.png" >
+    <div id="userWelcome">{{userName}}</div>
+  <img id = "logo" src="static/fukuLogo.png" >
   <div id="navbar">
-      <a class="active" href="javascript:void(0)">Home</a>
+      <a class="active" href="/">Home</a>
       <a href="/login">Login</a>
-      <a href="static/orderPage.html">Order Now</a>
+      <a href="/order">Order Now</a>
 
     </div>
 <p>Some Text</p><br><br><br><br><br><br><br>
@@ -28,12 +29,12 @@
   </h1>
   <table id="favs" >
     <tr>
-      <td><img class="custDrinks" id = "drink1" src="matcha.jpg" ></td>
-      <td><img class="custDrinks" id = "drink2" src="matcha.jpg" ></td>
+      <td><img class="custDrinks" id = "drink1" src="static/matcha.jpg" ></td>
+      <td><img class="custDrinks" id = "drink2" src="static/matcha.jpg" ></td>
     </tr>
     <tr>
-        <td><img class="custDrinks" id = "drink1" src="matcha.jpg" ></td>
-        <td><img class="custDrinks" id = "drink2" src="matcha.jpg" ></td>
+        <td><img class="custDrinks" id = "drink1" src="static/matcha.jpg" ></td>
+        <td><img class="custDrinks" id = "drink2" src="static/matcha.jpg" ></td>
       </tr>
 </table>
 </div>
