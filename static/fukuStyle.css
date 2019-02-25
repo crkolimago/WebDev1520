@@ -24,9 +24,15 @@ body {
   }
   #favshead{
     size: 36px;
-    color: #2ecc71 ;
-    font: Courier;
+    colo/*/*????????/?;sldktns;dklgijLSKdnf;alekng;nds'lknanfpdonasdfadfasdfasdf   font: Roboto;
     text-align: center;
+  }
+  #userWelcome{
+    size: 28px;
+    font-weight: bold; 
+    font: Roboto;
+    text-shadow: -1px black;
+    color: rgb(144, 177, 106);
   }
   .header {
     background-color: #f1f1f1;

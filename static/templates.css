@@ -19,14 +19,15 @@
 
   #submitButton
   {
-    font: Comic;
+    font: Roboto;
     width:150px;
     border-style:outset;
-    background-color: rgba(37, 175, 37, 0.395);
+    background-color:  rgb(144, 177, 106);
   }
   h1
   {
-      
-      font: Comic;
-      color: rgba(37, 175, 37, 0.395);
+      margin-left:40px;
+      margin-top:40px;
+      font: Roboto;
+      color:  rgb(144, 177, 106);
   }
