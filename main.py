@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    return redirect("/static/fukuPage.html", code=302)
+    return redirect("static/fukuPage.html", code=302)
 
 @app.route('/login', methods=['GET', 'POST'] )
 def login():
