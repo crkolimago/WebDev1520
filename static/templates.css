@@ -1,33 +1,56 @@
   #loginBox {
-    float: center;
-    vertical-align:center;
     border-style: outset;
     border-width: 4px;
-    border-color:rgba(0, 0, 0, 0.683);
+    border-color: rgba(0, 0, 0, 0.683);
     border-radius: 6px;
-    padding : 50px 50px 50px 50px;
-    width: 20%;
-    margin-top:200px;
-    margin-left:500px;
+    margin: 0 auto;
+    position: absolute;
+    left: 35%;
+    width: 25%;
+    top: 10%;
+    padding: 30px;
+    text-align: center;
+    background-color: white;
   }
-    #loginForm {
-    padding : 50px 50px 50px 50px;  
+  
+   #loginForm {
     float: center;
     vertical-align:center;
-    width: 300px
-  }
+    width: 300px;
+  } 
+  
 
   #submitButton
   {
     font: Roboto;
     width:150px;
+    height: 30px;
     border-style:outset;
-    background-color:  rgb(144, 177, 106);
+    background-color:   #5d9e56 ;
+    border-radius: 10px;
   }
   h1
   {
-      margin-left:40px;
-      margin-top:40px;
       font: Roboto;
-      color:  rgb(144, 177, 106);
+      color:  white;
+      background-color:  #5d9e56 ;
+      border-radius: 10px;
+      padding: 5px;
+      
+     text-shadow: 1px 1px black;
+  }
+  
+  p {
+    font-family: "Tahoma", Geneva, sans-serif;
+    font-size: 24px;
+    margin: 40px 0px;
+    line-height: 200%;
+  }
+  
+  .inp {
+    height: 24px;
+  }
+  
+  body {
+    background-color:  #b7edb1;
   }
