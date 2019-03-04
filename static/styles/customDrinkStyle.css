@@ -1,0 +1,228 @@
+body {
+    margin: 0;
+    font-size: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:  #b7edb1;
+  }
+  .content{
+    position: relative;
+    margin: 0;
+    font-size: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  #logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 15%;
+    height:15%;
+  }
+  #favs {
+    width: 100%;
+    height:75%;
+  }
+  #favshead{
+    size: 36px;
+    font: Roboto;
+    text-align: center;
+  }
+  #userWelcome{
+    size: 28px;
+    font-weight: bold; 
+    font: Roboto;
+    text-shadow: -1px black;
+    color: rgb(144, 177, 106);
+  }
+  .header {
+    background-color: #f1f1f1;
+    padding: 30px;
+    text-align: center;
+  }
+  
+  #navbar {
+    overflow: hidden;
+    background-color: none;
+    border-radius: 30px;
+    padding: 10px;
+  }
+  
+  #navbar a {
+    float: center;
+    color: #050505;
+    text-align: center;
+    padding-left: 30px ;
+    padding-right: 30px ;
+    text-decoration: none;
+    font-size: 24px;
+    border-radius: 30px;
+    background-color: #5d9e56;
+    margin: 10px;
+  }
+  
+  #navbar a:hover {
+    background-color: #5f765c;
+    color: black;
+    border-radius:30px;
+  }
+  
+  .content {
+    padding: 16px;
+  }
+  
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+  
+  .sticky + .content {
+    padding-top: 60px;
+  }
+  .custDrinks{
+    width:25%;
+    height:25%;
+  }
+  
+  #map_div {
+    position: relative;
+    margin: auto;
+  }
+  
+  #map {
+    width:49%;
+    height:400px;
+    float: right;
+    background-color: #f8f9f9;
+    border-radius: 10px;
+  }
+  
+  #map_info {
+    float: left;
+    width: 49%;
+    height:400px;
+    background-color: #f8f9f9;
+    border-radius: 10px;
+  } 
+  
+  #about {
+    background-color: #f8f9f9;
+    border-radius: 10px;
+  }
+  
+  #about p {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  #about h3 {
+    padding: 10px;
+  }
+  
+  #map_info p {
+    font-size: 16px;
+    padding: 10px;
+  }
+  
+  #reviews {
+    background-color: #f8f9f9;
+    border-radius: 10px;
+  }
+  
+  #reviews p {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  #reviews h3 {
+    padding: 10px;
+  }
+  
+  .grid-container {
+	  display: grid;
+	  position: relative;
+	  margin: 0;
+	  padding: 0;
+  }
+  
+  .header2 {
+    text-align: center;
+  }
+  
+  body {
+    background-color: #b7edb1 ;
+  }
+  
+  .header {
+	  grid-row-start: 1;
+	  grid-row-end: 2;
+	  grid-column-start: 1;
+	  grid-column-end: 3;
+	  text-align: center;
+      background-color: #5f765c ;
+      border-radius: 8px;
+  }
+
+  #headtxt {
+    color:  white;
+    text-shadow: 1px 1px black;
+  }
+  
+  .menu {
+	  grid-row-start: 2;
+	  grid-row-end: 3;
+    width: 100%;
+  }
+  
+  .menu td {
+    padding: 5px 65px;
+  }
+  
+  .cart {
+    border: 2px solid  #5f765c ;
+    border-radius: 10px;
+  }
+  
+  #cart_table {
+    width: 100%;
+  }
+  
+  .cart_button {
+    position: fixed;
+    bottom: 15%;
+  }
+
+  ul#cart_list {
+	list-style-type: none;  
+  }
+
+  .item {
+	  border-radius: 15px;
+	  border: 1px solid white;
+  }
+
+  .item:hover {
+	  border-radius: 15px;
+	  border: 1px solid  #99a3a4 ;
+  }
+  
+  img {
+	  width: 100%;
+	  height: auto;
+  }
+  
+  .item_button {
+	  width: 140px;
+      height: 30px;
+	  border-radius:10px;
+	  background-color: #5d9e56 ;
+  }
+  
+  .item_button:hover {
+	  background-color:  #5f765c;
+  }
+  
+  #back {
+    font-family: "Arial", Arial, Sans-serif;
+  }
