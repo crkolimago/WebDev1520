@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Custom Drink Order Form</title>
-      <link rel="stylesheet" href="static/styles/customOrderStyle.css">
-      <meta charset="utf-8"/>
-    </head>
-    <body>
+  <head>
+    <title>Custom Drink Order Form</title>
+    <link rel="stylesheet" href="static/styles/customDrinkStyle.css">
+    <meta charset="utf-8"/>
+  </head>
+  <body>
     <div class="content">
       <img id = "logo" src="static/img/fukuLogo.png" >
       <div id="navbar">
@@ -13,18 +13,18 @@
         <a class="navbutton" href=#userWelcome>About</a>
         <a class="navbutton" href=#map>Maps</a>
         <a class="navbutton" href=#reviews>Reviews</a>
-            <a class="navbutton" href="/login">Login</a>
-            <a class="navbutton" href="/order">Order Now</a>
-            <a class="navbutton" href="/customDrink">Custom Drink</a>
-        </div>
-      	<div class="grid-container">
-            <form name="CustomOrderForm" id="customDrinkForm" align="center" onsubmit="confirmDrink()">
+        <a class="navbutton" href="/login">Login</a>
+        <a class="navbutton" href="/order">Order Now</a>
+        <a class="navbutton" href="/customDrink">Custom Drink</a>
+      </div>
+      <div class="grid-container">
+            <form name="customDrinkForm" id="customDrinkForm" action="#">
                 <br>Size<br>
-                <input type="radio" name="size" id="small" value="small" onclick="addSize(this.id)">Small
-                <input type="radio" name="size" id="large" value="large" onclick="addSize(this.id)">Large
+                <input type="radio" name="size" id="small" value="small">Small (16 oz.) $3.45
+                <input type="radio" name="size" id="large" value="large">Large (24 oz.) $4.20
                 <br><br>Tea<br>
-                <input type="radio" name="tea" id="Jasmine Green" value="jasmineGreen" onclick="addTea(this.id)">Jasmine Green
-                <input type="radio" name="tea" id="Classic Black" value="classicBlack" onclick="addTea(this.id)">Classic Black
+                <input type="radio" name="tea" id="Jasmine Green" value="jasmineGreen">Jasmine Green
+                <input type="radio" name="tea" id="Classic Black" value="classicBlack">Classic Black
                 <br><br>Flavor<br>
                 <input type="radio" name="flavor" value="Original">Original
                 <input type="radio" name="flavor" value="Almond">Almond
@@ -57,36 +57,40 @@
                 <input type="radio" name="sweetness" value="light">Light
                 <input type="radio" name="sweetness" value="normal">Normal
                 <input type="radio" name="sweetness" value="extra">Extra
-                <br><br>Toppings (1 included, + $0.50 per Additional)<br>
-                <input type="radio" name="topping" value="none">None
-                <input type="radio" name="topping" value="tapioca">Tapioca
-                <input type="radio" name="topping" value="pudding">Pudding
-                <input type="radio" name="topping" value="redBean">Red Bean
-                <input type="radio" name="topping" value="jelly" action="displayJelly()">Jelly
-                <input type="radio" name="topping" value="poppingBoba" action="displayPoppingBoba()">Popping Boba
                 <br><br>Hot or Cold<br>
-                <input type="radio" name="temperature" value="hot">Hot
-                <input type="radio" name="temperature" value="Cold">Cold
-                <br><br>
-                <button type="button" onclick="addDrink()">Add Another Drink</button>
-                <input type="submit" value="Submit">
+                <input type="radio" name="temp" value="hot">Hot
+                <input type="radio" name="temp" value="cold">Cold<br>
+								<div class="toppingButtons">
+									<br>Toppings (1 included, + $0.50 per Additional)<br>
+									<input type="button" name="topping" value="None">
+									<input type="button" name="topping" id="tapioca" onclick="addTopping(this.id)" value="Tapioca">
+									<input type="button" name="topping" id="pudding" onclick="addTopping(this.id)" value="Pudding">
+									<input type="button" name="topping" id="redBean" onclick="addTopping(this.is)" value="RedBean">
+									<div class="dropdown">
+										<button class="dropButton">Jelly</button>
+										<div class="dropdownContent">
+											<a href="#" id="lychee" onclick="addJelly(this.id)">Lychee</a>
+    									<a href="#" id="grassJelly" onclick="addJelly(this.id)">Grass Jelly</a>
+                      <a href="#" id="mango" onclick="addJelly(this.id)">Mango</a>
+                      <a href="#" id="strawberry" onclick="addJelly(this.id)">Strawberry</a>
+										</div>
+									</div>
+									<input type="button" name="topping" value="PoppingBoba" action="displayPoppingBoba()">
+									<div></div>
+								</div>
+                <br>
+                <button onclick="confirmDrink(customDrinkForm)">Submit</button>
             </form>
-			<div class="cart">
-			<div><h2 class="header2">Shopping Cart</h2></div>
-			<div>
-					<table id="cart_table">
-					<tr>
-							<th>Item</th><th class='quantity'>Quantity</th>
-					</tr>
-					</table>
-					<!-- <ul id="cart_list"></ul> -->
-			</div>
-			<p id="price"></p>
-			<p id="tax"></p>
-			<p id="total"></p>
-			</div>
-		</div>
-</div>
+				<div class="cart">
+      	  <div><h2 class="header2">Shopping Cart</h2></div>
+          <table id="cart_table">
+            <tr>
+              <th>Item</th><th class='quantity'>Quantity</th>
+            </tr>
+          </table>
+        </div><!-- cart div -->
+		  </div><!-- grid container div -->
+    </div><!-- content div -->
 <script src="static/js/customDrink.js"></script>
-</body>
+  </body>
 <html>
