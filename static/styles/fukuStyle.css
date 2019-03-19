@@ -12,6 +12,16 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
   }
+  #gSignIn{
+    float: right;
+    margin-left: 100%;
+  }
+  #gSignOut{
+    margin-left: 100%;
+    text-align: left;
+    padding-right: 12px;
+    float: right;
+  }
   #logo {
     display: block;
     margin-left: auto;
@@ -138,3 +148,4 @@ body {
   #reviews h3 {
     padding: 10px;
   }
+  

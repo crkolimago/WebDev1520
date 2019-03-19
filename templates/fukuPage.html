@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="google-signin-client_id" content="723893521330-94000c9m5sl45f9ibc08hbccpfj9r6uo.apps.googleusercontent.com">
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Expires" content="0" />
     <meta charset="utf-8"/>
     <title>Fuku Tea by Group 5</title>
     <link rel="icon" href="static/img/favicon.ico">
-    <link rel="stylesheet" href="static/styles/fukuStyle.css">
+    <link rel="stylesheet" href="static/styles/fukuStyle.css?Monday 18th of March 2019 08:01:00 PM">
 </head>
 
 <body>
+    <script src="static/js/main.js"></script>
+    <div id="gSignIn" class="g-signin2"  data-onsuccess="onSuccess"></div>
+    <br>
   <div class="content">
-    <div id="userWelcome">{{userName}}</div>
+   <!-- <div id="userWelcome">{{userName}}</div>-->
     <img id = "logo" src="static/img/fukuLogo.png" >
     <div id="navbar">
       <a class="navbutton" href="/">Home</a>
       <a class="navbutton" href=#userWelcome>About</a>
       <a class="navbutton" href=#map>Maps</a>
       <a class="navbutton" href=#reviews>Reviews</a>
-      <a class="navbutton" href="/login">Login</a>
+      <a href="" onclick="signOut();">Sign out</a>
       <a class="navbutton" href="/order">Order Now</a>
     </div>
     <div id="about">
@@ -50,9 +54,8 @@
       </div>
     </div>
   </div> 
+  <!--
    <div id=Reviews>
-       {%extends '_base.html' %}
-        {% block content %}
         <div id="DisplayArea"></div>
         <h3>Write a New Review</h3>
         <table>
@@ -71,10 +74,11 @@
             </tr>
         </table>
         <script src="static/js/shopping_list.js"></script>
-        {% endblock %} 
     </div>
+   -->
+   <script src="https://apis.google.com/js/platform.js" async defer></script>
    
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAeP-cssxFr53LM4wEnmR_SPvSXdFrIR4&callback=initMap"></script>
-  <script src="static/js/main.js"></script>
+  
 </body>
 </html>
