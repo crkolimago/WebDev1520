@@ -4,66 +4,53 @@
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Expires" content="0" />
+    <meta charset="utf-8"/>
     <title>Fuku Tea by Group 5</title>
     <link rel="icon" href="static/img/favicon.ico">
-    <link rel="stylesheet" href="static/fukuStyle.css?Sunday 25th of February 2019 12:37:00 PM">
+    <link rel="stylesheet" href="static/styles/fukuStyle.css">
 </head>
 
 <body>
-
-<div class="content">
+  <div class="content">
     <div id="userWelcome">{{userName}}</div>
-  <img id = "logo" src="static/fukuLogo.png" >
-  <div id="navbar">
-      <a class="active" href="/">Home</a>
-      <a href="/login">Login</a>
-      <a href="/order">Order Now</a>
-
+    <img id = "logo" src="static/img/fukuLogo.png" >
+    <div id="navbar">
+      <a class="navbutton" href="/">Home</a>
+      <a class="navbutton" href=#userWelcome>About</a>
+      <a class="navbutton" href=#map>Maps</a>
+      <a class="navbutton" href=#reviews>Reviews</a>
+      <a class="navbutton" href="/login">Login</a>
+      <a class="navbutton" href="/responsiveMenu.html">Order Now</a>
     </div>
-    <div id="history">
-        <p class="main_text">
-          Started in 2015, "Fuku Tea", the brain-child of Ting Yen was a hit and continues to be today.
-          Featuring an expansive menu with over 25 options and up to six options for customization for
-          each, once you get over the fear of discovery a whole world becomes available for exploration.
-          A fitting business model for a company that imports its ingredients from all over the world.
-          Fuku Tea truly has something for everyone; most importantly, service with a smile.
-        </p>
-    <div id="promotion">
-      <a class="main_text" href=#favshead id="favlink">Click Here</a>
-      <p class="main_text">to view what customers are saying about Fuku Tea!</p>
+    <div id="about">
+      <h3>About</h3>
+      <p>
+        In 2015, inspired by the success of Taiwanese "Tapioca Tea" in California and all over the world, Ting Yen set out to create Fuku Tea.
+        Fuku Tea specializes in bubble tea with an added twist. With over 25 drinks to choose from, and up to 6 options for customization for each,
+        the combinations are endless. From premium hot loose leaf teas to delicious specialty milk teas to snacks and toppings and smoothies
+        , there truly is something for everybody at Fuku Tea.
+      </p>
+      <p>
+        Check out our menu and place an order <a href="/order">here</a>.
+      </p>
     </div>
+    <div id="inner_content">
+      <div id="map_div">
+        <div id="map_info">
+          <h3>Information</h3>
+          <p>
+            See the marker to the right to easily locate Fuku Tea!
+            <br><br>
+            Also check out Sushi Fuku on Oakland Ave or Craig Street for more fresh and delicious options!
+          </p>
+        </div>
+        <div id="map">
+          <p>Map loading...</p>
+        </div>
+      </div>
     </div>
-</div>
-<div>
-  <h1 id= "favshead">
-    Customer Favorites
-  </h1>
-  <table id="favs" >
-    <tr>
-      <td><img class="custDrinks" id = "matcha_latte" src="static/img/matcha_latte.jpg" ></td>
-      <td><img class="custDrinks" id = "original_milk_tea" src="static/img/original_milk_tea.jpg" ></td>
-    </tr>
-    <tr>
-        <td><img class="custDrinks" id = "taro_milk_tea" src="static/img/taro_milk_tea.jpg" ></td>
-        <td><img class="custDrinks" id = "thai_iced_tea" src="static/img/thai_iced_tea.jpg" ></td>
-    </tr>
-</table>
-</div>
-
-
-<script>
-        window.onscroll = function() {myFunction()};
-        
-        var navbar = document.getElementById("navbar");
-        var sticky = navbar.offsetTop;
-        
-        function myFunction() {
-          if (window.pageYOffset >= sticky) {
-            navbar.classList.add("sticky")
-          } else {
-            navbar.classList.remove("sticky");
-          }
-        }
-</script>    
+  </div>  
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAeP-cssxFr53LM4wEnmR_SPvSXdFrIR4&callback=initMap"></script>
+  <script src="static/js/main.js"></script>
 </body>
 </html>

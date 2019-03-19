@@ -10,7 +10,7 @@
   }
   
   body {
-    background-color: #d6eaf8 ;
+    background-color: #b7edb1 ;
   }
   
   .header {
@@ -19,8 +19,13 @@
 	  grid-column-start: 1;
 	  grid-column-end: 3;
 	  text-align: center;
-    background-color: #3498db ;
-    border-radius: 8px;
+      background-color: #5f765c ;
+      border-radius: 8px;
+  }
+
+  #headtxt {
+    color:  white;
+    text-shadow: 1px 1px black;
   }
   
   .menu {
@@ -34,7 +39,7 @@
   }
   
   .cart {
-    border: 2px solid  #21618c ;
+    border: 2px solid  #5f765c ;
     border-radius: 10px;
   }
   
@@ -44,7 +49,7 @@
   
   .cart_button {
     position: fixed;
-    bottom: 0%;
+    bottom: 15%;
   }
 
   ul#cart_list {
@@ -70,11 +75,11 @@
 	  width: 140px;
       height: 30px;
 	  border-radius:10px;
-	  background-color: #cacfd2 ;
+	  background-color: #5d9e56 ;
   }
   
   .item_button:hover {
-	  background-color:  #a6acaf;
+	  background-color:  #5f765c;
   }
   
   #back {

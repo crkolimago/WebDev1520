@@ -66,7 +66,6 @@ def get_list_items():
   log('list retrieved. %s items' % len(result))
   return result
 
-
 def create_list_item(menu_item):
   """Create a new shopping list item entity from the specified object."""
   client = datastore.Client(PROJECT_ID)
@@ -102,4 +101,5 @@ def delete_list_item(sli_id):
   key = load_key(client, sli_id)
   log('key loaded for ID: %s' % sli_id)
   client.delete(key)
-log('key deleted for ID: %s' % sli_id)
+  log('key deleted for ID: %s' % sli_id)
+
