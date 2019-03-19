@@ -12,7 +12,7 @@ def root():
     return render_template("fukuPage.html")
 
 
-@app.route('/login', methods=['GET', 'POST'])
+"""@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == "GET":
         return render_template("login.html")
@@ -22,6 +22,7 @@ def login():
         return render_template("fukuPage.html", userName=userName, password=password)
     else:
         return "Hello"
+"""
 
 
 @app.route('/order', methods=['GET', 'POST'])
