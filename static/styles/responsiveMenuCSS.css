@@ -1,0 +1,205 @@
+body {
+  background-color: #abebb4;
+}
+
+#sigdrink {
+  text-align:center;
+  font-family: Helvetica, sans-serif;
+  font-size: 48px;
+}
+
+#info-popup {
+  position: absolute;
+  z-index: 2;
+  background: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 25%;
+  height: 75%;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.info-popup-item {
+  align-self: flex-start;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  margin: 5%;
+}
+
+#saveButton {
+  align-self: center;
+  margin-top: auto;
+}
+
+#flex-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly; /* or space-between or center */
+  margin:-10px;
+}
+#randomItem {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly; /* or space-between or center */
+
+}
+#randomButton {
+  margin-left: 620px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center; /*or space-between or center */
+}
+
+
+.menu-item {
+  background-color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin:10px;
+  align-items: center;
+  flex: 0 0 20%;
+}
+
+.menu-item:hover {
+  background-color: #ffffff;
+  border: 2px solid #358e41;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin:10px;
+  align-items: center;
+  flex: 0 0 20%;
+}
+
+.image {
+  width: 130px;
+  height: 201px;
+  object-fit: scale-down;
+}
+
+.adminForm-style {
+  margin:10px;
+	max-width: 400px;
+	padding: 20px 12px 10px 20px;
+	font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.adminForm-style li {
+  padding: 0;
+  display: block;
+  list-style: none;
+  margin: 10px 0 0 0;
+}
+
+.adminForm-style label{
+	margin:0 0 3px 0;
+	padding:0px;
+	display:block;
+	font-weight: bold;
+}
+
+.item_button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  /* show a hand cursor on hover; some argue that we
+  should keep the default arrow cursor for buttons */
+  cursor: pointer;
+}
+
+.item_button {
+   /* default for <button>, but useful for <a> */
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-family: Helvetica, sans-serif;
+
+  /* create a small space when buttons wrap on 2 lines */
+  margin: 6px 0;
+
+  /* invisible border (will be colored on hover/focus) */
+  border: solid 1px transparent;
+  border-radius: 8px;
+
+  /* size comes from text & padding (no width/height) */
+  padding: 0.5em 1em;
+
+  /* make sure colors have enough contrast! */
+  color: #ffffff;
+  background-color: #358e41;
+  
+  outline: none;
+}
+
+/* old-school "down" effect on clic + color tweak */
+.item_button:active {
+  transform: translateY(1px);
+  filter: saturate(150%);
+}
+
+/* inverse colors on hover */
+.item_button:hover {
+  color: #358e41;
+  border-color: currentColor;
+  background-color: white;
+}
+
+/* make sure we have a visible focus ring */
+.item_button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(90, 204, 106, 0.5),
+    0 0 0 1.5px rgba(90, 204, 106, 0.5);
+}
+
+/* hide focus style if not from keyboard navigation */
+.js-focus-visible .item_button:focus:not(.focus-visible) {
+  box-shadow: none;
+}
+#randomButton {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    color: #FFFFFF;
+    font-family: Verdana;
+    font-size: 18px;
+    font-weight: 30;
+    padding: 40px;
+    background-color: #5DCF68;
+    box-shadow: 1px 1px 20px 0px #000000;
+    -webkit-box-shadow: 1px 1px 20px 0px #000000;
+    -moz-box-shadow: 1px 1px 20px 0px #000000;
+    border: solid #337FED 1px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+randomButton:hover {
+    background: #45B50D;
+    background-image: -webkit-linear-gradient(top, #45B50D, #1C730F);
+    background-image: -moz-linear-gradient(top, #45B50D, #1C730F);
+    background-image: -ms-linear-gradient(top, #45B50D, #1C730F);
+    background-image: -o-linear-gradient(top, #45B50D, #1C730F);
+    background-image: linear-gradient(to bottom, #45B50D, #1C730F);
+    text-decoration: none;
+}

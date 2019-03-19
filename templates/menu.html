@@ -1,47 +1,38 @@
-{% extends 'responsiveMenu.html' %}
-{% block content %}
-<!--<div class="menu-item">
-  <img class="image" src="../static/img/thai_iced_tea.jpg" alt="thai_iced_tea">
-  <button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea</button>
+{% extends 'responsiveMenu.html' %} {% block content %}
+<div id="flex-container"></div>
+<div id="info-popup">
+        <div class="info-popup-item" id="info-popup-name"></div>
+        <div class="info-popup-item" id="info-popup-price"></div>
+        <button class="item_button" id="saveButton" onclick="hideInfo();">Save</button>
 </div>
-<div class="menu-item">
-  <img class="image" src="../static/img/thai_iced_tea_small.jpg" alt="thai_iced_tea">
-  <button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea</button>
-</div>
-<div class="menu-item">
-  <img class="image" src="../static/img/thai_iced_tea_large.jpg" alt="thai_iced_tea">
-  <button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea</button>
-</div>
-<div class="menu-item">
-  <img class="image" src="../static/img/thai_iced_tea.jpg" alt="thai_iced_tea">
-  <button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea</button>
-</div>-->
-{% endblock %}
+{% endblock %} 
+
 
 {% block footer %}
-   <form name="adminForm" action="" method="post">
-      <ul class="adminForm-style">
-        <li>
-          <h3>New Item Upload</h3>
-        </li>
-        <li>
-          <label>Name</label>
-          <input type="text" name="newname" id="item-name"/> <!-- Name -->
+{% if admin == "true" %}
+<form action="/save-data" method="post" enctype="multipart/form-data">
+	<ul class="adminForm-style">
+		<li>
+			<h3>New Item Upload</h3>
+		</li>
+		<li>
+			<label>Name</label>
+          <input type="text" name="name" id="item-name"/> 
         </li>
         <li>
           <label>Price</label>
-          <input type="number" name="newprice" id="item-price" min="0" max="100" /> <!-- Price -->
+          <input type="number" name="price" id="item-price" min="0" max="100" step="any" /> <!-- Price -->
         </li>
         <li>
-          <label>Attributes <span class="info">*separated by comma*</span></label>
-          <textarea rows="3" cols="20" id="item-attributes"></textarea>  <!-- Attributes -->
+          <input type="file" name="file" id="item-file" />
         </li>
         <li>
-          <input type="file" name="uploadField" />
-        </li>
-        <li>
-          <button onclick="saveItem();"/>Submit</button>
+            <input type="submit" value="Upload"/>
         </li>
       </ul>
     </form>
+    <button onclick="deleteAll();"/>Clear</button>
+{% else %}
+<div></div>
+{% endif %}
 {% endblock %}
