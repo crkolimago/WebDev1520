@@ -1,0 +1,47 @@
+{% extends 'responsiveMenu.html' %}
+{% block content %}
+<!--<div class="menu-item">
+  <img class="image" src="../static/img/thai_iced_tea.jpg" alt="thai_iced_tea">
+  <button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea</button>
+</div>
+<div class="menu-item">
+  <img class="image" src="../static/img/thai_iced_tea_small.jpg" alt="thai_iced_tea">
+  <button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea</button>
+</div>
+<div class="menu-item">
+  <img class="image" src="../static/img/thai_iced_tea_large.jpg" alt="thai_iced_tea">
+  <button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea</button>
+</div>
+<div class="menu-item">
+  <img class="image" src="../static/img/thai_iced_tea.jpg" alt="thai_iced_tea">
+  <button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea</button>
+</div>-->
+{% endblock %}
+
+{% block footer %}
+   <form name="adminForm" action="" method="post">
+      <ul class="adminForm-style">
+        <li>
+          <h3>New Item Upload</h3>
+        </li>
+        <li>
+          <label>Name</label>
+          <input type="text" name="newname" id="item-name"/> <!-- Name -->
+        </li>
+        <li>
+          <label>Price</label>
+          <input type="number" name="newprice" id="item-price" min="0" max="100" /> <!-- Price -->
+        </li>
+        <li>
+          <label>Attributes <span class="info">*separated by comma*</span></label>
+          <textarea rows="3" cols="20" id="item-attributes"></textarea>  <!-- Attributes -->
+        </li>
+        <li>
+          <input type="file" name="uploadField" />
+        </li>
+        <li>
+          <button onclick="saveItem();"/>Submit</button>
+        </li>
+      </ul>
+    </form>
+{% endblock %}

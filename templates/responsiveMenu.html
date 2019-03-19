@@ -8,64 +8,19 @@
 <body>
 
   <div id="flex-container">
-      <div class="menu-item">
-        <img class="image" src="../static/img/thai_iced_tea.jpg" alt="thai_iced_tea">
-        <button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea</button>
-      </div>
-      <div class="menu-item">
-        <img class="image" src="../static/img/thai_iced_tea_small.jpg" alt="thai_iced_tea">
-        <button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea</button>
-      </div>
-      <div class="menu-item">
-        <img class="image" src="../static/img/thai_iced_tea_large.jpg" alt="thai_iced_tea">
-        <button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea</button>
-      </div>
-      <div class="menu-item">
-        <img class="image" src="../static/img/thai_iced_tea.jpg" alt="thai_iced_tea">
-        <button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea</button>
-      </div>
+      <section>
+      {% block content %}{% endblock %}
+      </section>
   </div>
   
   <div id="footer">
-    <form name="adminForm" action="" method="post">
-      <ul class="adminForm-style">
-        <li>
-          <h3>New Item Upload</h3>
-        </li>
-        <li>
-          <label>Name</label>
-          <input type="text" name="newname" /> <!-- Name -->
-        </li>
-        <li>
-          <label>Price</label>
-          <input type="number" name="newprice" min="0" max="10" /> <!-- Price -->
-        </li>
-        <li>
-          <label>Attributes <span class="info">*separated by comma*</span></label>
-          <textarea rows="3" cols="20"></textarea>  <!-- Attributes -->
-        </li>
-        <li>
-          <input type="file" name="uploadField" />
-        </li>
-        <li>
-          <input type="submit" value="Submit"/>
-        </li>
-      </ul>
-    </form>
+      <section>
+      {% block footer %}{% endblock %}
+      </section>
   </div>
+
+  <section id="ErrorArea"></section>
 
   <script src="../static/js/responsiveMenuJS.js"></script>
 </body>
 </HTML>
-
-
-
-<!-- <td class="menu-cell">
-            <img class="item" src="../static/img/matcha_latte.jpg" alt="matcha_latte">
-            <button class="item_button" id="Matcha_Latte" value="Matcha Latte">Matcha Latte</button>
-          </td>
-          <td class="menu-cell">
-            <img class="item" src="../static/img/original_milk_tea.jpg" alt="original_milk_tea">
-            <button class="item_button" id="Original_Milk_Tea" value="Original Milk Tea">Original Milk Tea</button>
-          </td>
--->
