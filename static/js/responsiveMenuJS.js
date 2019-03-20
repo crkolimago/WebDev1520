@@ -1,13 +1,18 @@
+
+
 function saveItem(id) {
+    console.log("saving item.");
   let params={};
   if (id) {
       console.log("not complete. line 4 of responsiveMenuJS");
   }
   else {
+      console.log("new item");
     params['name'] = document.getElementById("item-name").value;
     params['price'] = document.getElementById("item-price").value;
     /*params['attributes'] = document.getElementById("item-attributes").value;*/
   }
+  console.log("about to send request");
   sendJsonRequest('save-item', objectToParameters(params), itemSaved);
 }
 
@@ -16,11 +21,12 @@ function sendJsonRequest(targetUrl, parameters, callbackFunction) {
   xmlHttp.onreadystatechange = function() {
     if (xmlHttp.readyState == 4) {
       // note that you can check xmlHttp.status here for the HTTP response code
+      console.log("status: " + xmlHttp.status);
       try {
         let myObject = JSON.parse(xmlHttp.responseText);
         callbackFunction(myObject, targetUrl, parameters);
       } catch (exc) {
-        showError("There was a problem at the server.");
+        showError("There was a problem at the server caused by sendJsonRequest");
       }
     }
   }
@@ -55,12 +61,12 @@ function getData(targetUrl, callbackFunction) {
   xmlHttp.onreadystatechange = function() {
     if (xmlHttp.readyState == 4) {
       // note that you can check xmlHttp.status here for the HTTP response code
-      try {
-        let myObject = JSON.parse(xmlHttp.responseText);
-        callbackFunction(myObject, targetUrl);
-      } catch (exc) {
-        showError("There was a problem at the server.");
-      }
+        try {
+            let myObject = JSON.parse(xmlHttp.responseText);
+            callbackFunction(myObject, targetUrl);
+        } catch (exc) {
+            showError("There was a problem at the server caused by getData: " + exc);
+        }
     }
   }
   // parameters: method="GET", url=targetUrl, asynchronous=true
@@ -90,7 +96,7 @@ function objectToParameters(obj) {
 
 function itemSaved(result, targetUrl, params) {
   if (result && result.ok) {
-    console.log("Saved item.");
+    console.log("itemSaved success.");
     //clearItemForm();
     loadItems();
   } else {
@@ -100,8 +106,10 @@ function itemSaved(result, targetUrl, params) {
 }
 
 function displayList(result, targetUrl) {
+    console.log("res: " + result);
   if (result && result.length) {
-    for (var i = 0; i < result.length; i++) {
+      let text = "";
+  /*  for (var i = 0; i < result.length; i++) {
       let text = '<div class="menu-item">';
       text += '<img class="image" src="static/img/thai_iced_tea.jpg" alt="thai_iced_tea" id="img_' + result[i].id + '"/>';
       text += '<button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea ';
@@ -109,6 +117,11 @@ function displayList(result, targetUrl) {
       text += '</button>';
     }
     text += '</div>';
+    */
+    for (var i=0; i<result.length; i++) {
+        console.log(result[i].name);
+        text += result[i].name + " / ";
+    }
     console.log("updating DisplayArea: " + text);
     document.getElementById("DisplayArea").innerHTML = text;
   } else {

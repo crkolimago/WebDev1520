@@ -10,7 +10,7 @@ from menuitem import MenuItem
 # We need to identify the entity type for our list items.
 # Note that this data type is arbitrary and can be whatever you like.
 SLI_ENTITY_TYPE = 'MenuItem'
-PROJECT_ID = 'coe1520-webpage'
+PROJECT_ID = 'fukuteashop'
 
 
 def log(msg):
