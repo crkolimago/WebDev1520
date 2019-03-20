@@ -1,6 +1,6 @@
 {% extends 'responsiveMenu.html' %}
 {% block content %}
-<div id="DisplayArea"></div>
+<div id="flex-container"></div>
 {% endblock %}
 
 {% block footer %}
@@ -25,9 +25,8 @@
           <input type="file" name="uploadField" />
         </li>
 -->
-        <li>
-          <button onclick="saveItem();"/>Submit</button>
-        </li>
       </ul>
     </form>
+    <button onclick="saveItem();"/>Submit</button>
+    <button onclick="deleteAll();"/>Clear</button>
 {% endblock %}

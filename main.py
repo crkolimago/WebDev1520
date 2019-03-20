@@ -58,6 +58,26 @@ def load_sli_items():
 @app.route('/menu.html')
 def menu():
     return render_template('menu.html')
+
+@app.route('/delete-all', methods=['POST'])
+def delete_all():
+    # first we load the list items
+    log('loading list items.')
+    sli_list = slidata.get_list_items()
+    
+    #then we delete using a for loop
+    json_result = {}
+    try:
+        for sl_item in sli_list:
+            log('deleting item for ID: %s' % sl_item.id)
+            slidata.delete_list_item(sl_item.id)
+            json_result['ok'] = True
+    except Exception as exc:
+        log(str(exc))
+        json_result['error'] = 'The item was not removed.'
+
+    return Response(json.dumps(json_result), mimetype='application/json')
+        
         
 
 @app.route('/save-item', methods=['POST'])

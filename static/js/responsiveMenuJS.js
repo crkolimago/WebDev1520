@@ -7,10 +7,9 @@ function saveItem(id) {
       console.log("not complete. line 4 of responsiveMenuJS");
   }
   else {
-      console.log("new item");
+    console.log("new item");
     params['name'] = document.getElementById("item-name").value;
     params['price'] = document.getElementById("item-price").value;
-    /*params['attributes'] = document.getElementById("item-attributes").value;*/
   }
   console.log("about to send request");
   sendJsonRequest('save-item', objectToParameters(params), itemSaved);
@@ -94,10 +93,33 @@ function objectToParameters(obj) {
   return text;
 }
 
+// use this to clear the values in the "add item" form
+function clearItemForm() {
+  document.getElementById("item-name").value = '';
+  document.getElementById("item-price").value = '';
+}
+
+function deleteAll() {
+    if (confirm("Are you sure you want to delete?")) {
+        sendJsonRequest('delete-all', null, itemsDeleted);
+  }
+}
+
+// when we delete an item, we use this to reload the list of items.
+function itemsDeleted(result) {
+  if (result && result.ok) {
+    console.log("Deleted item.");
+    loadItems();
+  } else {
+    console.log("Received error: " + result.error);
+    showError(result.error);
+  }
+}
+
 function itemSaved(result, targetUrl, params) {
   if (result && result.ok) {
     console.log("itemSaved success.");
-    //clearItemForm();
+    clearItemForm();
     loadItems();
   } else {
     console.log("Received error: " + result.error);
@@ -106,26 +128,20 @@ function itemSaved(result, targetUrl, params) {
 }
 
 function displayList(result, targetUrl) {
-    console.log("res: " + result);
+    //console.log("res: " + result);
   if (result && result.length) {
-      let text = "";
-  /*  for (var i = 0; i < result.length; i++) {
-      let text = '<div class="menu-item">';
-      text += '<img class="image" src="static/img/thai_iced_tea.jpg" alt="thai_iced_tea" id="img_' + result[i].id + '"/>';
-      text += '<button class="item_button" id="Thai_Tea" value="Thai Tea">Thai Tea ';
-      text += result[i].price + ' ' + result[i].name;
-      text += '</button>';
-    }
-    text += '</div>';
-    */
+    let text = "";
+
     for (var i=0; i<result.length; i++) {
-        console.log(result[i].name);
-        text += result[i].name + " / ";
+        text += '<div class="menu-item">';
+        text += '<img class="image" src="static/img/thai_iced_tea.jpg" alt="thai_iced_tea" id="img_' + result[i].id + '"/>';
+        text += '<button class="item_button" id="item_' + result[i].id + '">'+ result[i].name + ' ' + result[i].price +'</button>';
+        text += '</div>';
     }
-    console.log("updating DisplayArea: " + text);
-    document.getElementById("DisplayArea").innerHTML = text;
+    console.log("updating flex-container: " + text);
+    document.getElementById("flex-container").innerHTML = text;
   } else {
-    document.getElementById("DisplayArea").innerHTML = 'No list items.';
+    document.getElementById("flex-container").innerHTML = 'No list items.';
   }
 }
 
