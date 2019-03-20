@@ -19,7 +19,6 @@ function initMap() {
   });
 }
 function onSuccess(googleUser) {
-    console.log("hello ");  
     // Useful data for your client-side scripts:
     var profile = googleUser.getBasicProfile();
     console.log("ID: " + profile.getId()); // Don't send this directly to your server!
@@ -32,6 +31,13 @@ function onSuccess(googleUser) {
     // The ID token you need to pass to your backend:
     var id_token = googleUser.getAuthResponse().id_token;
     console.log("ID Token: " + id_token);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://fukutea.appspot.com/tokenSignIn');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+    console.log('Signed in as: ' + xhr.responseText);
+    };
+    xhr.send('idtoken=' + id_token);
 }
 function signOut(){
         var auth2 = gapi.auth2.getAuthInstance();

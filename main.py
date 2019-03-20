@@ -1,15 +1,49 @@
-"""import json
-import slidata"""
+"""import json"""
+from User import User
+import logging
 
+from google.oauth2 import id_token
+from google.auth.transport import requests
 from flask import Flask, render_template, request
 """Response"""
 """from shoppinglistitem import ShoppingListItem"""
 app = Flask(__name__)
+CLIENT_ID = "723893521330-94000c9m5sl45f9ibc08hbccpfj9r6uo.apps.googleusercontent.com"
 
 
 @app.route('/')
 def root():
     return render_template("fukuPage.html")
+
+
+@app.route('/tokenSignIn', methods=['POST'])
+def tokenSignIn():
+    token = request.form['idtoken']
+    log('token: %s' % token)
+    try:
+        log('Got here')
+        idinfo = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
+        if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+            log("error occured")
+            raise ValueError('Wrong issuer.')
+        # ID token is valid. Get the user's Google Account ID from the decoded token.
+        userId = idinfo['sub']
+        # If userId is in cloudstore retrieve userProf from cloudstore
+        # else create new user and store in db
+        userEmail = idinfo['email']
+        userName = idinfo['given_name']
+        newUser = User(userId, userEmail, userName)
+        log('saving for user: %s' % userName)
+    except ValueError:
+        pass
+    return render_template("fukuPage.html")
+
+
+def log(msg):
+    """Log a simple message."""
+    # Look at: https://console.cloud.google.com/logs to see your logs.
+    # Make sure you have "stdout" selected.
+    print('main: %s' % msg)
 
 
 """@app.route('/login', methods=['GET', 'POST'])
