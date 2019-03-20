@@ -1,18 +1,15 @@
-drink = new Drink("", "", "", "", "", "", "", 0);
+drink = new Drink("", "", "", "", "", "", [], 0);
+var toppingsList = ["No Toppings"];
 
-function Drink(size, tea, flavor, milk, sweetness, toppings, temp, price) {
+function Drink(size, tea, flavor, milk, sweetness, temp, toppings, price) {
     this.size = size;
     this.tea = tea;
     this.flavor = flavor;
     this.milk = milk;
     this.sweetness = sweetness;
     this.temp = temp;
-    this.toppings = toppings
-    if (size === "Small") {
-      this.price = 3.45;
-    } else if (size === "Large") {
-      this.price = 4.20;
-    }
+    this.toppings = toppingsList;
+    this.price = price;
 }
 
 function confirmDrink(form) {
@@ -52,6 +49,8 @@ function confirmDrink(form) {
     if (milks[i].checked) {
       var milk = milks[i].value;
       drink.milk = milk;
+      if (milk === "Soymilk") 
+        drink.price += .50;
       break;
     }
   }
@@ -74,8 +73,14 @@ function confirmDrink(form) {
     }
   }
 
-  if(drink.size === "" || drink.tea == "" || drink.flavor === ''|| drink.milk === "" || drink.sweetness === "" || drink.temperature === "") {
-    alert("Your Drink Order Form Isn't Complete!");
+  drink.toppings = toppingsList;
+  for (var t in toppingsList) {
+    drink.price += .50;
+  }
+  console.log("price: " + drink.price);
+
+  if (drink.size === "" || drink.tea == "" || drink.flavor === ''|| drink.milk === "" || drink.sweetness === "" || drink.temp === "") {
+    alert("Your Drink Order Form Isn't Complete!");//how to not refresh the page?
   } else {
     var drink_as_string = '';
     for (var property in drink) {
@@ -102,9 +107,13 @@ function confirmDrink(form) {
 }
 
 function addTopping(topping) {
-  topping = drink.toppings.concat(" " + topping);
-  drink.toppings = topping;
-  console.log(drink.toppings);
-  var price = drink.price;
-  drink.price = price + .50;//what is going on
+  if (toppingsList.includes("No Toppings")) {
+    toppingsList.pop();
+  }
+  if (toppingsList.includes(topping)) {
+    console.log("Cannot include multiple of the same topping.");
+  } else {
+    toppingsList.push(topping);
+  }
+  console.log(toppingsList);
 }
