@@ -1,11 +1,15 @@
+from werkzeug.utils import secure_filename
 import slidata
 import json
 from menuitem import MenuItem
 from User import User
 import logging
+from google.cloud import storage
 from google.oauth2 import id_token
 from google.auth.transport import requests
-from flask import Flask, redirect, render_template, request, Response
+from flask import Flask, redirect, render_template, request, Response, url_for
+import config
+import six
 app = Flask(__name__)
 CLIENT_ID = "723893521330-94000c9m5sl45f9ibc08hbccpfj9r6uo.apps.googleusercontent.com"
 
@@ -59,12 +63,16 @@ def load_sli_items():
     sli_list = slidata.get_list_items()
     json_list = []
 
+    # TODO: then we load the photo urls based on id
+
     # then we convert it into a normal list of dicts so that we can easily turn it
     # into JSON
     for sl_item in sli_list:
         d = sl_item.to_dict()
         d['id'] = str(sl_item.id)
         json_list.append(d)
+
+    log(json_list)
 
     responseJson = json.dumps(json_list)
     return Response(responseJson, mimetype='application/json')
@@ -94,7 +102,7 @@ def delete_all():
 
     return Response(json.dumps(json_result), mimetype='application/json')
 
-
+"""
 @app.route('/save-item', methods=['POST'])
 def save_item():
     # retrieve the parameters from the request
@@ -118,7 +126,7 @@ def save_item():
         log(str(exc))
         json_result['error'] = 'The item was not saved.'
     return Response(json.dumps(json_result), mimetype='application/json')
-
+"""
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
@@ -130,3 +138,80 @@ def set_response_headers(response):
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
     return response
+
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+
+def _get_storage_client():
+    return storage.Client(
+        project=config.PROJECT_ID)
+
+
+def upload_file(file_stream, filename, content_type):
+
+    client = _get_storage_client()
+    bucket = client.bucket(config.CLOUD_STORAGE_BUCKET)
+    blob = bucket.blob(filename)
+
+    blob.upload_from_string(
+        file_stream,
+        content_type=content_type)
+
+    url = blob.public_url
+
+    if isinstance(url, six.binary_type):
+        url = url.decode('utf-8')
+
+    log(url)
+
+    return url
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def save_item(price, name):
+
+    # TODO: check if price is null
+
+    item_id = None
+    if 'id' in request.form:
+        item_id = request.form['id']
+
+    result = ""
+
+    try:
+        if item_id:
+            item = MenuItem(item_id, name, price)
+            log('saving list item for ID: %s' % item_id)
+            slidata.save_list_item(item)
+        else:
+            log('saving new list item')
+            slidata.create_list_item(MenuItem(None, name, price))
+        result += name + "ok. "
+    except Exception as exc:
+        log(str(exc))
+        result += name + 'The item was not saved. '
+    log(result)
+
+
+@app.route('/save-data', methods=['POST'])
+def save_data():
+    log(request.form)
+    if 'file' not in request.files:
+        log('No file part')
+        return redirect('/menu.html')
+    file = request.files['file']
+    # if user does not select file, browser also
+    # submit a empty part without filename
+    if file.filename == '':
+        log('No selected file')
+        return redirect('/menu.html')
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        upload_file(file.read(), filename, file.content_type)
+        save_item(request.form['price'], request.form['name'])
+        return redirect('/menu.html')

@@ -1,5 +1,3 @@
-
-
 function saveItem(id) {
     console.log("saving item.");
   let params={};

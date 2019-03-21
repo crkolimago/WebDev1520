@@ -4,28 +4,27 @@
 {% endblock %}
 
 {% block footer %}
-   <form>
+   <form action="/save-data" method="post" enctype="multipart/form-data">
       <ul class="adminForm-style">
         <li>
           <h3>New Item Upload</h3>
         </li>
         <li>
           <label>Name</label>
-          <input type="text" name="newname" id="item-name"/> <!-- Name -->
+          <input type="text" name="name" id="item-name"/> <!-- Name -->
         </li>
         <li>
           <label>Price</label>
-          <input type="number" name="newprice" id="item-price" min="0" max="100" /> <!-- Price -->
-        </li>
-<!--        <li>
-          <label>Attributes <span class="info">*separated by comma*</span></label>
-          <textarea rows="3" cols="20" id="item-attributes"></textarea>  <!-- Attributes
+          <input type="number" name="price" id="item-price" min="0" max="100" step="any" /> <!-- Price -->
         </li>
         <li>
-          <input type="file" name="uploadField" />
+          <input type="file" name="file" id="item-file" />
         </li>
--->
+        <li>
+            <input type="submit" value="Upload"/>
+        </li>
       </ul>
+
     </form>
     <button onclick="saveItem();"/>Submit</button>
     <button onclick="deleteAll();"/>Clear</button>
