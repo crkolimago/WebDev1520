@@ -88,21 +88,18 @@ function confirmDrink(form) {
     }
     console.log(drink_as_string);
     alert(drink_as_string);
-    var item_id="item-".concat("Custom Drink");
-	  var quantity_id="quantity-".concat("Custom Drink");
-    var table = document.getElementById("cart_table");
+    var table = document.getElementById('cart_table');
     var row = table.insertRow(1);
     var item_cell = row.insertCell(0);
     var quantity_cell = row.insertCell(1);
-    var quantity_input = document.createElement("input");
-		quantity_input.type="number";
+    var quantity_input = document.createElement('input');
+    quantity_input.type="number";
     quantity_input.setAttribute('min',0);
     quantity_input.setAttribute('max',30);
 		quantity_input.value="1";
-    item_cell.innerHTML = "Your Drink: " + drink_as_string;
-    item_cell.setAttribute('id',item_id);
-    quantity_cell.setAttribute('id',quantity_id);
-    quantity_cell.appendChild(quantity_input);
+
+    item_cell.innerHTML = drink_as_string;
+    item_cell.setAttribute('id', 'custom_drink');
   } 
 }
 

@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Custom Drink Order Form</title>
-    <link rel="stylesheet" type="text/css" href="static/styles/customDrinkStyle.css?Monday 19th of March 2019 10:05 AM">
+    <link rel="stylesheet" type="text/css" href="static/styles/customDrinkStyle.css?Sunday 24th of March 2019 3:18 PM">
     <meta charset="utf-8"/>
   </head>
   <body>
@@ -18,14 +18,17 @@
         <a class="navbutton" href="/customDrink">Custom Drink</a>
       </div>
       <div class="grid-container">
+        <div class="header">
+          <h1 id="headtxt">Custom Drink Order Form</h1>
+        </div>
             <form name="customDrinkForm" id="customDrinkForm" action="#">
-                <br>Size<br>
+                <br><b>Size</b><br>
                 <input type="radio" name="size" id="Small" value="Small">Small (16 oz.) $3.45
                 <input type="radio" name="size" id="Large" value="Large">Large (24 oz.) $4.20
-                <br><br>Tea<br>
+                <br><br><b>Tea</b><br>
                 <input type="radio" name="tea" id="Jasmine Green" value="Jasmine Green">Jasmine Green
                 <input type="radio" name="tea" id="Classic Black" value="Classic Black">Classic Black
-                <br><br>Flavor<br>
+                <br><br><b>Flavor</b><br>
                 <input type="radio" name="flavor" value="Original">Original
                 <input type="radio" name="flavor" value="Almond">Almond
                 <input type="radio" name="flavor" value="Blueberry">Blueberry
@@ -46,21 +49,21 @@
                 <input type="radio" name="flavor" value="Pomegranate">Pomegranate
                 <input type="radio" name="flavor" value="Red Guava">Red Guava
                 <input type="radio" name="flavor" value="Strawberry">Strawberry
-                <br><br>Milk<br>
+                <br><br><b>Milk</b><br>
                 <input type="radio" name="milk" value="Whole Milk">Whole
                 <input type="radio" name="milk" value="2% Milk">2%
                 <input type="radio" name="milk" value="Half & Half">Half & Half
                 <input type="radio" name="milk" value="Soymilk">Soymilk (+ $0.50)
                 <input type="radio" name="milk" value="No Milk">None
-                <br><br>Sweetness<br>
+                <br><br><b>Sweetness</b><br>
                 <input type="radio" name="sweetness" value="No Sweetness">None
                 <input type="radio" name="sweetness" value="Light Sweetness">Light
                 <input type="radio" name="sweetness" value="Normal Sweetness">Normal
                 <input type="radio" name="sweetness" value="Extra Sweetness">Extra
-                <br><br>Hot or Cold<br>
+                <br><br><b>Hot or Cold</b><br>
                 <input type="radio" name="temp" value="Hot">Hot
                 <input type="radio" name="temp" value="Cold">Cold<br>
-									<br>Toppings (1 included, + $0.50 per Additional)<br>
+									<br><b>Toppings (1 included, + $0.50 per Additional)</b><br>
 									<input type="button" class="topping" value="None">
 									<input type="button" class="topping" id="Tapioca" onclick="addTopping(this.id)" value="Tapioca">
 									<input type="button" class="topping" id="Pudding" onclick="addTopping(this.id)" value="Pudding">
@@ -94,7 +97,6 @@
               <th>Item</th><th class='quantity'>Quantity</th>
             </tr>
           </table>
-          <!-- <ul id="cart_list"></ul> -->
           </div>
           <p id="price"></p>
           <p id="tax"></p>
@@ -102,6 +104,6 @@
 	      </div><!-- cart div -->
 		  </div><!-- grid container div -->
     </div><!-- content div -->
-    <script src="static/js/customDrink.js?v2.3"></script>
+    <script src="static/js/customDrink.js?v2.4"></script>
   </body>
 <html>

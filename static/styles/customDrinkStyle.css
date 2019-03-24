@@ -32,6 +32,19 @@
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+.header {
+	grid-row-start: 1;
+	grid-row-end: 2;
+	grid-column-start: 1;
+	grid-column-end: 3;
+	text-align: center;
+  background-color: #5f765c;
+  border-radius: 8px;
+}
+#headtxt {
+  color:  white;
+  text-shadow: 1px 1px black;
+}
 .grid-container {
   display: grid;
   position: relative;
