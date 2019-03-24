@@ -4,16 +4,16 @@ import json
 import userData
 from menuitem import MenuItem
 from User import User
-import logging
 from google.cloud import storage
 from google.oauth2 import id_token
 from google.auth.transport import requests
-from flask import Flask, redirect, render_template, request, Response, url_for
-import config
+from flask import Flask, redirect, render_template, request, Response
 import six
-app = Flask(__name__)
-CLIENT_ID = "723893521330-94000c9m5sl45f9ibc08hbccpfj9r6uo.apps.googleusercontent.com"
+import config
+
 CUR_USER = None
+
+app = Flask(__name__)
 
 
 @app.route('/')
@@ -28,7 +28,7 @@ def tokenSignIn():
     try:
         log('Got here')
         idinfo = id_token.verify_oauth2_token(
-            token, requests.Request(), CLIENT_ID)
+            token, requests.Request(), config.CLIENT_ID)
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
             log("error occured")
             raise ValueError('Wrong issuer.')
@@ -118,6 +118,7 @@ def delete_all():
 
     return Response(json.dumps(json_result), mimetype='application/json')
 
+
 """
 @app.route('/save-item', methods=['POST'])
 def save_item():
@@ -156,9 +157,6 @@ def set_response_headers(response):
     return response
 
 
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-
-
 def _get_storage_client():
     return storage.Client(
         project=config.PROJECT_ID)
@@ -186,7 +184,7 @@ def upload_file(file_stream, filename, content_type):
 
 def allowed_file(filename):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+           filename.rsplit('.', 1)[1].lower() in config.ALLOWED_EXTENSIONS
 
 
 def save_item(price, name, url):

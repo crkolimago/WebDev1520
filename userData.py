@@ -1,16 +1,11 @@
-import datetime
-import logging
-
 from google.cloud import datastore
-from google.cloud.datastore.key import Key
 from User import User
+import config
 
 # Look at: https://console.cloud.google.com/datastore to see your entities.
 
 # We need to identify the entity type for our list items.
-# Note that this data type is arbitrary and can be whatever you like.
-USER_ENTITY_TYPE = 'user'
-PROJECT_ID = 'fukutea'
+# Note that this data type is arbitrary and can be whatever you like
 
 
 def log(msg):
@@ -31,7 +26,7 @@ def load_user_key(client, user_id):
     that the ID should be an int - we're allowing datastore to generate them in 
     this example."""
     key = None
-    key = client.key(USER_ENTITY_TYPE, user_id)
+    key = client.key(config.USER_ENTITY_TYPE, user_id)
     return key
 
 
@@ -45,9 +40,9 @@ def load_user_entity(client, user_id):
 
 def checkUser(user_id):
     # Retrieve the list items we've already stored.
-    client = datastore.Client(PROJECT_ID)
+    client = datastore.Client(config.PROJECT_ID)
     # we build a query
-    query = client.query(kind=USER_ENTITY_TYPE)
+    query = client.query(kind=config.USER_ENTITY_TYPE)
     # we execute the query
     users = list(query.fetch())
     # the code below converts the datastore entities to plain old objects
@@ -66,7 +61,7 @@ def checkUser(user_id):
 
 def create_user(user):
     """Create a new shopping list item entity from the specified object."""
-    client = datastore.Client(PROJECT_ID)
+    client = datastore.Client(config.PROJECT_ID)
     key = load_user_key(client, user.userId)
     entity = datastore.Entity(key)
     entity['email'] = user.userEmail
@@ -77,7 +72,7 @@ def create_user(user):
 
 def save_user(user):
     """Save an existing list item from an object."""
-    client = datastore.Client(PROJECT_ID)
+    client = datastore.Client(config.PROJECT_ID)
     entity = load_user_entity(client, user.userId)
     entity.update(user.to_dict())
     client.put(entity)
@@ -86,7 +81,7 @@ def save_user(user):
 
 def get_user(user_id):
     """Retrieve an object for user obj """
-    client = datastore.Client(PROJECT_ID)
+    client = datastore.Client(config.PROJECT_ID)
     log('retrieving object for ID: %s' % user_id)
     entity = load_user_entity(client, user_id)
     return convert_to_userObj(entity)
@@ -94,7 +89,7 @@ def get_user(user_id):
 
 def delete_user(user_id):
     """Delete the entity associated with the specified ID."""
-    client = datastore.Client(PROJECT_ID)
+    client = datastore.Client(config.PROJECT_ID)
     key = load_user_key(client, user_id)
     log('key loaded for ID: %s' % user_id)
     client.delete(key)

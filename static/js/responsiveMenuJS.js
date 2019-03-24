@@ -66,6 +66,7 @@ function getData(targetUrl, callbackFunction) {
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
             // note that you can check xmlHttp.status here for the HTTP response code
+            console.log(xmlHttp.status)
             try {
                 let myObject = JSON.parse(xmlHttp.responseText);
                 callbackFunction(myObject, targetUrl);

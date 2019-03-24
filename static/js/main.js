@@ -32,7 +32,7 @@ function onSuccess(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;
     console.log("ID Token: " + id_token);
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://fukutea.appspot.com/tokenSignIn');
+    xhr.open('POST', '/tokenSignIn');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
     };
@@ -43,7 +43,7 @@ function signOut(){
         auth2.signOut().then(function () {
         console.log('User signed out.');
          var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://fukutea.appspot.com/tokenSignOut');
+        xhr.open('POST', '/tokenSignOut');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
         };
