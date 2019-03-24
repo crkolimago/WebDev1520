@@ -72,8 +72,6 @@ def load_sli_items():
         d['id'] = str(sl_item.id)
         json_list.append(d)
 
-    log(json_list)
-
     responseJson = json.dumps(json_list)
     return Response(responseJson, mimetype='application/json')
 
@@ -173,7 +171,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-def save_item(price, name):
+def save_item(price, name, url):
 
     # TODO: check if price is null
 
@@ -185,13 +183,13 @@ def save_item(price, name):
 
     try:
         if item_id:
-            item = MenuItem(item_id, name, price)
+            item = MenuItem(item_id, name, price, url)
             log('saving list item for ID: %s' % item_id)
             slidata.save_list_item(item)
         else:
             log('saving new list item')
-            slidata.create_list_item(MenuItem(None, name, price))
-        result += name + "ok. "
+            slidata.create_list_item(MenuItem(None, name, price, url))
+        result += name + " ok. "
     except Exception as exc:
         log(str(exc))
         result += name + 'The item was not saved. '
@@ -212,6 +210,6 @@ def save_data():
         return redirect('/menu.html')
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        upload_file(file.read(), filename, file.content_type)
-        save_item(request.form['price'], request.form['name'])
+        file_url = upload_file(file.read(), filename, file.content_type)
+        save_item(request.form['price'], request.form['name'], file_url)
         return redirect('/menu.html')

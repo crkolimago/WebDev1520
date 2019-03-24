@@ -23,7 +23,7 @@ def log(msg):
 def convert_to_object(entity):
     """Convert the entity returned by datastore to a normal object."""
     sli_id = entity.key.id_or_name
-    return MenuItem(sli_id, entity['name'], entity['price'])
+    return MenuItem(sli_id, entity['name'], entity['price'], entity['url'])
 
 
 def load_key(client, item_id=None):
@@ -75,6 +75,7 @@ def create_list_item(menu_item):
     entity = datastore.Entity(key)
     entity['price'] = menu_item.price
     entity['name'] = menu_item.name
+    entity['url'] = menu_item.url
     client.put(entity)
     log('saved new entity for ID: %s' % key.id_or_name)
 

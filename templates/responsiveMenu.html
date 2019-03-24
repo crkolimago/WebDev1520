@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <HTML>
+
 <head>
-  <link rel="stylesheet" href="../static/responsiveMenuCSS.css">
-  <meta charset="utf-8"/>
+	<link rel="stylesheet" href="../static/styles/responsiveMenuCSS.css">
+	<meta charset="utf-8" />
 </head>
 
-<body>
+<body class="js-focus-visible">
 
-<section>
-  {% block content %}{% endblock %}
-</section>
+	<section>
+		<h1 id="sigdrink">Signature Drinks</h1>
+	</section>
 
-  <div id="footer">
-      <section>
-      {% block footer %}{% endblock %}
-      </section>
-  </div>
+	<section>
+		{% block content %}{% endblock %}
+	</section>
 
-  <section id="ErrorArea"></section>
+	<div id="footer">
+		<section>
+			{% block footer %}{% endblock %}
+		</section>
+	</div>
 
-  <script src="../static/js/responsiveMenuJS.js"></script>
+	<section>
+		<h6><a href="/">Back</a></h6>
+	</section>
+
+	<section id="ErrorArea"></section>
+
+	<script src="../static/js/responsiveMenuJS.js">
+	</script>
+	<script src="../static/js/focus-visible.js">
+	</script>
 </body>
+
 </HTML>

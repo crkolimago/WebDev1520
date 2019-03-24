@@ -1,16 +1,17 @@
-{% extends 'responsiveMenu.html' %}
-{% block content %}
+{% extends 'responsiveMenu.html' %} {% block content %}
 <div id="flex-container"></div>
-{% endblock %}
-
-{% block footer %}
-   <form action="/save-data" method="post" enctype="multipart/form-data">
-      <ul class="adminForm-style">
-        <li>
-          <h3>New Item Upload</h3>
-        </li>
-        <li>
-          <label>Name</label>
+<div id="info-popup">
+    <span>Contains some information about a drink</span>
+    <button onclick="hideInfo();">Save</button>
+</div>
+{% endblock %} {% block footer %}
+<form action="/save-data" method="post" enctype="multipart/form-data">
+	<ul class="adminForm-style">
+		<li>
+			<h3>New Item Upload</h3>
+		</li>
+		<li>
+			<label>Name</label>
           <input type="text" name="name" id="item-name"/> <!-- Name -->
         </li>
         <li>
@@ -24,8 +25,6 @@
             <input type="submit" value="Upload"/>
         </li>
       </ul>
-
     </form>
-    <button onclick="saveItem();"/>Submit</button>
     <button onclick="deleteAll();"/>Clear</button>
 {% endblock %}
