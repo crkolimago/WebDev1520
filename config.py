@@ -5,9 +5,9 @@ Then do 'echo "config.py" > .gitignore'
 
 DATA_BACKEND = 'datastore'
 
-PROJECT_ID = 'fukuteashop'
+PROJECT_ID = 'fukutea'
 
-CLIENT_ID = '1079172216469-4ld6c47p1ua6e4dlkjp5bd8r68dc3lb7.apps.googleusercontent.com'
+CLIENT_ID = '723893521330-ktddc0koarl54ddga9p6epa5o1fuqt86.apps.googleusercontent.com'
 
 CLOUD_STORAGE_BUCKET = 'fukuteashop-menu-images'
 MAX_CONTENT_LENGTH = 8 * 1024 * 1024

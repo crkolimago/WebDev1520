@@ -93,7 +93,7 @@ def load_sli_items():
 @app.route('/menu.html')
 def menu():
     global CUR_USER
-    if CUR_USER is None or CUR_USER.userId != '107547848533480653521':
+    if CUR_USER is None or CUR_USER.userId != '107547848533480653521' or CUR_USER.userId != '112301482083727417023' :
         return render_template('menu.html', admin="false")
     else:
         return render_template('menu.html', admin="true")
