@@ -47,5 +47,7 @@ function signOut(){
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
         };
+        xhr.send();
         });
+        
 }

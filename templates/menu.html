@@ -4,7 +4,11 @@
     <span>Contains some information about a drink</span>
     <button onclick="hideInfo();">Save</button>
 </div>
-{% endblock %} {% block footer %}
+{% endblock %} 
+
+
+{% block footer %}
+{% if admin == "true" %}
 <form action="/save-data" method="post" enctype="multipart/form-data">
 	<ul class="adminForm-style">
 		<li>
@@ -27,4 +31,6 @@
       </ul>
     </form>
     <button onclick="deleteAll();"/>Clear</button>
+{% else %}
+{% endif %}
 {% endblock %}

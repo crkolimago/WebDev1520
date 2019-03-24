@@ -14,7 +14,8 @@ import six
 app = Flask(__name__)
 CLIENT_ID = "723893521330-94000c9m5sl45f9ibc08hbccpfj9r6uo.apps.googleusercontent.com"
 CUR_USER = None
-
+CLOUD_STORAGE_BUCKET = "fukuteashop-menu-images"
+PROJECT_ID = "fukutea"
 
 @app.route('/')
 def root():
@@ -56,8 +57,8 @@ def tokenSignIn():
 def tokenSignOut():
     global CUR_USER
     CUR_USER = None
+    log("user has been signed out")
     return render_template("fukuPage.html")
-
 
 def log(msg):
     """Log a simple message."""
@@ -94,9 +95,10 @@ def load_sli_items():
 @app.route('/menu.html')
 def menu():
     global CUR_USER
-    if CUR_USER is None or CUR_USER.userName != 'Ryan':
-        return render_template('menu.html', admin='no')
-    return render_template('menu.html', admin='yes')
+    if CUR_USER is None or CUR_USER.userId != '107547848533480653521':
+        return render_template('menu.html', admin="false")
+    else:
+        return render_template('menu.html', admin="true")
 
 
 @app.route('/delete-all', methods=['POST'])
@@ -118,31 +120,6 @@ def delete_all():
 
     return Response(json.dumps(json_result), mimetype='application/json')
 
-"""
-@app.route('/save-item', methods=['POST'])
-def save_item():
-    # retrieve the parameters from the request
-    price = request.form['price']
-    name = request.form['name']
-    item_id = None
-    if 'id' in request.form:
-        item_id = request.form['id']
-    json_result = {}
-
-    try:
-        if item_id:
-            item = MenuItem(item_id, name, price)
-            log('saving list item for ID: %s' % item_id)
-            slidata.save_list_item(item)
-        else:
-            log('saving new list item')
-            slidata.create_list_item(MenuItem(None, name, price))
-        json_result['ok'] = True
-    except Exception as exc:
-        log(str(exc))
-        json_result['error'] = 'The item was not saved.'
-    return Response(json.dumps(json_result), mimetype='application/json')
-"""
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
@@ -161,13 +138,12 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 def _get_storage_client():
     return storage.Client(
-        project=config.PROJECT_ID)
+        project="fukuteashop")
 
 
 def upload_file(file_stream, filename, content_type):
-
     client = _get_storage_client()
-    bucket = client.bucket(config.CLOUD_STORAGE_BUCKET)
+    bucket = client.bucket(CLOUD_STORAGE_BUCKET)
     blob = bucket.blob(filename)
 
     blob.upload_from_string(
