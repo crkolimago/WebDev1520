@@ -1,5 +1,6 @@
 import slidata
 import json
+import userData
 from menuitem import MenuItem
 from User import User
 import logging
@@ -8,6 +9,7 @@ from google.auth.transport import requests
 from flask import Flask, redirect, render_template, request, Response
 app = Flask(__name__)
 CLIENT_ID = "723893521330-94000c9m5sl45f9ibc08hbccpfj9r6uo.apps.googleusercontent.com"
+CUR_USER = None
 
 
 @app.route('/')
@@ -28,14 +30,28 @@ def tokenSignIn():
             raise ValueError('Wrong issuer.')
         # ID token is valid. Get the user's Google Account ID from the decoded token.
         userId = idinfo['sub']
+        log("userId is %s " % userId)
         # If userId is in cloudstore retrieve userProf from cloudstore
         # else create new user and store in db
-        userEmail = idinfo['email']
-        userName = idinfo['given_name']
-        newUser = User(userId, userEmail, userName)
-        log('saving for user: %s' % userName)
+        if userData.checkUser(userId) is not None:
+            log('already saved:')
+        else:
+            userEmail = idinfo['email']
+            userName = idinfo['given_name']
+            newUser = User(userId, userEmail, userName)
+            log('saving for user: %s' % userName)
+            userData.create_user(newUser)
     except ValueError:
         pass
+    global CUR_USER
+    CUR_USER = userData.get_user(userId)
+    return render_template("fukuPage.html")
+
+
+@app.route('/tokenSignOut', methods=['POST'])
+def tokenSignOut():
+    global CUR_USER
+    CUR_USER = None
     return render_template("fukuPage.html")
 
 
@@ -48,8 +64,7 @@ def log(msg):
 
 @app.route('/order', methods=['GET', 'POST'])
 def order():
-    if request.method == "GET":
-        return render_template("orderPage.html")
+    return render_template("orderPage.html")
 
 
 @app.route('/load-sl-items')
@@ -72,7 +87,10 @@ def load_sli_items():
 
 @app.route('/menu.html')
 def menu():
-    return render_template('menu.html')
+    global CUR_USER
+    if CUR_USER is None or CUR_USER.userName != 'Ryan':
+        return render_template('menu.html', admin='no')
+    return render_template('menu.html', admin='yes')
 
 
 @app.route('/delete-all', methods=['POST'])
