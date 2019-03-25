@@ -73,7 +73,8 @@ def tokenSignIn():
         pass
     global CUR_USER
     CUR_USER = userData.get_user(userId)
-    return render_template("fukuPage.html", userName=userName)
+    return render_template("fukuPage.html")
+    # return render_template("fukuPage.html", userName=userName)
 
 
 @app.route('/tokenSignOut', methods=['POST'])
