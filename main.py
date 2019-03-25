@@ -31,6 +31,11 @@ def info():
     return render_template('info.html')
 
 
+@app.route('/profile.html')
+def profile():
+    return render_template('profile.html')
+
+
 @app.route('/tokenSignIn', methods=['POST'])
 def tokenSignIn():
     token = request.form['idtoken']
