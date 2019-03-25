@@ -141,7 +141,7 @@ function displayList(result, targetUrl) {
         for (var i = 0; i < result.length; i++) {
             text += '<div class="menu-item">';
             text += '<img class="image" src="' + result[i].url + '" alt="' + result[i].name + '" id="img_' + result[i].id + '"/>';
-            text += '<button onclick="showInfo();" class="item_button" id="item_' + result[i].id + '">' + result[i].name + ' ' + result[i].price + '</button>';
+            text += '<button onclick="showInfo();" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>Price:$' + result[i].price + '</button>';
             text += '</div>';
         }
         console.log("updating flex-container: " + text);

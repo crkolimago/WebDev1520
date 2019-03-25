@@ -36,6 +36,25 @@ body {
   justify-content: space-evenly; /* or space-between or center */
   margin:-10px;
 }
+#randomItem {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly; /* or space-between or center */
+
+}
+#randomButton {
+  margin-left: 620px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center; /*or space-between or center */
+}
+
 
 .menu-item {
   background-color: #ffffff;
@@ -143,4 +162,31 @@ body {
 /* hide focus style if not from keyboard navigation */
 .js-focus-visible .item_button:focus:not(.focus-visible) {
   box-shadow: none;
+}
+#randomButton {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    color: #FFFFFF;
+    font-family: Verdana;
+    font-size: 18px;
+    font-weight: 30;
+    padding: 40px;
+    background-color: #5DCF68;
+    box-shadow: 1px 1px 20px 0px #000000;
+    -webkit-box-shadow: 1px 1px 20px 0px #000000;
+    -moz-box-shadow: 1px 1px 20px 0px #000000;
+    border: solid #337FED 1px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+randomButton:hover {
+    background: #45B50D;
+    background-image: -webkit-linear-gradient(top, #45B50D, #1C730F);
+    background-image: -moz-linear-gradient(top, #45B50D, #1C730F);
+    background-image: -ms-linear-gradient(top, #45B50D, #1C730F);
+    background-image: -o-linear-gradient(top, #45B50D, #1C730F);
+    background-image: linear-gradient(to bottom, #45B50D, #1C730F);
+    text-decoration: none;
 }

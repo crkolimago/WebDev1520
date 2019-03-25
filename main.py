@@ -1,6 +1,7 @@
 from werkzeug.utils import secure_filename
 import slidata
 import json
+import random
 import userData
 from menuitem import MenuItem
 from User import User
@@ -17,8 +18,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    return render_template("fukuPage.html")
-
+    global CUR_USER
+    if CUR_USER is None:
+        return render_template("fukuPage.html")
+    else:
+        return render_template("fukuPage.html", userName=CUR_USER.userName)
 
 @app.route('/tokenSignIn', methods=['POST'])
 def tokenSignIn():
@@ -48,7 +52,7 @@ def tokenSignIn():
         pass
     global CUR_USER
     CUR_USER = userData.get_user(userId)
-    return render_template("fukuPage.html")
+    return render_template("fukuPage.html", userName=userName)
 
 
 @app.route('/tokenSignOut', methods=['POST'])
@@ -68,6 +72,27 @@ def log(msg):
 @app.route('/order', methods=['GET', 'POST'])
 def order():
     return render_template("orderPage.html")
+
+
+@app.route('/random', methods=['GET', 'POST'])
+def randomizer():
+    return render_template("random.html")
+
+
+@app.route('/load-random')
+def load_random():
+    # first we load the list items
+    sli_list = slidata.get_list_items()
+    json_list = []
+    i = random.randint(0, len(sli_list))
+    log('loading rand %s ' % i)
+    d = sli_list[i].to_dict()
+    d['id'] = str(sli_list[i].id)
+    log(d)
+    json_list.append(d)
+
+    responseJson = json.dumps(json_list)
+    return Response(responseJson, mimetype='application/json')
 
 
 @app.route('/load-sl-items')
@@ -93,11 +118,12 @@ def load_sli_items():
 @app.route('/menu.html')
 def menu():
     global CUR_USER
-    if CUR_USER is None or CUR_USER.userId != '107547848533480653521' or CUR_USER.userId != '112301482083727417023' :
+    if CUR_USER is None :
         return render_template('menu.html', admin="false")
-    else:
+    elif CUR_USER.userId == '107547848533480653521' or CUR_USER.userId != '112301482083727417023':
         return render_template('menu.html', admin="true")
-
+    else:
+        return render_template('menu.html', admin="false")
 
 @app.route('/delete-all', methods=['POST'])
 def delete_all():
