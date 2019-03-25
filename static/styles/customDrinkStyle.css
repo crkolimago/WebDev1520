@@ -1,5 +1,5 @@
 .topping {
-  background-color: #358e41;
+  background-color: #4CAF50;
   color: white;
   padding: 14px;
   font-size: 14px;
@@ -30,7 +30,7 @@
   display: block;
 }
 .dropdown:hover .dropbtn {
-  background-color: #358e41;
+  background-color: #3e8e41;
 }
 .header {
 	grid-row-start: 1;
@@ -55,7 +55,7 @@ body {
   margin: 0;
   font-size: 28px;
   font-family: Arial, Helvetica, sans-serif;
-  background-color:  #abebb4;
+  background-color:  #b7edb1;
 }
 .content {
   position: relative;
@@ -97,7 +97,7 @@ body {
   text-decoration: none;
   font-size: 24px;
   border-radius: 30px;
-  background-color: #358e41;
+  background-color: #5d9e56;
   margin: 10px;
 }
 #navbar a:hover {
@@ -138,7 +138,7 @@ img {
 	width: 140px;
   height: 30px;
 	border-radius:10px;
-	background-color: #358e41;
+	background-color: #5d9e56;
 }
 .item_button:hover {
 	background-color:  #5f765c;
