@@ -14,9 +14,7 @@
 	<div class = "elements" id = "rewards">Rewards: {{rewards}}</div>
 	<div class = "elements" id = "email">Email: {{emailAddress}}</div>
 </div>
-{% else %}
-Please login to see profile
-{% endif %}
+
 <div>
 	<h1 id= "favshead">
 		Your Favorites
@@ -27,5 +25,8 @@ Please login to see profile
 			<td><img class="custDrinks" id = "drink2" src="static/img/matcha_latte.jpg" ></td>
 	</table>
 </div>
+{% else %}
+Please login to see profile
+{% endif %}
 </body>
 </html>
