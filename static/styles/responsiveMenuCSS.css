@@ -2,10 +2,6 @@ body {
   background-color: #abebb4;
 }
 
-#footer {
-    visibility: visible;
-}
-
 #sigdrink {
   text-align:center;
   font-family: Helvetica, sans-serif;
@@ -17,6 +13,7 @@ body {
   z-index: 2;
   background: white;
   border: 1px solid black;
+  border-radius: 10px;
   margin: auto;
   top: 0;
   right: 0;
@@ -25,6 +22,21 @@ body {
   width: 25%;
   height: 75%;
   visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.info-popup-item {
+  align-self: flex-start;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  margin: 5%;
+}
+
+#saveButton {
+  align-self: center;
+  margin-top: auto;
 }
 
 #flex-container {
@@ -121,6 +133,7 @@ body {
   display: inline-block;
   text-align: center;
   text-decoration: none;
+  font-family: Helvetica, sans-serif;
 
   /* create a small space when buttons wrap on 2 lines */
   margin: 6px 0;

@@ -31,6 +31,11 @@ def customDrink():
     return render_template('customDrink.html')
 
 
+@app.route('/info.html')
+def info():
+    return render_template('info.html')
+
+
 @app.route('/tokenSignIn', methods=['POST'])
 def tokenSignIn():
     token = request.form['idtoken']
@@ -237,3 +242,13 @@ def save_data():
         file_url = upload_file(file.read(), filename, file.content_type)
         save_item(request.form['price'], request.form['name'], file_url)
         return redirect('/menu.html')
+
+# here we use a Flask shortcut to pull the itemid from the URL.
+@app.route('/get-item/<itemid>')
+def get_item(itemid):
+    log('retrieving item for ID: %s' % itemid)
+    item = slidata.get_list_item(itemid)
+    d = item.to_dict()
+    d['id'] = itemid
+
+    return Response(json.dumps(d), mimetype='application/json')

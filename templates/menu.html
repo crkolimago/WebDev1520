@@ -1,8 +1,9 @@
 {% extends 'responsiveMenu.html' %} {% block content %}
 <div id="flex-container"></div>
 <div id="info-popup">
-    <span>Contains some information about a drink</span>
-    <button onclick="hideInfo();">Save</button>
+        <div class="info-popup-item" id="info-popup-name"></div>
+        <div class="info-popup-item" id="info-popup-price"></div>
+        <button class="item_button" id="saveButton" onclick="hideInfo();">Save</button>
 </div>
 {% endblock %} 
 
