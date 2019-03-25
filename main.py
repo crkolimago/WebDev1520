@@ -133,7 +133,7 @@ def menu():
     global CUR_USER
     if CUR_USER is None:
         return render_template('menu.html', admin="false")
-    elif CUR_USER.userId == '107547848533480653521' or CUR_USER.userId != '112301482083727417023':
+    elif CUR_USER.userId == '107547848533480653521' or CUR_USER.userId == '112301482083727417023':
         return render_template('menu.html', admin="true")
     else:
         return render_template('menu.html', admin="false")
