@@ -36,9 +36,13 @@ def info():
     return render_template('info.html')
 
 
-@app.route('/profile.html')
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    return render_template('profile.html')
+    global CUR_USER
+    if CUR_USER is None:
+        return render_template("profile.html")
+    else:
+        return render_template("profile.html", userName=CUR_USER.userName, emailAddress=CUR_USER.userEmail, rewards=0, setup="true")
 
 
 @app.route('/tokenSignIn', methods=['POST'])
@@ -72,7 +76,7 @@ def tokenSignIn():
     return render_template("fukuPage.html", userName=userName)
 
 
-@app.route('/tokenSignOut', methods=['POST'])
+@app.route('/tokenSignOut', methods=['GET', 'POST'])
 def tokenSignOut():
     global CUR_USER
     CUR_USER = None
