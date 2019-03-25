@@ -76,7 +76,7 @@ def tokenSignIn():
     return render_template("fukuPage.html", userName=userName)
 
 
-@app.route('/tokenSignOut', methods=['GET', 'POST'])
+@app.route('/tokenSignOut', methods=['POST'])
 def tokenSignOut():
     global CUR_USER
     CUR_USER = None
