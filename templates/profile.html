@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="static/profileStyle.css">
+  <link rel="stylesheet" href="static/styles/profileStyle.css?Monday 25th of March 2019 02:19:00 PM">
 </head>
 <body>
-	
-<div class = "content">
-	<img id = "logo" src="static/fukuLogo.png">
-	<div id = "navbar">
-      <a class = "active" href="/">Home</a>
-      <a href = "/login">Login</a>
-      <a href = "/order">Order Now</a>
+<div class="content">
+    <img id = "logo" src="static/img/fukuLogo.png" >	
+    <div id="navbar" >
+      <a class="navbutton" href="/">Home</a>
+      <a class="navbutton" href=#userWelcome>About</a>
+      <a class="navbutton" href=#map>Maps</a>
+      <a class="navbutton" href=#reviews>Reviews</a>
+      <a class="navbutton" href="/login">Login</a>
+      <a class="navbutton" href="/menu.html">Order Now</a>
+      <a href="" onclick="signOut();">Sign out</a>
     </div>
-
 </div>
-<div id = "profileTitle"> Your Profile </div>
-<img id = "picture" src = "static/placeholder.png">
+<div id = "profileTitle"> {{userName}}'s Profile </div>
+<img id = "picture" src = "static/img/placeHolder.png">
 <div class = "userInfo">
 	<div class = "elements" id = "rewards">Username: {{userName}}</div>
 	<div class = "elements" id = "rewards">Rewards: {{rewardsNumber}}</div>
@@ -28,12 +30,12 @@
 	</h1>
 	<table id="favs" >
 		<tr>
-			<td><img class="custDrinks" id = "drink1" src="static/matcha.jpg" ></td>
-			<td><img class="custDrinks" id = "drink2" src="static/matcha.jpg" ></td>
+			<td><img class="favs" id = "drink1" src="static/img/matcha.jpg" ><p>Name of Drink</p></td>
+			<td><img class="favs" id = "drink2" src="static/img/matcha.jpg" ><p>Name of Drink</p></td>
 		</tr>
 		<tr>
-			<td><img class="custDrinks" id = "drink1" src="static/matcha.jpg" ></td>
-			<td><img class="custDrinks" id = "drink2" src="static/matcha.jpg" ></td>
+			<td><img class="favs" id = "drink1" src="static/img/matcha.jpg" ><p>Name of Drink</p></td>
+			<td><img class="favs" id = "drink2" src="static/img/matcha.jpg" ><p>Name of Drink</p></td>
 		</tr>
 	</table>
 </div>
