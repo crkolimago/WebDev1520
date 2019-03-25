@@ -1,5 +1,5 @@
 .topping {
-  background-color: #4CAF50;
+  background-color: #358e41;
   color: white;
   padding: 14px;
   font-size: 14px;
@@ -30,7 +30,20 @@
   display: block;
 }
 .dropdown:hover .dropbtn {
-  background-color: #3e8e41;
+  background-color: #358e41;
+}
+.header {
+	grid-row-start: 1;
+	grid-row-end: 2;
+	grid-column-start: 1;
+	grid-column-end: 3;
+	text-align: center;
+  background-color: #5f765c;
+  border-radius: 8px;
+}
+#headtxt {
+  color:  white;
+  text-shadow: 1px 1px black;
 }
 .grid-container {
   display: grid;
@@ -51,6 +64,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.shopping_cart_item {
+  font-size: 18px; 
+}
+.receipt {
+  font-size: 18px;
+}
+.cart_button {
+  position: relative;
+  bottom: 10%;
 }
 #logo {
   display: block;
@@ -86,7 +109,7 @@ body {
   text-align: center;
 }
 .cart {
-  border: 2px solid  #358e41;
+  border: 2px solid  #5f765c;
   border-radius: 10px;
 }
 #cart_table {
