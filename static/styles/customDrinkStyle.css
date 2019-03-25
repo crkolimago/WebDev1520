@@ -65,6 +65,16 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+.shopping_cart_item {
+  font-size: 18px; 
+}
+.receipt {
+  font-size: 18px;
+}
+.cart_button {
+  position: relative;
+  bottom: 10%;
+}
 #logo {
   display: block;
   margin-left: auto;
