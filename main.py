@@ -15,9 +15,15 @@ CUR_USER = None
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def root():
     return render_template("fukuPage.html")
+
+
+@app.route('/customDrink')
+def customDrink():
+    return render_template('customDrink.html')
 
 
 @app.route('/tokenSignIn', methods=['POST'])
@@ -58,6 +64,7 @@ def tokenSignOut():
     log("user has been signed out")
     return render_template("fukuPage.html")
 
+
 def log(msg):
     """Log a simple message."""
     # Look at: https://console.cloud.google.com/logs to see your logs.
@@ -93,7 +100,7 @@ def load_sli_items():
 @app.route('/menu.html')
 def menu():
     global CUR_USER
-    if CUR_USER is None or CUR_USER.userId != '107547848533480653521' or CUR_USER.userId != '112301482083727417023' :
+    if CUR_USER is None or CUR_USER.userId != '107547848533480653521' and CUR_USER.userId != '112301482083727417023':
         return render_template('menu.html', admin="false")
     else:
         return render_template('menu.html', admin="true")
