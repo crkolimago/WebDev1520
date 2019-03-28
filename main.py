@@ -8,22 +8,20 @@ from User import User
 from google.cloud import storage
 from google.oauth2 import id_token
 from google.auth.transport import requests
-from flask import Flask, redirect, render_template, request, Response
+from flask import Flask, session, redirect, render_template, request, Response
 import six
 import config
 
-CUR_USER = None
 
 app = Flask(__name__)
-
+app.secret_key = config.KEY
 
 @app.route('/')
 def root():
-    global CUR_USER
-    if CUR_USER is None:
-        return render_template("fukuPage.html")
+    if 'curUser' in session:
+        return render_template("fukuPage.html", userName=userData.get_user(session['curUser']).userName)
     else:
-        return render_template("fukuPage.html", userName=CUR_USER.userName)
+        return render_template("fukuPage.html")
 
 
 @app.route('/customDrink')
@@ -38,11 +36,10 @@ def info():
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    global CUR_USER
-    if CUR_USER is None:
-        return render_template("profile.html")
+    if 'curUser' in session:
+        return render_template("profile.html", userName=userData.get_user(session['curUser']).userName , emailAddress=userData.get_user(session['curUser']).userEmail , rewards=0, setup="true")
     else:
-        return render_template("profile.html", userName=CUR_USER.userName, emailAddress=CUR_USER.userEmail, rewards=0, setup="true")
+        return render_template("profile.html")
 
 
 @app.route('/tokenSignIn', methods=['POST'])
@@ -71,18 +68,16 @@ def tokenSignIn():
             userData.create_user(newUser)
     except ValueError:
         pass
-    global CUR_USER
-    CUR_USER = userData.get_user(userId)
+    session['curUser'] = userId
     return render_template("fukuPage.html")
     # return render_template("fukuPage.html", userName=userName)
 
 
 @app.route('/tokenSignOut', methods=['POST'])
 def tokenSignOut():
-    global CUR_USER
-    CUR_USER = None
+    session['curUser'] = None
     log("user has been signed out")
-    return render_template("fukuPage.html")
+    return render_template("fukuPage.html" userName=None)
 
 
 def log(msg):
@@ -140,10 +135,7 @@ def load_sli_items():
 
 @app.route('/menu.html')
 def menu():
-    global CUR_USER
-    if CUR_USER is None:
-        return render_template('menu.html', admin="false")
-    elif CUR_USER.userId == '107547848533480653521' or CUR_USER.userId == '112301482083727417023':
+    if 'curUser' in session and (userData.get_user(session['curUser']).userId == '107547848533480653521' or userData.get_user(session['curUser']).userId  == '112301482083727417023'):
         return render_template('menu.html', admin="true")
     else:
         return render_template('menu.html', admin="false")
