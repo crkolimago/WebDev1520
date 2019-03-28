@@ -75,9 +75,9 @@ def tokenSignIn():
 
 @app.route('/tokenSignOut', methods=['POST'])
 def tokenSignOut():
-    session['curUser'] = None
+    session.clear()
     log("user has been signed out")
-    return render_template("fukuPage.html" userName=None)
+    return render_template("fukuPage.html")
 
 
 def log(msg):
