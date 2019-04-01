@@ -15,6 +15,7 @@ CUR_USER = None
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def root():
     return render_template("fukuPage.html")
@@ -58,6 +59,7 @@ def tokenSignOut():
     log("user has been signed out")
     return render_template("fukuPage.html")
 
+
 def log(msg):
     """Log a simple message."""
     # Look at: https://console.cloud.google.com/logs to see your logs.
@@ -65,14 +67,40 @@ def log(msg):
     print('main: %s' % msg)
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == "GET":
+        return render_template("login.html")
+    elif request.method == "POST":
+        userName = "Welcome back " + request.form["userName"] + "!"
+        password = request.form["password"]
+        return render_template("fukuPage.html", userName=userName, password=password)
+    else:
+        return "Hello"
+
+
 @app.route('/order', methods=['GET', 'POST'])
 def order():
+
     return render_template("orderPage.html")
+
+    if request.method == "GET":
+        return render_template("orderPage.html")
+
+
+@app.route('/customDrink', methods=['GET', 'POST'])
+def customOrder():
+    if request.method == "GET":
+        return render_template("customDrink.html")
 
 
 @app.route('/load-sl-items')
 def load_sli_items():
+
     # first we load the list items
+
+        # first we load the list items
+
     log('loading list items.')
     sli_list = slidata.get_list_items()
     json_list = []
@@ -93,7 +121,7 @@ def load_sli_items():
 @app.route('/menu.html')
 def menu():
     global CUR_USER
-    if CUR_USER is None or CUR_USER.userId != '107547848533480653521' or CUR_USER.userId != '112301482083727417023' :
+    if CUR_USER is None or CUR_USER.userId != '107547848533480653521' or CUR_USER.userId != '112301482083727417023':
         return render_template('menu.html', admin="false")
     else:
         return render_template('menu.html', admin="true")
@@ -117,6 +145,40 @@ def delete_all():
         json_result['error'] = 'The item was not removed.'
 
     return Response(json.dumps(json_result), mimetype='application/json')
+
+
+@app.route('/delete-item', methods=['POST'])
+def delete_item():
+    # retrieve the parameters from the request
+    sli_id = request.form['id']
+    json_result = {}
+    try:
+        log('deleting item for ID: %s' % sli_id)
+        slidata.delete_list_item(sli_id)
+        json_result['ok'] = True
+
+    except Exception as exc:
+        log(str(exc))
+        json_result['error'] = 'The item was not removed.'
+
+    return Response(json.dumps(json_result), mimetype='application/json')
+
+
+# here we use a Flask shortcut to pull the itemid from the URL.
+@app.route('/get-item/<itemid>')
+def get_item(itemid):
+    log('retrieving item for ID: %s' % itemid)
+    item = slidata.get_list_item(itemid)
+    d = item.to_dict()
+    d['id'] = itemid
+    return Response(json.dumps(d), mimetype='application/json')
+
+
+def log(msg):
+    """Log a simple message."""
+    # Look at: https://console.cloud.google.com/logs to see your logs.
+    # Make sure you have "stdout" selected.
+    print('main: %s' % msg)
 
 
 if __name__ == '__main__':
