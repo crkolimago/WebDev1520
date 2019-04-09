@@ -143,8 +143,10 @@ function clear_cart() {
 }
 
 function submit_cart() {
+  let params = {};
 	var table = document.getElementById('cart_table');
   var subtotal = 0;
+
   for (var i = 1; i < table.rows.length; i++) {
     var quantity = table.rows[i].lastChild.value;
     //var quantity = table.rows[i].cells[1].value;
@@ -159,6 +161,7 @@ function submit_cart() {
     console.log(product);
     console.log(subtotal);
   }
+
   var tax = subtotal * 0.06;
   var total = subtotal + tax;
   disp_subtotal = CurrencyFormatted(subtotal);
@@ -177,6 +180,16 @@ function submit_cart() {
 		document.getElementById('tax').innerHTML = taxString;
 		document.getElementById('total').innerHTML = totalString;
 	}
+  //send another Json request to check if user?
+/*  if ('checkSignedIn') {//check if signed in using python somehow and return user info
+    params['userEmail'] = userEmail;
+    params['userPoints'] = userPoints;
+    params['userMoney'] = userMoneySpent;
+  } */
+  params['userEmail'] = 'email';
+  params['userPoints'] = 1;
+  params['userMoneySpent'] = total;
+  sendJsonRequest('save-order', objectToParameters(params), itemSave);
 }
 
 function CurrencyFormatted(amount) {
@@ -200,4 +213,64 @@ function CurrencyFormatted(amount) {
   }
 	s = minus + s;
 	return s;
+}
+
+function sendJsonRequest(targetUrl, parameters, callbackFunction) {
+  let xmlHttp = createXmlHttp();
+  xmlHttp.onreadystatechange = function() {
+    if (xmlHttp.readyState == 4) {
+      // note that you can check xmlHttp.status here for the HTTP response code
+      try {
+        let myObject = JSON.parse(xmlHttp.responseText);
+        callbackFunction(myObject, targetUrl, parameters);
+      } catch (exc) {
+        showError("There was a problem at the server.");
+      }
+    }
+  }
+  postParameters(xmlHttp, targetUrl, parameters);
+}
+
+function createXmlHttp() {
+  let xmlhttp;
+  if (window.XMLHttpRequest) {
+    xmlhttp = new XMLHttpRequest();
+  } else {
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  if (!(xmlhttp)) {
+    alert("Your browser does not support AJAX!");
+  }
+  return xmlhttp;
+}
+
+function objectToParameters(obj) {
+  let text = '';
+  for (var i in obj) {
+    // encodeURIComponent is a built-in function that escapes to URL-safe values
+    text += encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]) + '&';
+  }
+  return text;
+}
+
+function postParameters(xmlHttp, targetUrl, parameters) {
+  if (xmlHttp) {
+    console.log("Creating POST request to " + targetUrl);
+    xmlHttp.open("POST", targetUrl, true); // XMLHttpRequest.open(method, url, async)
+    xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    console.log("Sending parameters: " + parameters);
+    xmlHttp.send(parameters);
+   }
+}
+
+// this is called in response to saving list item data.
+function itemSaved(result, targetUrl, params) {
+  if (result && result.ok) {
+    console.log("Saved order.");
+    clearItemForm();
+    loadItems();
+  } else {
+    console.log("Received error: " + result.error);
+    showError(result.error);
+  }
 }

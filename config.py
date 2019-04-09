@@ -6,6 +6,7 @@ Then do 'echo "config.py" > .gitignore'
 DATA_BACKEND = 'datastore'
 
 PROJECT_ID = 'fukutea'
+#PROJECT_ID = 'hidden-display-230020'
 
 CLIENT_ID = '723893521330-ktddc0koarl54ddga9p6epa5o1fuqt86.apps.googleusercontent.com'
 

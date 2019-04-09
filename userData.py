@@ -22,8 +22,8 @@ def convert_to_userObj(entity):
 
 
 def load_user_key(client, user_id):
-    """Load a datastore key using a particular client, and if known, the ID.  Note
-    that the ID should be an int - we're allowing datastore to generate them in 
+    """Load a datastore key using a particular client, and if known, the ID.
+    Note the ID should be an int - we're allowing datastore to generate them in
     this example."""
     key = None
     key = client.key(config.USER_ENTITY_TYPE, user_id)
