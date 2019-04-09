@@ -60,6 +60,15 @@ def tokenSignOut():
     return render_template("fukuPage.html")
 
 
+@app.route('/checkSignedIn')
+def checkSignedIn():
+    global CUR_USER
+    if (CUR_USER is not None):
+        return True
+    else:
+        return False
+
+
 def log(msg):
     """Log a simple message."""
     # Look at: https://console.cloud.google.com/logs to see your logs.
@@ -94,12 +103,39 @@ def customOrder():
         return render_template("customDrink.html")
 
 
+@app.route('/save-order', methods=['GET', 'POST'])
+def saveOrder():
+    # saving the order into database
+    email = request.form['userEmail']
+    points = request.form['userPoints']
+    money_spent = request.form['userMoneySpent']
+    log(email, points, money_spent)
+    print(email, points, money_spent)
+    # get user
+    # update user data with these
+    # store user?
+
+
+@app.route('/leaderBoard', methods=['GET', 'POST'])
+def leaderBoard():
+    if request.method == "GET":
+        return render_template("leaderBoard.html")
+
+
+@app.route('/get-leaderboard-data')
+def get_leaderboard_data():
+    responseJson = json.dumps({
+        'Text': 'Put LeaderBoard Here',
+    })
+    return Response(responseJson, mimetype='application/json')
+
+
 @app.route('/load-sl-items')
 def load_sli_items():
 
     # first we load the list items
 
-        # first we load the list items
+    # first we load the list items
 
     log('loading list items.')
     sli_list = slidata.get_list_items()
@@ -172,13 +208,6 @@ def get_item(itemid):
     d = item.to_dict()
     d['id'] = itemid
     return Response(json.dumps(d), mimetype='application/json')
-
-
-def log(msg):
-    """Log a simple message."""
-    # Look at: https://console.cloud.google.com/logs to see your logs.
-    # Make sure you have "stdout" selected.
-    print('main: %s' % msg)
 
 
 if __name__ == '__main__':
