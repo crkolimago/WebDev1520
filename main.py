@@ -1,24 +1,46 @@
 from werkzeug.utils import secure_filename
 import slidata
 import json
+import random
 import userData
 from menuitem import MenuItem
 from User import User
 from google.cloud import storage
 from google.oauth2 import id_token
 from google.auth.transport import requests
-from flask import Flask, redirect, render_template, request, Response
+from flask import Flask, session, redirect, render_template, request, Response
 import six
 import config
 
-CUR_USER = None
 
 app = Flask(__name__)
+app.secret_key = config.KEY
 
 
 @app.route('/')
 def root():
-    return render_template("fukuPage.html")
+    if 'curUser' in session:
+        return render_template("fukuPage.html", userName=userData.get_user(session['curUser']).userName)
+    else:
+        return render_template("fukuPage.html")
+
+
+@app.route('/customDrink')
+def customDrink():
+    return render_template('customDrink.html')
+
+
+@app.route('/info.html')
+def info():
+    return render_template('info.html')
+
+
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    if 'curUser' in session:
+        return render_template("profile.html", userName=userData.get_user(session['curUser']).userName , emailAddress=userData.get_user(session['curUser']).userEmail , rewards=0, setup="true")
+    else:
+        return render_template("profile.html")
 
 
 @app.route('/tokenSignIn', methods=['POST'])
@@ -47,15 +69,14 @@ def tokenSignIn():
             userData.create_user(newUser)
     except ValueError:
         pass
-    global CUR_USER
-    CUR_USER = userData.get_user(userId)
+    session['curUser'] = userId
     return render_template("fukuPage.html")
+    # return render_template("fukuPage.html", userName=userName)
 
 
 @app.route('/tokenSignOut', methods=['POST'])
 def tokenSignOut():
-    global CUR_USER
-    CUR_USER = None
+    session.clear()
     log("user has been signed out")
     return render_template("fukuPage.html")
 
@@ -94,12 +115,31 @@ def customOrder():
         return render_template("customDrink.html")
 
 
+@app.route('/random', methods=['GET', 'POST'])
+def randomizer():
+    return render_template("random.html")
+
+
+@app.route('/load-random')
+def load_random():
+    # first we load the list items
+    sli_list = slidata.get_list_items()
+    json_list = []
+    i = random.randint(0, len(sli_list))
+    log('loading rand %s ' % i)
+    d = sli_list[i].to_dict()
+    d['id'] = str(sli_list[i].id)
+    log(d)
+    json_list.append(d)
+
+    responseJson = json.dumps(json_list)
+    return Response(responseJson, mimetype='application/json')
+
+
 @app.route('/load-sl-items')
 def load_sli_items():
 
     # first we load the list items
-
-        # first we load the list items
 
     log('loading list items.')
     sli_list = slidata.get_list_items()
@@ -172,13 +212,6 @@ def get_item(itemid):
     d = item.to_dict()
     d['id'] = itemid
     return Response(json.dumps(d), mimetype='application/json')
-
-
-def log(msg):
-    """Log a simple message."""
-    # Look at: https://console.cloud.google.com/logs to see your logs.
-    # Make sure you have "stdout" selected.
-    print('main: %s' % msg)
 
 
 if __name__ == '__main__':

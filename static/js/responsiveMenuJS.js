@@ -2,8 +2,14 @@ function hideInfo() {
     document.getElementById("info-popup").style.visibility = "hidden";
 }
 
-function showInfo() {
-    document.getElementById("info-popup").style.visibility = "visible";
+function showInfo(id, result) {
+    if(result) {
+        document.getElementById("info-popup").style.visibility = "visible";
+        document.getElementById("info-popup-name").innerHTML = result.name;
+        document.getElementById("info-popup-price").innerHTML = result.price;
+    } else {
+        getItem(id);
+    }
 }
 
 function saveItem(id) {
@@ -141,14 +147,22 @@ function displayList(result, targetUrl) {
         for (var i = 0; i < result.length; i++) {
             text += '<div class="menu-item">';
             text += '<img class="image" src="' + result[i].url + '" alt="' + result[i].name + '" id="img_' + result[i].id + '"/>';
-            text += '<button onclick="showInfo();" class="item_button" id="item_' + result[i].id + '">' + result[i].name + ' ' + result[i].price + '</button>';
+            text += '<button onclick="showInfo(' + result[i].id + ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + ' ' + result[i].price + '</button>';
             text += '</div>';
         }
-        console.log("updating flex-container: " + text);
         document.getElementById("flex-container").innerHTML = text;
     } else {
         document.getElementById("flex-container").innerHTML = 'No menu items.';
     }
+}
+
+function getItem(id) {
+  getData('/get-item/' + id, itemLoaded);
+}
+
+// when the item is loaded, we render an edit form in the list.
+function itemLoaded(result, targetUrl) {
+  showInfo(result.id, result);
 }
 
 function loadItems() {
