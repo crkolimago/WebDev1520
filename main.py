@@ -136,7 +136,7 @@ def load_sli_items():
 @app.route('/menu.html')
 def menu():
     if 'curUser' in session and (userData.get_user(session['curUser']).userId == '107547848533480653521' or userData.get_user(session['curUser']).userId  == '112301482083727417023'):
-        return render_template('menu.html', admin="true")
+        return render_template('menu.html', admin="true") 
     else:
         return render_template('menu.html', admin="false")
 
