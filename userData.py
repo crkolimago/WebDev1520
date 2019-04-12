@@ -76,7 +76,7 @@ def save_user(user):
     entity = load_user_entity(client, user.userId)
     entity.update(user.to_dict())
     client.put(entity)
-    log('entity saved for ID: %s' % user.id)
+    log('entity saved for ID: %s' % user.userId)
 
 
 def get_user(user_id):
