@@ -2,10 +2,6 @@ body {
   background-color: #abebb4;
 }
 
-#footer {
-    visibility: visible;
-}
-
 #sigdrink {
   text-align:center;
   font-family: Helvetica, sans-serif;
@@ -17,6 +13,7 @@ body {
   z-index: 2;
   background: white;
   border: 1px solid black;
+  border-radius: 10px;
   margin: auto;
   top: 0;
   right: 0;
@@ -25,6 +22,21 @@ body {
   width: 25%;
   height: 75%;
   visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.info-popup-item {
+  align-self: flex-start;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  margin: 5%;
+}
+
+#saveButton {
+  align-self: center;
+  margin-top: auto;
 }
 
 #flex-container {
@@ -36,6 +48,25 @@ body {
   justify-content: space-evenly; /* or space-between or center */
   margin:-10px;
 }
+#randomItem {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly; /* or space-between or center */
+
+}
+#randomButton {
+  margin-left: 620px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center; /*or space-between or center */
+}
+
 
 .menu-item {
   background-color: #ffffff;
@@ -102,6 +133,7 @@ body {
   display: inline-block;
   text-align: center;
   text-decoration: none;
+  font-family: Helvetica, sans-serif;
 
   /* create a small space when buttons wrap on 2 lines */
   margin: 6px 0;
@@ -143,4 +175,31 @@ body {
 /* hide focus style if not from keyboard navigation */
 .js-focus-visible .item_button:focus:not(.focus-visible) {
   box-shadow: none;
+}
+#randomButton {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    color: #FFFFFF;
+    font-family: Verdana;
+    font-size: 18px;
+    font-weight: 30;
+    padding: 40px;
+    background-color: #5DCF68;
+    box-shadow: 1px 1px 20px 0px #000000;
+    -webkit-box-shadow: 1px 1px 20px 0px #000000;
+    -moz-box-shadow: 1px 1px 20px 0px #000000;
+    border: solid #337FED 1px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+randomButton:hover {
+    background: #45B50D;
+    background-image: -webkit-linear-gradient(top, #45B50D, #1C730F);
+    background-image: -moz-linear-gradient(top, #45B50D, #1C730F);
+    background-image: -ms-linear-gradient(top, #45B50D, #1C730F);
+    background-image: -o-linear-gradient(top, #45B50D, #1C730F);
+    background-image: linear-gradient(to bottom, #45B50D, #1C730F);
+    text-decoration: none;
 }
