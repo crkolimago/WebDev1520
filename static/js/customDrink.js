@@ -186,10 +186,10 @@ function submit_cart() {
 
 function save_order() {
   let params = {};
-  params['email'] = currentUser.getEmail();
+  //params['email'] = currentUser.getEmail();
   //params['total'] = document.getElementById('subtotal').textContent;
   params['total'] = subTotal;
-  console.log(params);
+  console.log(subTotal);
   sendJsonRequest('/save-order', objectToParameters(params), itemSaved);
 }
 

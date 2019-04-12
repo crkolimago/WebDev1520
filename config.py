@@ -18,3 +18,5 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 SLI_ENTITY_TYPE = 'MenuItem'
 
 USER_ENTITY_TYPE = 'user'
+
+KEY = 'random stuff'

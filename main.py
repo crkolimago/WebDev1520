@@ -13,7 +13,7 @@ import six
 import config
 
 app = Flask(__name__)
-#app.secret_key = config.KEY
+app.secret_key = config.KEY
 
 
 @app.route('/')
@@ -37,7 +37,7 @@ def info():
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if 'curUser' in session:
-        return render_template("profile.html", userName=userData.get_user(session['curUser']).userName , emailAddress=userData.get_user(session['curUser']).userEmail , rewards=0, setup="true")
+        return render_template("profile.html", userName=userData.get_user(session['curUser']).userName, emailAddress=userData.get_user(session['curUser']).userEmail, rewards=0, setup="true")
     else:
         return render_template("profile.html")
 
@@ -126,19 +126,18 @@ def customOrder():
 @app.route('/save-order', methods=['GET', 'POST'])
 def saveOrder():
     try:
-        # saving the order into database
-        email = request.form.get('email', '')
         money_spent = request.form.get('total', '')
-        log("email: %s " % email)
-        log("$$$: %s " % money_spent)
         json_result = {}
 
-        if checkSignedIn():
-            log(email)
-            user_entity = slidata.get_list_item(email)
-            user_entity['userPoints'] = user_entity['userPoints']+1
-            user_entity['userMoneySpent'] = user_entity['userMoneySpent'] + money_spent
-            slidata.save_list_item(user_entity)
+        if 'curUser' in session:
+            # user = userData.get_user(session['curUser'])
+            user = userData.get_entity(session['curUser'])
+            user['userPoints'] += 1
+            user['userMoneySpent'] += float(money_spent)
+            userObject = userData.convert_to_userObj(user)
+            userObject.userPoints = user['userPoints']
+            userObject.userMoneySpent = user['userMoneySpent']
+            userData.save_user(userObject)
         else:
             log("user not signed in")
 
@@ -164,6 +163,7 @@ def get_leaderboard_data():
     })
 
     return Response(responseJson, mimetpye='application/json')
+
 
 @app.route('/random', methods=['GET', 'POST'])
 def randomizer():
