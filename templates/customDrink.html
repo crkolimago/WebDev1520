@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+{% extends '_base.html' %}
+{% block content %}
 <html>
   <head>
     <title>Custom Drink Order Form</title>
-    <link rel="stylesheet" type="text/css" href="static/styles/customDrinkStyle.css?Sunday 24th of March 2019 9:02 PM">
+    <link rel="stylesheet" type="text/css" href="static/styles/customDrinkStyle.css?">
     <meta charset="utf-8"/>
   </head>
   <body>
@@ -107,10 +108,12 @@
           <div class="cart_button">
             <button onclick="clear_cart()">Clear Cart</button>
             <button onclick="submit_cart()">Submit Cart</button>
+            <button onclick="save_order()">Save Order</button>
           </div>
 	      </div><!-- cart div -->
 		  </div><!-- grid container div -->
     </div><!-- content div -->
-    <script src="static/js/customDrink.js?v6.0"></script>
+    <script src="static/js/customDrink.js?v2.3"></script>
   </body>
 <html>
+{% endblock %}

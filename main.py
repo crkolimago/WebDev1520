@@ -11,6 +11,7 @@ from flask import Flask, redirect, render_template, request, Response
 import six
 import config
 
+# store CUR_USER in session instead of global
 CUR_USER = None
 
 app = Flask(__name__)
@@ -105,15 +106,35 @@ def customOrder():
 
 @app.route('/save-order', methods=['GET', 'POST'])
 def saveOrder():
-    # saving the order into database
-    email = request.form['userEmail']
-    points = request.form['userPoints']
-    money_spent = request.form['userMoneySpent']
-    log(email, points, money_spent)
-    print(email, points, money_spent)
-    # get user
-    # update user data with these
-    # store user?
+    global CUR_USER
+    try:
+        # saving the order into database
+        # accessing parameters submitted in the URL
+        email = request.form.get('email', '')  # doesn't work
+
+        # money_spent = request.form['p']
+        money_spent = request.form.get('total', '')
+        log("email: %s " % email)
+        log("$$$: %s " % money_spent)
+        json_result = {}
+        # does this work?
+        # if userData.checkUser(email) is not None:
+        if checkSignedIn():
+            log(email)
+            user_entity = slidata.get_list_item(email)
+            user_entity['userPoints'] = user_entity['userPoints']+1
+            user_entity['userMoneySpent'] = user_entity['userMoneySpent'] + money_spent
+            slidata.save_list_item(user_entity)
+        else:
+            log("user not signed in")
+
+        json_result['ok'] = True
+
+    except Exception as exc:
+        log(str(exc))
+        json_result['error'] = 'Order was not saved something went wrong'
+
+    return Response(json.dumps(json_result), mimetype='application/json')
 
 
 @app.route('/leaderBoard', methods=['GET', 'POST'])
@@ -132,8 +153,6 @@ def get_leaderboard_data():
 
 @app.route('/load-sl-items')
 def load_sli_items():
-
-    # first we load the list items
 
     # first we load the list items
 

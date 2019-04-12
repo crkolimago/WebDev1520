@@ -51,6 +51,7 @@ def checkUser(user_id):
     for item in users:
         tempUser = convert_to_userObj(item)
         ids.append(tempUser.userId)
+    log(str(len(ids)))
     if user_id in ids:
         log('Found')
         return load_user_key(client, user_id)
@@ -66,6 +67,8 @@ def create_user(user):
     entity = datastore.Entity(key)
     entity['email'] = user.userEmail
     entity['name'] = user.userName
+    entity['loyalty points'] = 0
+    entity['total money spent'] = 0
     client.put(entity)
     log('saved new entity for ID: %s' % key.id_or_name)
 
@@ -94,3 +97,14 @@ def delete_user(user_id):
     log('key loaded for ID: %s' % user_id)
     client.delete(key)
     log('key deleted for ID: %s' % user_id)
+
+
+# where does this go
+def save_order():
+    datastore_client = datastore.Client()
+    kind = 'Order'
+    name = 'name this later'
+    task_key = datastore_client.key(kind, name)
+    task = datastore.Entity(key=task_key)
+    task['description'] = 'not sure what I want here'
+    datastore_client.put(task)

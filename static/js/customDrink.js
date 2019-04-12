@@ -1,6 +1,7 @@
 drink = new Drink("", "", "", "", "", "", [], 0);
 var toppingsList = ["No Toppings"];
 var drinks = [];
+var subTotal = 0;
 
 function Drink(size, tea, flavor, milk, sweetness, temp, toppings, price) {
     this.size = size;
@@ -116,7 +117,7 @@ function confirmDrink(form) {
     drinks.push(drink);
     drink = new Drink('', '', '', '', '', '', [], 0);
     toppingsList = ['No Toppings'];
-  } 
+  }
 }
 
 function addTopping(topping) {
@@ -164,7 +165,7 @@ function submit_cart() {
 
   var tax = subtotal * 0.06;
   var total = subtotal + tax;
-  disp_subtotal = CurrencyFormatted(subtotal);
+  var disp_subtotal = CurrencyFormatted(subtotal);
   disp_tax = CurrencyFormatted(tax);
   disp_total = CurrencyFormatted(total);
   
@@ -177,19 +178,31 @@ function submit_cart() {
 		document.getElementById('tax').style.display = 'block';
 		document.getElementById('total').style.display = 'block';
 		document.getElementById('subtotal').innerHTML = subtotalString;
+    subTotal = disp_subtotal;
 		document.getElementById('tax').innerHTML = taxString;
 		document.getElementById('total').innerHTML = totalString;
 	}
-  //send another Json request to check if user?
-/*  if ('checkSignedIn') {//check if signed in using python somehow and return user info
-    params['userEmail'] = userEmail;
-    params['userPoints'] = userPoints;
-    params['userMoney'] = userMoneySpent;
-  } */
-  params['userEmail'] = 'email';
-  params['userPoints'] = 1;
-  params['userMoneySpent'] = total;
-  sendJsonRequest('save-order', objectToParameters(params), itemSave);
+}
+
+function save_order() {
+  let params = {};
+  params['email'] = currentUser.getEmail();
+  //params['total'] = document.getElementById('subtotal').textContent;
+  params['total'] = subTotal;
+  console.log(params);
+  sendJsonRequest('/save-order', objectToParameters(params), itemSaved);
+}
+
+// this is called in response to saving list item data.
+function itemSaved(result, targetUrl, params) {
+  if (result && result.ok) {
+    console.log("Saved item.");
+    //clearItemForm();
+    //loadItems();
+  } else {
+    console.log("Received error: " + result.error);
+    showError(result.error);
+  }
 }
 
 function CurrencyFormatted(amount) {
@@ -213,64 +226,4 @@ function CurrencyFormatted(amount) {
   }
 	s = minus + s;
 	return s;
-}
-
-function sendJsonRequest(targetUrl, parameters, callbackFunction) {
-  let xmlHttp = createXmlHttp();
-  xmlHttp.onreadystatechange = function() {
-    if (xmlHttp.readyState == 4) {
-      // note that you can check xmlHttp.status here for the HTTP response code
-      try {
-        let myObject = JSON.parse(xmlHttp.responseText);
-        callbackFunction(myObject, targetUrl, parameters);
-      } catch (exc) {
-        showError("There was a problem at the server.");
-      }
-    }
-  }
-  postParameters(xmlHttp, targetUrl, parameters);
-}
-
-function createXmlHttp() {
-  let xmlhttp;
-  if (window.XMLHttpRequest) {
-    xmlhttp = new XMLHttpRequest();
-  } else {
-    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  if (!(xmlhttp)) {
-    alert("Your browser does not support AJAX!");
-  }
-  return xmlhttp;
-}
-
-function objectToParameters(obj) {
-  let text = '';
-  for (var i in obj) {
-    // encodeURIComponent is a built-in function that escapes to URL-safe values
-    text += encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]) + '&';
-  }
-  return text;
-}
-
-function postParameters(xmlHttp, targetUrl, parameters) {
-  if (xmlHttp) {
-    console.log("Creating POST request to " + targetUrl);
-    xmlHttp.open("POST", targetUrl, true); // XMLHttpRequest.open(method, url, async)
-    xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    console.log("Sending parameters: " + parameters);
-    xmlHttp.send(parameters);
-   }
-}
-
-// this is called in response to saving list item data.
-function itemSaved(result, targetUrl, params) {
-  if (result && result.ok) {
-    console.log("Saved order.");
-    clearItemForm();
-    loadItems();
-  } else {
-    console.log("Received error: " + result.error);
-    showError(result.error);
-  }
 }
