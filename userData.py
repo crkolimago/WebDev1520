@@ -38,6 +38,26 @@ def load_user_entity(client, user_id):
     return entity
 
 
+def get_list_items():
+    """Retrieve the list items we've already stored."""
+    client = datastore.Client(config.PROJECT_ID)
+
+    # we build a query
+    query = client.query(kind=config.USER_ENTITY_TYPE)
+
+    # we execute the query
+    user_items = list(query.fetch())
+
+    # the code below converts the datastore entities to plain old objects -
+    # this is good for decoupling the rest of our app from datastore.
+    result = list()
+    for user in user_items:
+        result.append(convert_to_userObj(user))
+
+    log('list retrieved. %s items' % len(result))
+    return result
+
+
 def checkUser(user_id):
     # Retrieve the list items we've already stored.
     client = datastore.Client(config.PROJECT_ID)

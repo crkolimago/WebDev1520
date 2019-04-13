@@ -1,6 +1,13 @@
 drink = new Drink("", "", "", "", "", "", [], 0);
 var toppingsList = ["No Toppings"];
 var drinks = [];
+var size = '';
+var tea = '';
+var flavor = '';
+var milk = '';
+var sweetness = '';
+var temp = '';
+var price = 0;
 var subTotal = 0;
 
 function Drink(size, tea, flavor, milk, sweetness, temp, toppings, price) {
@@ -18,7 +25,7 @@ function confirmDrink(form) {
   var sizes = form.elements["size"];
   for (var i=0; i<sizes.length; i++) {
     if (sizes[i].checked) {
-      var size = sizes[i].value;
+      size = sizes[i].value;
       drink.size = size;
       if (size === "Small") 
         drink.price = 3.45;
@@ -31,7 +38,7 @@ function confirmDrink(form) {
   var teas = form.elements["tea"];
   for (var i=0; i<teas.length; i++) {
     if (teas[i].checked) {
-      var tea = teas[i].value;
+      tea = teas[i].value;
       drink.tea = tea;
       break;
     }
@@ -40,7 +47,7 @@ function confirmDrink(form) {
   var flavors = form.elements["flavor"];
   for (var i=0; i<flavors.length; i++) {
     if (flavors[i].checked) {
-      var flavor = flavors[i].value;
+      flavor = flavors[i].value;
       drink.flavor = flavor;
       break;
     }
@@ -49,7 +56,7 @@ function confirmDrink(form) {
   var milks = form.elements["milk"];
   for (var i=0; i<milks.length; i++) {
     if (milks[i].checked) {
-      var milk = milks[i].value;
+      milk = milks[i].value;
       drink.milk = milk;
       if (milk === "Soymilk") 
         drink.price += .50;
@@ -60,7 +67,7 @@ function confirmDrink(form) {
   var sweetnesses = form.elements["sweetness"];
   for (var i=0; i<sweetnesses.length; i++) {
     if (sweetnesses[i].checked) {
-      var sweetness = sweetnesses[i].value;
+      sweetness = sweetnesses[i].value;
       drink.sweetness = sweetness;
       break;
     }
@@ -69,7 +76,7 @@ function confirmDrink(form) {
   var temps = form.elements["temp"];
   for (var i=0; i<temps.length; i++) {
     if (temps[i].checked) {
-      var temp = temps[i].value;
+      temp = temps[i].value;
       drink.temp = temp;
       break;
     }
@@ -98,7 +105,7 @@ function confirmDrink(form) {
     quantity_input.type='number';
     quantity_input.setAttribute('min',0);
     quantity_input.setAttribute('max',30);
-		quantity_input.value=1;
+		quantity_input.value = 1;
 
     item_cell.innerHTML = 'Custom Drink: ';
     var drink_list = document.createElement('ul');
@@ -186,10 +193,17 @@ function submit_cart() {
 
 function save_order() {
   let params = {};
-  //params['email'] = currentUser.getEmail();
-  //params['total'] = document.getElementById('subtotal').textContent;
   params['total'] = subTotal;
-  console.log(subTotal);
+  params['customDrink'] = 'Custom Drink';
+  params['size'] = size;
+  params['tea'] = tea;
+  params['flavor'] = flavor;
+  params['milk'] = milk;
+  params['temp'] = temp;
+  params['price'] = price;
+  for (i in params) {
+    console.log(params[i])
+  }
   sendJsonRequest('/save-order', objectToParameters(params), itemSaved);
 }
 

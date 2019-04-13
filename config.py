@@ -19,4 +19,6 @@ SLI_ENTITY_TYPE = 'MenuItem'
 
 USER_ENTITY_TYPE = 'user'
 
+ORDER_ENTITY_TYPE = 'order'
+
 KEY = 'random stuff'

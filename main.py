@@ -3,8 +3,10 @@ import slidata
 import json
 import random
 import userData
+import orderData
 from menuitem import MenuItem
 from User import User
+from Order import Order
 from google.cloud import storage
 from google.oauth2 import id_token
 from google.auth.transport import requests
@@ -126,7 +128,16 @@ def customOrder():
 @app.route('/save-order', methods=['GET', 'POST'])
 def saveOrder():
     try:
+        orderId = 1 # now sure how to generate unique IDs for every order
         money_spent = request.form.get('total', '')
+        size = request.form.get('size', '')
+        tea = request.form.get('tea', '')
+        flavor = request.form.get('flavor', '')
+        milk = request.form.get('milk', '')
+        temp = request.form.get('temp', '')
+        price = request.form.get('price', '')
+        drink = Order(orderId, size, tea, flavor, milk, temp, price)
+        orderData.create_order(drink) # not sure if works
         json_result = {}
 
         if 'curUser' in session:
@@ -153,16 +164,28 @@ def saveOrder():
 @app.route('/leaderBoard', methods=['GET', 'POST'])
 def leaderBoard():
     if request.method == "GET":
-        return render_template("leaderBoard.html")
+        userList = userData.get_list_items()
+        for user in userList:
+            userName = user.userName
+            userPoints = user.userPoints
+            userMoneySpent = user.userMoneySpent
+        return render_template("leaderBoard.html", userName=userName, userPoints=userPoints, userMoneySpent=userMoneySpent)
 
 
 @app.route('/get-leaderboard-data')
 def get_leaderboard_data():
+    # get list of users
+    # iterate thru list of users
+    # somehow send each part to the front end
+    # templates maybe?
+    # send list to JS and parse there maybe?
     responseJson = json.dumps({
         'Text': 'Put LeaderBoard Here',
     })
+    userList = userData.get_list_items()
 
-    return Response(responseJson, mimetpye='application/json')
+    # responseJson = json.dumps({ 'Name': user.userName, })
+    return Response(responseJson)
 
 
 @app.route('/random', methods=['GET', 'POST'])
