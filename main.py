@@ -3,8 +3,10 @@ import slidata
 import json
 import random
 import userData
+import orderData
 from menuitem import MenuItem
 from User import User
+from Order import Order
 from google.cloud import storage
 from google.oauth2 import id_token
 from google.auth.transport import requests
@@ -12,9 +14,9 @@ from flask import Flask, session, redirect, render_template, request, Response
 import six
 import config
 
-
 app = Flask(__name__)
 app.secret_key = config.KEY
+
 
 @app.route('/')
 def root():
@@ -37,7 +39,7 @@ def info():
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if 'curUser' in session:
-        return render_template("profile.html", userName=userData.get_user(session['curUser']).userName , emailAddress=userData.get_user(session['curUser']).userEmail , rewards=0, setup="true")
+        return render_template("profile.html", userName=userData.get_user(session['curUser']).userName, emailAddress=userData.get_user(session['curUser']).userEmail, rewards=0, setup="true")
     else:
         return render_template("profile.html")
 
@@ -80,6 +82,15 @@ def tokenSignOut():
     return render_template("fukuPage.html")
 
 
+@app.route('/checkSignedIn')
+def checkSignedIn():
+    global CUR_USER
+    if (CUR_USER is not None):
+        return True
+    else:
+        return False
+
+
 def log(msg):
     """Log a simple message."""
     # Look at: https://console.cloud.google.com/logs to see your logs.
@@ -87,9 +98,98 @@ def log(msg):
     print('main: %s' % msg)
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == "GET":
+        return render_template("login.html")
+    elif request.method == "POST":
+        userName = "Welcome back " + request.form["userName"] + "!"
+        password = request.form["password"]
+        return render_template("fukuPage.html", userName=userName, password=password)
+    else:
+        return "Hello"
+
+
 @app.route('/order', methods=['GET', 'POST'])
 def order():
+
     return render_template("orderPage.html")
+
+    if request.method == "GET":
+        return render_template("orderPage.html")
+
+
+@app.route('/customDrink', methods=['GET', 'POST'])
+def customOrder():
+    if request.method == "GET":
+        return render_template("customDrink.html")
+
+
+@app.route('/save-order', methods=['GET', 'POST'])
+def saveOrder():
+    try:
+        # now sure how to generate unique IDs for every order
+        orderId = 1
+        money_spent = request.form.get('total', '')
+        size = request.form.get('size', '')
+        tea = request.form.get('tea', '')
+        flavor = request.form.get('flavor', '')
+        milk = request.form.get('milk', '')
+        sweetness = request.form.get('sweetness', '')
+        temp = request.form.get('temp', '')
+        toppings = request.form.get('toppings', '')
+        price = request.form.get('price', '')
+        order = Order(orderId, size, tea, flavor, milk, sweetness, temp, toppings, price)
+        orderData.create_order(order) # not sure if works, it doesn't
+        orderData.save_order(order)
+        json_result = {}
+
+        if 'curUser' in session:
+            # user = userData.get_user(session['curUser'])
+            user = userData.get_entity(session['curUser'])
+            user['userPoints'] += 1
+            user['userMoneySpent'] += float(money_spent)
+            userObject = userData.convert_to_userObj(user)
+            userObject.userPoints = user['userPoints']
+            userObject.userMoneySpent = user['userMoneySpent']
+            userData.save_user(userObject)
+        else:
+            log("user not signed in")
+
+        json_result['ok'] = True
+
+    except Exception as exc:
+        log(str(exc))
+        json_result['error'] = 'Order was not saved something went wrong'
+
+    return Response(json.dumps(json_result), mimetype='application/json')
+
+
+@app.route('/leaderBoard', methods=['GET', 'POST'])
+def leaderBoard():
+    if request.method == "GET":
+        userList = userData.get_list_items()
+        for user in userList:
+            userName = user.userName
+            userPoints = user.userPoints
+            userMoneySpent = user.userMoneySpent
+        return render_template("leaderBoard.html", userName=userName, userPoints=userPoints, userMoneySpent=userMoneySpent)
+
+
+@app.route('/get-leaderboard-data')
+def get_leaderboard_data():
+    # get list of users
+    # iterate thru list of users
+    # somehow send each part to the front end
+    # templates maybe?
+    # send list to JS and parse there maybe?
+    responseJson = json.dumps({
+        'Text': 'Put LeaderBoard Here',
+    })
+    userList = userData.get_list_items()
+
+    # responseJson = json.dumps({ 'Name': user.userName, })
+    return Response(responseJson)
 
 
 @app.route('/random', methods=['GET', 'POST'])
@@ -108,14 +208,16 @@ def load_random():
     d['id'] = str(sli_list[i].id)
     log(d)
     json_list.append(d)
-
     responseJson = json.dumps(json_list)
+
     return Response(responseJson, mimetype='application/json')
 
 
 @app.route('/load-sl-items')
 def load_sli_items():
+
     # first we load the list items
+
     log('loading list items.')
     sli_list = slidata.get_list_items()
     json_list = []
@@ -135,10 +237,11 @@ def load_sli_items():
 
 @app.route('/menu.html')
 def menu():
-    if 'curUser' in session and (userData.get_user(session['curUser']).userId == '107547848533480653521' or userData.get_user(session['curUser']).userId  == '112301482083727417023'):
-        return render_template('menu.html', admin="true")
-    else:
+    global CUR_USER
+    if CUR_USER is None or CUR_USER.userId != '107547848533480653521' or CUR_USER.userId != '112301482083727417023':
         return render_template('menu.html', admin="false")
+    else:
+        return render_template('menu.html', admin="true")
 
 
 @app.route('/delete-all', methods=['POST'])
@@ -159,6 +262,33 @@ def delete_all():
         json_result['error'] = 'The item was not removed.'
 
     return Response(json.dumps(json_result), mimetype='application/json')
+
+
+@app.route('/delete-item', methods=['POST'])
+def delete_item():
+    # retrieve the parameters from the request
+    sli_id = request.form['id']
+    json_result = {}
+    try:
+        log('deleting item for ID: %s' % sli_id)
+        slidata.delete_list_item(sli_id)
+        json_result['ok'] = True
+
+    except Exception as exc:
+        log(str(exc))
+        json_result['error'] = 'The item was not removed.'
+
+    return Response(json.dumps(json_result), mimetype='application/json')
+
+
+# here we use a Flask shortcut to pull the itemid from the URL.
+@app.route('/get-item/<itemid>')
+def get_item(itemid):
+    log('retrieving item for ID: %s' % itemid)
+    item = slidata.get_list_item(itemid)
+    d = item.to_dict()
+    d['id'] = itemid
+    return Response(json.dumps(d), mimetype='application/json')
 
 
 if __name__ == '__main__':
@@ -244,13 +374,3 @@ def save_data():
         file_url = upload_file(file.read(), filename, file.content_type)
         save_item(request.form['price'], request.form['name'], file_url)
         return redirect('/menu.html')
-
-# here we use a Flask shortcut to pull the itemid from the URL.
-@app.route('/get-item/<itemid>')
-def get_item(itemid):
-    log('retrieving item for ID: %s' % itemid)
-    item = slidata.get_list_item(itemid)
-    d = item.to_dict()
-    d['id'] = itemid
-
-    return Response(json.dumps(d), mimetype='application/json')

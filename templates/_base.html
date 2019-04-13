@@ -2,8 +2,8 @@
   <head>
     <title></title>
     <!--<link rel="stylesheet" href="static/styles/fukuStyle.css">-->
+    <script src="/static/js/main.js"></script>
     <script>
-
 // this function converts a simple key-value object to a parameter string.
 function objectToParameters(obj) {
   let text = '';
@@ -69,7 +69,6 @@ function getData(targetUrl, callbackFunction) {
   }
   // parameters: method="GET", url=targetUrl, asynchronous=true
   console.log("Creating GET request to: " + targetUrl);
-
   xmlHttp.open("GET", targetUrl, true);
   xmlHttp.send();
 }
@@ -84,14 +83,12 @@ function hideError() {
   let errorAreaDiv = document.getElementById('ErrorArea');
   errorAreaDiv.display = 'none';
 }
-
     </script>
   </head>
   <body>
     {% if error_message %}
       <div class="Error">{{error_message}}</div>
     {% endif %}
-    <h3>Previous Reviews: </h3>
     <section id="ErrorArea"></section>
     <section>
       {% block content %}{% endblock %}
