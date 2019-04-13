@@ -1,0 +1,19 @@
+/**/
+#id1 {
+ background-color: red;
+}
+
+#id2 {
+  background-color: blue;
+}
+
+#list {
+  list-style: none;
+}
+
+.divs {
+    width:100px;
+    height:50px;
+    padding:10px;
+    border:1px solid #aaaaaa;
+}
