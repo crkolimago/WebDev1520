@@ -29,9 +29,45 @@
         <li>
             <input type="submit" value="Upload"/>
         </li>
-      </ul>
-    </form>
-    <button onclick="deleteAll();"/>Clear</button>
+    </ul>
+</form>
+<form action="/edit-data" method="post">
+	<ul class="adminForm-style">
+        <li>
+            <h3>Edit Item</h3>
+        </li>
+        <li>
+            <label>Name</label>
+            <input type="text" name="name" id="item-name"/> 
+        </li>
+        <li>
+            <label>Price</label>
+            <input type="number" name="price" id="item-price" min="0" max="100" step="any" /> <!-- Price -->
+        </li>
+        <li>
+            <label>Id</label>
+            <input type="text" name="id" id="item-id"/> 
+        </li>
+        <li>
+            <input type="submit" value="Edit"/>
+        </li>
+    </ul>
+</form>
+<form action="/delete-item" method="post">
+	<ul class="adminForm-style">
+        <li>
+            <h3>Delete Item</h3>
+        </li>
+        <li>
+            <label>Id</label>
+            <input type="text" name="id" id="item-id"/> 
+        </li>
+        <li>
+            <input type="submit" value="Delete"/>
+        </li>
+    </ul>
+</form>
+<button onclick="deleteAll();"/>Delete All</button>
 {% else %}
 <div></div>
 {% endif %}

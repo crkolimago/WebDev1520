@@ -164,8 +164,6 @@ def menu():
         return render_template('menu.html', admin="true") 
     else:
         return render_template('menu.html', admin="false")
-    else:
-        return render_template('menu.html', admin="true")
 
 
 @app.route('/delete-all', methods=['POST'])
@@ -192,17 +190,14 @@ def delete_all():
 def delete_item():
     # retrieve the parameters from the request
     sli_id = request.form['id']
-    json_result = {}
     try:
         log('deleting item for ID: %s' % sli_id)
         slidata.delete_list_item(sli_id)
-        json_result['ok'] = True
 
     except Exception as exc:
         log(str(exc))
-        json_result['error'] = 'The item was not removed.'
 
-    return Response(json.dumps(json_result), mimetype='application/json')
+    return redirect('/menu.html');
 
 
 # here we use a Flask shortcut to pull the itemid from the URL.
@@ -213,7 +208,6 @@ def get_item(itemid):
     d = item.to_dict()
     d['id'] = itemid
     return Response(json.dumps(d), mimetype='application/json')
-
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
@@ -256,13 +250,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in config.ALLOWED_EXTENSIONS
 
 
-def save_item(price, name, url):
-
-    # TODO: check if price is null
-
-    item_id = None
-    if 'id' in request.form:
-        item_id = request.form['id']
+def save_item(price, name, url, item_id):
 
     result = ""
 
@@ -296,5 +284,32 @@ def save_data():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_url = upload_file(file.read(), filename, file.content_type)
-        save_item(request.form['price'], request.form['name'], file_url)
+        save_item(request.form['price'], request.form['name'], file_url, None)
         return redirect('/menu.html')
+
+
+@app.route('/edit-data', methods=['POST'])
+def edit_data():
+    # log(request.form)
+
+    item_id = request.form['id']
+    item_price = request.form['price']
+    item_name = request.form['name']
+
+    item = slidata.get_list_item(item_id)
+
+    d = item.to_dict()
+
+    # log("price: " + d['price'] + ", name: " + d['name'] + ", url: " + d['url'])
+
+    item_url = d['url']
+
+    if item_price == '':
+        item_price = d['price']
+
+    if item_name == '':
+        item_name = d['name']
+
+    save_item(item_price, item_name, item_url, item_id)
+
+    return redirect('/menu.html')

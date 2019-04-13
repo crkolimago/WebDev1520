@@ -140,6 +140,7 @@ function itemSaved(result, targetUrl, params) {
     }
 }
 
+// TODO: menu data structure !!!
 function displayList(result, targetUrl) {
     if (result && result.length) {
         let text = "";
