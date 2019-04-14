@@ -1,0 +1,97 @@
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+td, th {
+  border: 3px solid #5d9e56;
+  text-align: center;
+  padding: 8px;
+}
+tr:nth-child(even) {
+  background-color: #5d9e56;
+}
+body {
+    margin: 0;
+    font-size: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:  #b7edb1;
+  }
+  .content{
+    position: relative;
+    margin: 0;
+    font-size: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  #logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 15%;
+    height:15%;
+  }
+  .header {
+    background-color: #f1f1f1;
+    padding: 30px;
+    text-align: center;
+  }
+  
+  #navbar {
+    overflow: hidden;
+    background-color: none;
+    border-radius: 30px;
+    padding: 10px;
+  }
+  
+  #navbar a {
+    float: center;
+    color: #050505;
+    text-align: center;
+    padding-left: 30px ;
+    padding-right: 30px ;
+    text-decoration: none;
+    font-size: 24px;
+    border-radius: 30px;
+    background-color: #5d9e56;
+    margin: 10px;
+  }
+  
+  #navbar a:hover {
+    background-color: #5f765c;
+    color: black;
+    border-radius:30px;
+  }
+  
+  .content {
+    padding: 16px;
+  }
+  
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+  
+  .sticky + .content {
+    padding-top: 60px;
+  }
+  .custDrinks{
+    width:25%;
+    height:25%;
+  }
+
+#history {
+    padding-top: 10px;
+  background-color: white;
+  border: 5px black;
+  line-height: 1.5em;
+  border-radius: 10px;
+}
+
+.main_text {
+    display: inline;
+    font-size: 20px;
+    font-family: "Arial", Arial, sans-serif;
+}

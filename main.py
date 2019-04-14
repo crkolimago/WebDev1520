@@ -127,9 +127,9 @@ def customOrder():
 
 @app.route('/save-order', methods=['GET', 'POST'])
 def saveOrder():
+    json_result = {}
     try:
         # now sure how to generate unique IDs for every order
-        orderId = 1
         money_spent = request.form.get('total', '')
         size = request.form.get('size', '')
         tea = request.form.get('tea', '')
@@ -139,10 +139,10 @@ def saveOrder():
         temp = request.form.get('temp', '')
         toppings = request.form.get('toppings', '')
         price = request.form.get('price', '')
-        order = Order(orderId, size, tea, flavor, milk, sweetness, temp, toppings, price)
+        order = Order(None, size, tea, flavor, milk, sweetness, temp, toppings, price)
         orderData.create_order(order) # not sure if works, it doesn't
+        
         orderData.save_order(order)
-        json_result = {}
 
         if 'curUser' in session:
             # user = userData.get_user(session['curUser'])

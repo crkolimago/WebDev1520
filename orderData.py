@@ -21,12 +21,16 @@ def convert_to_orderObj(entity):
     return Order(order_id, entity['orderEmail'], entity['orderName'])
 
 
-def load_order_key(client, order_id):
+def load_order_key(client, order_id=None):
     """Load a datastore key using a particular client, and if known, the ID.
     Note the ID should be an int - we're allowing datastore to generate them in
     this example."""
     key = None
-    key = client.key(config.ORDER_ENTITY_TYPE, order_id)
+    if order_id:
+        key = client.key(config.ORDER_ENTITY_TYPE, order_id)
+    else:
+        # this will generate an ID
+        key = client.key(config.ORDER_ENTITY_TYPE)
     return key
 
 
@@ -60,10 +64,19 @@ def checkorder(order_id):
 
 
 def create_order(order):
-    """Create a new shopping list item entity from the specified object."""
+    """Create a new order item entity from the specified object."""
     client = datastore.Client(config.PROJECT_ID)
     key = load_order_key(client, order.orderId)
     entity = datastore.Entity(key)
+    entity['orderId'] = order.orderId
+    entity['size'] = order.size
+    entity['tea'] = order.tea
+    entity['flavor'] = order.flavor
+    entity['milk'] = order.milk
+    entity['sweetness'] = order.sweetness
+    entity['temp'] = order.temp
+    entity['toppings'] = order.toppings
+    entity['price'] = order.price
     client.put(entity)
     log('saved new entity for ID: %s' % key.id_or_name)
 

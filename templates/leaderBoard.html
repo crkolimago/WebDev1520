@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  {% include "header.html" %}
+  <head>
+    <title>FukuTea Loyalty Leaderboard</title>
+    <link rel="stylesheet" type="text/css" href="static/styles/leaderBoard.css?1.2">
+    <meta charset="utf-8"/>
+  </head>
+  <body onload="loadBoard();">
+    <div class="content">
+      <!-- </div>
+      {% if error_message %}
+        <div class="Error">{{error_message}}</div>
+      {% endif %}
+      <section id="ErrorArea"></section>
+        <button onclick="loadBoard();">Load LeaderBoard</button> 
+      <div id="DisplayArea">
+      </div> -->
+      <h1> FukuTea Loyalty Leaderboard </h1>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Loyalty Points</th>
+          <th>Total Money Spent</th>
+        </tr>
+        <tr>
+          <th>{{userName}}</th>
+          <th>{{userPoints}}</th>
+          <th>{{userMoneySpent}}</th>
+        </tr>
+      </table>
+    </div><!-- content div -->
+    <script src="static/js/leaderBoard.js?1.531"></script>
+  </body>
+</html>
