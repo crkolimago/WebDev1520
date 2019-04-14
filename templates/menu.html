@@ -10,6 +10,8 @@
 
 {% block footer %}
 {% if admin == "true" %}
+<div id="wrapper"></div>
+<button onclick="updateMenu();">Update</button>
 <form action="/save-data" method="post" enctype="multipart/form-data">
 	<ul class="adminForm-style">
 		<li>

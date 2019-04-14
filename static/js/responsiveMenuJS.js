@@ -140,20 +140,26 @@ function itemSaved(result, targetUrl, params) {
     }
 }
 
-// TODO: menu data structure !!!
-function displayList(result, targetUrl) {
+
+function displayList(result) {
     if (result && result.length) {
         let text = "";
+        let admin_menu = "";
 
         for (var i = 0; i < result.length; i++) {
             text += '<div class="menu-item">';
             text += '<img class="image" src="' + result[i].url + '" alt="' + result[i].name + '" id="img_' + result[i].id + '"/>';
             text += '<button onclick="showInfo(' + result[i].id + ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + ' ' + result[i].price + '</button>';
             text += '</div>';
+            admin_menu += '<div class="divs" ondrop="drop(event)" ondragover="allowDrop(event)">';
+            admin_menu += '<span id="drag_' + result[i].id + '" draggable="true" ondragstart="drag(event)">' + result[i].id + '</span>';
+            admin_menu += '</div>';
         }
         document.getElementById("flex-container").innerHTML = text;
+        document.getElementById('wrapper').innerHTML = admin_menu;
     } else {
         document.getElementById("flex-container").innerHTML = 'No menu items.';
+        document.getElementById("wrapper").innerHTML = 'No menu items.';
     }
 }
 
@@ -170,4 +176,31 @@ function loadItems() {
     getData('/load-sl-items', displayList);
 }
 // when the page loads, let's load the initial items into the list.
+
+function allowDrop(allowdropevent) {
+    allowdropevent.preventDefault();
+}
+
+function drag(dragevent) {
+    dragevent.dataTransfer.setData("text", dragevent.target.id);
+}
+
+function drop(dropevent) {
+    dropevent.preventDefault();
+    var data = dropevent.dataTransfer.getData("text");
+    var cur = document.getElementById(data);
+    var parent = cur.parentElement;
+    var tgt = dropevent.currentTarget.firstElementChild;
+    dropevent.currentTarget.replaceChild(cur, tgt);
+    parent.appendChild(tgt);
+}
+
+function updateMenu() {
+    let menu = document.getElementById('wrapper').childNodes;
+
+    for(var i=0; i<menu.length; i++) {
+        console.log(menu[i].firstChild.id.split('_')[1]);
+    }
+}
+
 loadItems();

@@ -145,8 +145,6 @@ def load_sli_items():
     sli_list = slidata.get_list_items()
     json_list = []
 
-    # TODO: then we load the photo urls based on id
-
     # then we convert it into a normal list of dicts so that we can easily turn it
     # into JSON
     for sl_item in sli_list:

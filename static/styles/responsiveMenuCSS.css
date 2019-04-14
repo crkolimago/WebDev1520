@@ -9,7 +9,7 @@ body {
 }
 
 #info-popup {
-  position: absolute;
+  position: fixed;
   z-index: 2;
   background: white;
   border: 1px solid black;
@@ -202,4 +202,22 @@ randomButton:hover {
     background-image: -o-linear-gradient(top, #45B50D, #1C730F);
     background-image: linear-gradient(to bottom, #45B50D, #1C730F);
     text-decoration: none;
+}
+
+#wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  margin: 30px;
+}
+
+.divs {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    width:100px;
+    height:50px;
+    padding: 10px;
+    border:1px solid black;
 }
