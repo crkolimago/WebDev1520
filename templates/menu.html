@@ -1,9 +1,58 @@
 {% extends 'responsiveMenu.html' %} {% block content %}
 <div id="flex-container"></div>
 <div id="info-popup">
-    <div class="info-popup-item" id="info-popup-name"></div>
-    <div class="info-popup-item" id="info-popup-price"></div>
-    <button class="item_button" id="saveButton" onclick="hideInfo();">Save</button>
+    <div class="info-popup-item">
+        <form id="info-popup-form" action="/save-sig-order" onreset="hideInfo()" method="post">
+            <ul id="info-popup-form-list">
+                <li class="info-popup-form-item">
+                    <div class="info-popup-item" id="info-popup-name"></div>
+                </li>
+                <li class="info-popup-form-item">
+                  <span class="bold">Size</span><br>
+                  <input type="radio" name="size" value="Small" checked>Small</input>
+                  <input type="radio" name="size" value="Large">Large</input>
+                </li>
+                <li class="info-popup-form-item">
+                  <span class="bold">Sweetness</span><br>
+                  <input type="radio" name="sweetness" value="None" checked>None</input>
+                  <input type="radio" name="sweetness" value="Light">Light</input>
+                  <input type="radio" name="sweetness" value="Normal">Normal</input>
+                  <input type="radio" name="sweetness" value="Extra">Extra</input>
+                </li>
+                <li class="info-popup-form-item">
+                  <span class="bold">Milk</span><br>
+                  <input type="radio" name="milk" value="2" checked>2%</input>
+                  <input type="radio" name="milk" value="Whole">Whole</input>
+                  <input type="radio" name="milk" value="HalfHalf">Half&Half</input>
+                  <input type="radio" name="milk" value="Soy">Soy (+$.50)</input>
+                </li>
+                <li class="info-popup-form-item">
+                  <span class="bold">Temperature</span><br>
+                  <input type="radio" name="temp" value="Cold" checked>Cold</input>
+                  <input type="radio" name="temp" value="Hot">Hot</input>
+                </li>
+                <li class="info-popup-form-item">
+                  <span class="bold">Toppings</span><br>
+                  <input type="checkbox" name="toppings" value="tapioca">Tapioca</input>
+                  <input type="checkbox" name="toppings" value="pudding">Pudding</input>
+                  <input type="checkbox" name="toppings" value="redbean">Red Bean</input>
+                  <input type="checkbox" name="toppings" value="grassjelly">Grass Jelly</input>
+                  <input type="checkbox" name="toppings" value="agar">Agar</input>
+                  <input type="checkbox" name="toppings" value="poppingboba">Popping Boba</input>
+                  <input type="checkbox" name="toppings" value="jelly">Jelly</input>
+                </li>
+                <li>
+                    <input type="submit" value="submit" class="item_button"></input>
+                </li>
+                <li>
+                    <input type="reset" value="clear" class="item_button"></input>
+                </li>
+                <li>
+                    <div class="info-popup-item" id="info-popup-price"></div>
+                </li>
+            </ul>
+    </form>
+    </div>
 </div>
 {% endblock %} 
 

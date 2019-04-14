@@ -38,7 +38,7 @@ def info():
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if 'curUser' in session:
-        return render_template("profile.html", userName=userData.get_user(session['curUser']).userName , emailAddress=userData.get_user(session['curUser']).userEmail , rewards=0, setup="true")
+        return render_template("profile.html", userName=userData.get_user(session['curUser']).userName, emailAddress=userData.get_user(session['curUser']).userEmail, rewards=0, setup="true")
     else:
         return render_template("profile.html")
 
@@ -158,8 +158,8 @@ def load_sli_items():
 
 @app.route('/menu.html')
 def menu():
-    if 'curUser' in session and (userData.get_user(session['curUser']).userId == '107547848533480653521' or userData.get_user(session['curUser']).userId  == '112301482083727417023'):
-        return render_template('menu.html', admin="true") 
+    if 'curUser' in session and (userData.get_user(session['curUser']).userId == '107547848533480653521' or userData.get_user(session['curUser']).userId == '112301482083727417023'):
+        return render_template('menu.html', admin="true")
     else:
         return render_template('menu.html', admin="false")
 
@@ -195,7 +195,7 @@ def delete_item():
     except Exception as exc:
         log(str(exc))
 
-    return redirect('/menu.html');
+    return redirect('/menu.html')
 
 
 # here we use a Flask shortcut to pull the itemid from the URL.
@@ -206,6 +206,7 @@ def get_item(itemid):
     d = item.to_dict()
     d['id'] = itemid
     return Response(json.dumps(d), mimetype='application/json')
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
@@ -309,5 +310,22 @@ def edit_data():
         item_name = d['name']
 
     save_item(item_price, item_name, item_url, item_id)
+
+    return redirect('/menu.html')
+
+
+@app.route('/save-sig-order', methods=['POST'])
+def save_sig_order():
+    log(request.form)
+
+    size = request.form['size']
+    sweetness = request.form['sweetness']
+    milk = request.form['milk']
+    temp = request.form['temp']
+
+    try:
+        toppings = request.form['toppings']
+    except KeyError:
+        toppings = None
 
     return redirect('/menu.html')

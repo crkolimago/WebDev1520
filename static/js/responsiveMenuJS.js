@@ -4,9 +4,20 @@ function hideInfo() {
 
 function showInfo(id, result) {
     if(result) {
+        // get list of radio buttons with name 'size'
+        var sz = document.forms['info-popup-form'].elements['size'];
+        console.log(sz);
+
+        // // loop through list
+        // for (var i=0, len=sz.length; i<len; i++) {
+        //     sz[i].onclick = function() { // assign onclick handler function to each
+        //         // put clicked radio button's value in total field
+        //         this.form.elements.total.value = this.value;
+        //     };
+        // }
         document.getElementById("info-popup").style.visibility = "visible";
         document.getElementById("info-popup-name").innerHTML = result.name;
-        document.getElementById("info-popup-price").innerHTML = result.price;
+        document.getElementById("info-popup-price").innerHTML = '$'+result.price;
     } else {
         getItem(id);
     }
@@ -149,7 +160,7 @@ function displayList(result) {
         for (var i = 0; i < result.length; i++) {
             text += '<div class="menu-item">';
             text += '<img class="image" src="' + result[i].url + '" alt="' + result[i].name + '" id="img_' + result[i].id + '"/>';
-            text += '<button onclick="showInfo(' + result[i].id + ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + ' ' + result[i].price + '</button>';
+            text += '<button onclick="showInfo(' + result[i].id + ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>$' + result[i].price + '</button>';
             text += '</div>';
             admin_menu += '<div class="divs" ondrop="drop(event)" ondragover="allowDrop(event)">';
             admin_menu += '<span id="drag_' + result[i].id + '" draggable="true" ondragstart="drag(event)">' + result[i].id + '</span>';
