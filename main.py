@@ -20,10 +20,10 @@ app.secret_key = config.KEY
 
 @app.route('/')
 def root():
-    if 'curUser' in session:
+    return render_template("fukuPage.html")
+    """ if 'curUser' in session:
         return render_template("fukuPage.html", userName=userData.get_user(session['curUser']).userName)
-    else:
-        return render_template("fukuPage.html")
+    else:"""
 
 
 @app.route('/customDrink')
@@ -38,7 +38,7 @@ def info():
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    if 'curUser' in session:
+    if 'curUser' in session and userData.checkUser(session['curUser']):
         return render_template("profile.html", userName=userData.get_user(session['curUser']).userName, emailAddress=userData.get_user(session['curUser']).userEmail, rewards=0, setup="true")
     else:
         return render_template("profile.html")
@@ -65,14 +65,13 @@ def tokenSignIn():
         else:
             userEmail = idinfo['email']
             userName = idinfo['given_name']
-            newUser = User(userId, userEmail, userName)
+            newUser = User(userId, userEmail, userName, 0, 0)
             log('saving for user: %s' % userName)
             userData.create_user(newUser)
     except ValueError:
         pass
     session['curUser'] = userId
     return render_template("fukuPage.html")
-    # return render_template("fukuPage.html", userName=userName)
 
 
 @app.route('/tokenSignOut', methods=['POST'])
@@ -129,7 +128,7 @@ def customOrder():
 def saveOrder():
     try:
         # now sure how to generate unique IDs for every order
-        orderId = 1
+        name = request.form.get('name', '')
         money_spent = request.form.get('total', '')
         size = request.form.get('size', '')
         tea = request.form.get('tea', '')
@@ -139,11 +138,11 @@ def saveOrder():
         temp = request.form.get('temp', '')
         toppings = request.form.get('toppings', '')
         price = request.form.get('price', '')
-        order = Order(orderId, size, tea, flavor, milk, sweetness, temp, toppings, price)
-        orderData.create_order(order) # not sure if works, it doesn't
-        orderData.save_order(order)
+        payment = request.form.get('payment', '')
+        order = Order(None, name, size, tea, flavor, milk, sweetness, temp, toppings, price, payment)
+        orderData.create_order(order)
         json_result = {}
-
+        """
         if 'curUser' in session:
             # user = userData.get_user(session['curUser'])
             user = userData.get_entity(session['curUser'])
@@ -157,7 +156,7 @@ def saveOrder():
             log("user not signed in")
 
         json_result['ok'] = True
-
+    """
     except Exception as exc:
         log(str(exc))
         json_result['error'] = 'Order was not saved something went wrong'

@@ -5,11 +5,9 @@ Then do 'echo "config.py" > .gitignore'
 
 DATA_BACKEND = 'datastore'
 
-# PROJECT_ID = 'fukutea'
-PROJECT_ID = 'hidden-display-230020'
+PROJECT_ID = 'fukutea'
 
-# CLIENT_ID = '723893521330-ktddc0koarl54ddga9p6epa5o1fuqt86.apps.googleusercontent.com'
-CLIENT_ID = '261391569728-omarmubob7v9jal4mp1ldm85amiaqplp.apps.googleusercontent.com'
+CLIENT_ID = '723893521330-94000c9m5sl45f9ibc08hbccpfj9r6uo.apps.googleusercontent.com'
 
 CLOUD_STORAGE_BUCKET = 'fukuteashop-menu-images'
 MAX_CONTENT_LENGTH = 8 * 1024 * 1024
@@ -21,4 +19,4 @@ USER_ENTITY_TYPE = 'user'
 
 ORDER_ENTITY_TYPE = 'order'
 
-KEY = 'random stuff'
+KEY = '1p2938aewewr490@#4#_'

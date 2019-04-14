@@ -10,6 +10,7 @@ var temp = '';
 var price = 0;
 var subTotal = 0;
 var toppingString = '';
+var payment= '';
 
 function Drink(size, tea, flavor, milk, sweetness, temp, toppings, price) {
     this.size = size;
@@ -44,6 +45,14 @@ function confirmDrink(form) {
     if (teas[i].checked) {
       tea = teas[i].value;
       drink.tea = tea;
+      break;
+    }
+  }
+  var payments = form.elements["payment"];
+  for (var i=0; i<payments.length; i++) {
+    if (payments[i].checked) {
+      payment = payments[i].value;
+      drink.payment = payment;
       break;
     }
   }
@@ -104,6 +113,7 @@ function confirmDrink(form) {
   } else {
     var drink_as_string = '';
     for (var property in drink) {
+      if(property!="payment")
       drink_as_string += drink[property] + ', ';
     }
     //console.log(drink_as_string);
@@ -172,7 +182,7 @@ function submit_cart() {
     var ul = document.getElementById('customDrinkInCart');
     var items = ul.getElementsByTagName('li');
     var pprice = parseFloat(items[items.length-1].textContent);
-    //var product = pprice * quantity;
+    var product = pprice * quantity;
     subtotal += pprice;
     //subtotal += product;
     //console.log(product);
@@ -203,7 +213,7 @@ function submit_cart() {
 function save_order() {
   let params = {};
   params['total'] = subTotal;
-  params['customDrink'] = 'Custom Drink';
+  params['name'] = 'Custom Drink';
   params['size'] = size;
   params['tea'] = tea;
   params['flavor'] = flavor;
@@ -212,6 +222,7 @@ function save_order() {
   params['temp'] = temp;
   params['toppings'] = toppingString;
   params['price'] = price;
+  params['payment'] = payment;
   for (i in params) {
     console.log(params[i])
   }

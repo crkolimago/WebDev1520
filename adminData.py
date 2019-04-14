@@ -1,13 +1,13 @@
 from google.cloud import datastore
-from User import User
+from Order import Order
 import config
-
 
 
 def convert_to_userObj(entity):
     """Convert the entity returned by datastore to a normal object."""
     order_id = entity.key.id_or_name
-    return  Order(order_id, entity['size'], entity['tea'],entity['flavor'], entity['milk'], entity['sweetness'], entity['temp'],entity['toppings'], entity['price'])
+    return Order(order_id, entity['size'], entity['tea'],entity['flavor'], entity['milk'], entity['sweetness'], entity['temp'],entity['toppings'], entity['price'])
+
 
 def get_list_items():
     """Retrieve the list items we've already stored."""
@@ -17,7 +17,7 @@ def get_list_items():
     query = client.query(kind=config.USER_ENTITY_TYPE)
 
     # we execute the query
-    orders_items = list(query.fetch())
+    order_items = list(query.fetch())
 
     # the code below converts the datastore entities to plain old objects -
     # this is good for decoupling the rest of our app from datastore.
@@ -47,6 +47,7 @@ def load_key(client, item_id=None):
         # this will generate an ID
         key = client.key(config.ORDER_ENTITY_TYPE)
     return key
+
 
 def delete_list_item(order_id):
     """Delete the entity associated with the specified ID."""
