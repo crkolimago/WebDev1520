@@ -1,17 +1,16 @@
 {% extends 'responsiveMenu.html' %} {% block content %}
 <div id="flex-container"></div>
 <div id="info-popup">
-        <div class="info-popup-item" id="info-popup-name"></div>
-        <div class="info-popup-item" id="info-popup-price"></div>
-        <button class="item_button" id="saveButton" onclick="hideInfo();">Save</button>
+    <div class="info-popup-item" id="info-popup-name"></div>
+    <div class="info-popup-item" id="info-popup-price"></div>
+    <button class="item_button" id="saveButton" onclick="hideInfo();">Save</button>
 </div>
 {% endblock %} 
 
 
 {% block footer %}
 {% if admin == "true" %}
-<div id="wrapper"></div>
-<button onclick="updateMenu();">Update</button>
+<!--<button onclick="updateMenu();">Update</button>-->
 <form action="/save-data" method="post" enctype="multipart/form-data">
 	<ul class="adminForm-style">
 		<li>
@@ -69,6 +68,7 @@
         </li>
     </ul>
 </form>
+<div id="wrapper"></div>
 <button onclick="deleteAll();"/>Delete All</button>
 {% else %}
 <div></div>

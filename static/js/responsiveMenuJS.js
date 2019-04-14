@@ -156,10 +156,14 @@ function displayList(result) {
             admin_menu += '</div>';
         }
         document.getElementById("flex-container").innerHTML = text;
-        document.getElementById('wrapper').innerHTML = admin_menu;
+        if(document.getElementById('wrapper') != null) {
+            document.getElementById('wrapper').innerHTML = admin_menu;
+        }
     } else {
         document.getElementById("flex-container").innerHTML = 'No menu items.';
-        document.getElementById("wrapper").innerHTML = 'No menu items.';
+        if(document.getElementById('wrapper') != null) {
+            document.getElementById('wrapper').innerHTML = 'No menu items.';
+        }
     }
 }
 
