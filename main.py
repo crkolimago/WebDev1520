@@ -213,6 +213,27 @@ def load_random():
     return Response(responseJson, mimetype='application/json')
 
 
+"""@app.route('/load-order-items')
+def load_order_items():
+
+    # first we load the list items
+
+    log('loading list orders.')
+    order_list = adminData.get_list_items()
+    json_list = []
+
+    # TODO: then we load the photo urls based on id
+
+    # then we convert it into a normal list of dicts so that we can easily turn it
+    # into JSON
+    for order in order_list:
+        d = order.to_dict()
+        d['id'] = str(order.orderId)
+        json_list.append(d)
+
+    responseJson = json.dumps(json_list)
+    return Response(responseJson, mimetype='application/json')"""
+
 @app.route('/load-sl-items')
 def load_sli_items():
 
@@ -290,7 +311,13 @@ def get_item(itemid):
     d['id'] = itemid
     return Response(json.dumps(d), mimetype='application/json')
 
-
+"""@app.route('/get-order/<itemid>')
+def get_order(itemid):
+    log('retrieving order for ID: %s' % itemid)
+    item = adminData.get_list_item(itemid)
+    d = item.to_dict()
+    d['id'] = itemid
+    return Response(json.dumps(d), mimetype='application/json')"""
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
 
