@@ -3,8 +3,10 @@ import slidata
 import json
 import random
 import userData
+import orderData
 from menuitem import MenuItem
 from User import User
+from Order import Order
 from google.cloud import storage
 from google.oauth2 import id_token
 from google.auth.transport import requests
@@ -12,17 +14,16 @@ from flask import Flask, session, redirect, render_template, request, Response
 import six
 import config
 
-
 app = Flask(__name__)
 app.secret_key = config.KEY
 
 
 @app.route('/')
 def root():
-    if 'curUser' in session:
+    return render_template("fukuPage.html")
+    """ if 'curUser' in session:
         return render_template("fukuPage.html", userName=userData.get_user(session['curUser']).userName)
-    else:
-        return render_template("fukuPage.html")
+    else:"""
 
 
 @app.route('/customDrink')
@@ -37,7 +38,7 @@ def info():
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    if 'curUser' in session:
+    if 'curUser' in session and userData.checkUser(session['curUser']):
         return render_template("profile.html", userName=userData.get_user(session['curUser']).userName, emailAddress=userData.get_user(session['curUser']).userEmail, rewards=0, setup="true")
     else:
         return render_template("profile.html")
@@ -64,14 +65,13 @@ def tokenSignIn():
         else:
             userEmail = idinfo['email']
             userName = idinfo['given_name']
-            newUser = User(userId, userEmail, userName)
+            newUser = User(userId, userEmail, userName, 0, 0)
             log('saving for user: %s' % userName)
             userData.create_user(newUser)
     except ValueError:
         pass
     session['curUser'] = userId
     return render_template("fukuPage.html")
-    # return render_template("fukuPage.html", userName=userName)
 
 
 @app.route('/tokenSignOut', methods=['POST'])
@@ -79,6 +79,15 @@ def tokenSignOut():
     session.clear()
     log("user has been signed out")
     return render_template("fukuPage.html")
+
+
+@app.route('/checkSignedIn')
+def checkSignedIn():
+    global CUR_USER
+    if (CUR_USER is not None):
+        return True
+    else:
+        return False
 
 
 def log(msg):
@@ -115,6 +124,73 @@ def customOrder():
         return render_template("customDrink.html")
 
 
+@app.route('/save-order', methods=['GET', 'POST'])
+def saveOrder():
+    try:
+        # now sure how to generate unique IDs for every order
+        name = request.form.get('name', '')
+        money_spent = request.form.get('total', '')
+        size = request.form.get('size', '')
+        tea = request.form.get('tea', '')
+        flavor = request.form.get('flavor', '')
+        milk = request.form.get('milk', '')
+        sweetness = request.form.get('sweetness', '')
+        temp = request.form.get('temp', '')
+        toppings = request.form.get('toppings', '')
+        price = request.form.get('price', '')
+        payment = request.form.get('payment', '')
+        order = Order(None, name, size, tea, flavor, milk, sweetness, temp, toppings, price, payment)
+        orderData.create_order(order)
+        json_result = {}
+        """
+        if 'curUser' in session:
+            # user = userData.get_user(session['curUser'])
+            user = userData.get_entity(session['curUser'])
+            user['userPoints'] += 1
+            user['userMoneySpent'] += float(money_spent)
+            userObject = userData.convert_to_userObj(user)
+            userObject.userPoints = user['userPoints']
+            userObject.userMoneySpent = user['userMoneySpent']
+            userData.save_user(userObject)
+        else:
+            log("user not signed in")
+
+        json_result['ok'] = True
+    """
+    except Exception as exc:
+        log(str(exc))
+        json_result['error'] = 'Order was not saved something went wrong'
+
+    return Response(json.dumps(json_result), mimetype='application/json')
+
+
+@app.route('/leaderBoard', methods=['GET', 'POST'])
+def leaderBoard():
+    if request.method == "GET":
+        userList = userData.get_list_items()
+        for user in userList:
+            userName = user.userName
+            userPoints = user.userPoints
+            userMoneySpent = user.userMoneySpent
+        return render_template("leaderBoard.html", userName=userName, userPoints=userPoints, userMoneySpent=userMoneySpent)
+
+
+@app.route('/get-leaderboard-data')
+def get_leaderboard_data():
+    # get list of users
+    # iterate thru list of users
+    # somehow send each part to the front end
+    # templates maybe?
+    # send list to JS and parse there maybe?
+    responseJson = json.dumps({
+        'Text': 'Put LeaderBoard Here',
+    })
+    userList = userData.get_list_items()
+
+    # responseJson = json.dumps({ 'Name': user.userName, })
+    return Response(responseJson)
+
+
 @app.route('/random', methods=['GET', 'POST'])
 def randomizer():
     return render_template("random.html")
@@ -131,10 +207,31 @@ def load_random():
     d['id'] = str(sli_list[i].id)
     log(d)
     json_list.append(d)
-
     responseJson = json.dumps(json_list)
+
     return Response(responseJson, mimetype='application/json')
 
+
+"""@app.route('/load-order-items')
+def load_order_items():
+
+    # first we load the list items
+
+    log('loading list orders.')
+    order_list = adminData.get_list_items()
+    json_list = []
+
+    # TODO: then we load the photo urls based on id
+
+    # then we convert it into a normal list of dicts so that we can easily turn it
+    # into JSON
+    for order in order_list:
+        d = order.to_dict()
+        d['id'] = str(order.orderId)
+        json_list.append(d)
+
+    responseJson = json.dumps(json_list)
+    return Response(responseJson, mimetype='application/json')"""
 
 @app.route('/load-sl-items')
 def load_sli_items():
@@ -207,7 +304,13 @@ def get_item(itemid):
     d['id'] = itemid
     return Response(json.dumps(d), mimetype='application/json')
 
-
+"""@app.route('/get-order/<itemid>')
+def get_order(itemid):
+    log('retrieving order for ID: %s' % itemid)
+    item = adminData.get_list_item(itemid)
+    d = item.to_dict()
+    d['id'] = itemid
+    return Response(json.dumps(d), mimetype='application/json')"""
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
 

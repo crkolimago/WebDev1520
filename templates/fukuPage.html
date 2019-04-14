@@ -1,28 +1,10 @@
 <!DOCTYPE html>
 <html>
-{% include "header.html" %}
 <body>
     <script src="static/js/main.js"></script>
     <div id="gSignIn" class="g-signin2"  data-onsuccess="onSuccess"></div>
-    <br>
+    {% include "header.html" %}
   <div class="content">
-    <div id="userWelcome">
-        {%if userName%}
-        Welcome back, {{userName}}
-        {%endif%}
-        </div> 
-    <img id = "logo" src="static/img/fukuLogo.png" >
-    <div id="navbar">
-      <a class="navbutton" href="/">Home</a>
-      <a class="navbutton" href="/menu">Order Now</a>
-      <a class="navbutton" href="/customDrink">Custom Drink</a>
-      <a class="navbutton" href="/random">Random Drink</a>
-      <a class="navbutton" href="/info.html">Info</a>
-      <a class="navbutton" href="/profile">Profile</a>
-      <a href="javascript:void(0);" onclick="signOut();">Sign out</a>
-     <!-- <a class="navbutton" href="/order">Order Now</a>-->
-      <a class="navbutton" href="/customDrink">Custom Drink</a>
-    </div>
     <div id="about">
       <h3>About</h3>
       <p>
