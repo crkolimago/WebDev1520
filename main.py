@@ -4,6 +4,7 @@ import json
 import random
 import userData
 import orderData
+import adminData
 from menuitem import MenuItem
 from User import User
 from Order import Order
@@ -39,7 +40,8 @@ def info():
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if 'curUser' in session and userData.checkUser(session['curUser']):
-        return render_template("profile.html", userName=userData.get_user(session['curUser']).userName, emailAddress=userData.get_user(session['curUser']).userEmail, rewards=0, setup="true")
+        temp = userData.get_user(session['curUser'])
+        return render_template("profile.html", userName=temp.userName, emailAddress=temp.userEmail, rewards=0, setup="true", picture=temp.userPicture, lastname=temp.userLastName)
     else:
         return render_template("profile.html")
 
@@ -65,7 +67,9 @@ def tokenSignIn():
         else:
             userEmail = idinfo['email']
             userName = idinfo['given_name']
-            newUser = User(userId, userEmail, userName, 0, 0)
+            userPicture = idinfo['picture']
+            userLastName = idinfo['family_name']
+            newUser = User(userId, userEmail, userName, 0, 0, userPicture, userLastName)
             log('saving for user: %s' % userName)
             userData.create_user(newUser)
     except ValueError:
@@ -81,32 +85,11 @@ def tokenSignOut():
     return render_template("fukuPage.html")
 
 
-@app.route('/checkSignedIn')
-def checkSignedIn():
-    global CUR_USER
-    if (CUR_USER is not None):
-        return True
-    else:
-        return False
-
-
 def log(msg):
     """Log a simple message."""
     # Look at: https://console.cloud.google.com/logs to see your logs.
     # Make sure you have "stdout" selected.
     print('main: %s' % msg)
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == "GET":
-        return render_template("login.html")
-    elif request.method == "POST":
-        userName = "Welcome back " + request.form["userName"] + "!"
-        password = request.form["password"]
-        return render_template("fukuPage.html", userName=userName, password=password)
-    else:
-        return "Hello"
 
 
 @app.route('/order', methods=['GET', 'POST'])
@@ -195,6 +178,10 @@ def get_leaderboard_data():
 def randomizer():
     return render_template("random.html")
 
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+    return render_template("adminPage.html")
+
 
 @app.route('/load-random')
 def load_random():
@@ -212,7 +199,7 @@ def load_random():
     return Response(responseJson, mimetype='application/json')
 
 
-"""@app.route('/load-order-items')
+@app.route('/load-order-items')
 def load_order_items():
 
     # first we load the list items
@@ -231,7 +218,7 @@ def load_order_items():
         json_list.append(d)
 
     responseJson = json.dumps(json_list)
-    return Response(responseJson, mimetype='application/json')"""
+    return Response(responseJson, mimetype='application/json')
 
 @app.route('/load-sl-items')
 def load_sli_items():

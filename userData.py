@@ -18,7 +18,7 @@ def log(msg):
 def convert_to_userObj(entity):
     """Convert the entity returned by datastore to a normal object."""
     user_id = entity.key.id_or_name
-    return User(user_id, entity['email'], entity['name'], entity['userPoints'], entity['userMoneySpent'])
+    return User(user_id, entity['email'], entity['name'], entity['userPoints'], entity['userMoneySpent'],entity['userPicture'],entity['userLastName'] )
 
 
 def load_user_key(client, user_id):
@@ -88,6 +88,8 @@ def create_user(user):
     entity['name'] = user.userName
     entity['userPoints'] = user.userPoints
     entity['userMoneySpent'] = user.userMoneySpent
+    entity['userPicture'] = user.userPicture
+    entity['userLastName'] = user.userLastName
     client.put(entity)
     log('saved new entity for ID: %s' % key.id_or_name)
 

@@ -1,4 +1,10 @@
-
+/*
+function deleteItem(id) {
+  if (confirm("Are you sure you want to delete?")) {
+    let params = {"id": id};
+    sendJsonRequest('delete-item', objectToParameters(params), itemDeleted);
+  }
+}
 function saveItem(id) {
     console.log("saving item.");
     let params = {};
@@ -12,7 +18,7 @@ function saveItem(id) {
     }
     console.log("about to send request");
     sendJsonRequest('save-item', objectToParameters(params), itemSaved);
-}
+}*/
 
 function sendJsonRequest(targetUrl, parameters, callbackFunction) {
     let xmlHttp = createXmlHttp();
@@ -43,7 +49,7 @@ function createXmlHttp() {
     }
     return xmlhttp;
 }
-
+/*
 function postParameters(xmlHttp, targetUrl, parameters) {
     if (xmlHttp) {
         console.log("Creating POST request to " + targetUrl);
@@ -53,9 +59,10 @@ function postParameters(xmlHttp, targetUrl, parameters) {
         xmlHttp.send(parameters);
     }
 }
-
+*/
 function getData(targetUrl, callbackFunction) {
     let xmlHttp = createXmlHttp();
+    console.log("Creating GET request to: " + targetUrl);
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
             // note that you can check xmlHttp.status here for the HTTP response code
@@ -92,7 +99,7 @@ function objectToParameters(obj) {
     }
     return text;
 }
-
+/*
 // use this to clear the values in the "add item" form
 function clearItemForm() {
     document.getElementById("item-name").value = '';
@@ -103,8 +110,8 @@ function deleteAll() {
     if (confirm("Are you sure you want to delete?")) {
         sendJsonRequest('delete-all', null, itemsDeleted);
     }
-}
-
+}*/
+/*
 // when we delete an item, we use this to reload the list of items.
 function itemsDeleted(result) {
     if (result && result.ok) {
@@ -114,7 +121,7 @@ function itemsDeleted(result) {
         console.log("Received error: " + result.error);
         showError(result.error);
     }
-}
+}*/
 
 
 function displayList(result, targetUrl) {
@@ -123,8 +130,8 @@ function displayList(result, targetUrl) {
         //work on formatting the orders to display
         for (var i = 0; i < result.length; i++) {
             text += '<div class="order">';
-            text += '<img class="image" src="' + result[i].url + '" alt="' + result[i].name + '" id="img_' + result[i].id + '"/>';
-            text += '<button onclick="showInfo(' + result[i].id + ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + ' ' + result[i].price + '</button>';
+            text += '<p> Drink:' + result[i].name + '<br>Size:' + result[i].size + '<br>Tea:'+  result[i].tea+'<br>Flavor:'+  result[i].flavor+'<br>Milk:'+  result[i].milk+'<br>Sweetness:'+  result[i].sweetness+'<br>Temp:'+  result[i].temp+'<br>Toppings:'+  result[i].toppings +'<br>Payment Type:'+  result[i].payment+'<br>Price:'+  result[i].price +'</p>';
+            //text += '<button onclick="deleteItem(\'' + result[i].id + '\');">Remove Order</button> ';
             text += '</div>';
         }
         document.getElementById("flex-container").innerHTML = text;
@@ -133,17 +140,12 @@ function displayList(result, targetUrl) {
     }
 }
 
-function getItem(id) {
-  getData('/get-order/' + id, itemLoaded);
-}
-
-// when the item is loaded, we render an edit form in the list.
-function itemLoaded(result, targetUrl) {
-  showInfo(result.id, result);
-}
 
 function loadItems() {
-    getData('/load-sl-items', displayList);
+    console.log("hey");
+    getData('/load-order-items', displayList);
+    console.log("hey now");
 }
 // when the page loads, let's load the initial items into the list.
+console.log("hey");
 loadItems();
