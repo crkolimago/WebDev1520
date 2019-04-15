@@ -17,13 +17,43 @@ function sub() {
 }
 
 function showInfo(id, result) {
+     
     if(result) {
+        console.log("got here");
+        console.log(result.name);
         document.getElementById("info-popup").style.visibility = "visible";
-        document.getElementById("info-popup-name").innerHTML = result.name;
-        document.getElementById("form-name").value = document.getElementById("info-popup-name").innerHTML;
-        document.getElementById("info-popup-price").innerHTML = '$'+result.price;
-        document.getElementById("form-price").value = document.getElementById("info-popup-price").innerHTML;
-        localStorage.setItem('price',document.getElementById("info-popup-price").innerHTML);
+        let text="";
+            tea = result.tea;
+            flavor = result.flavor;
+            toppings = result.toppings;
+
+            text += '<div class="order">';
+                
+            text += '<p> Drink:' + result.name;
+            text += '<br>Size:' + result.size;
+            if(tea != '') {
+                text += '<br>Tea:'+tea;
+            }
+            if(flavor != '') {
+                text += '<br>Flavor:'+flavor;
+            }
+            text += '<br>Milk:'+  result.milk;
+            text += '<br>Sweetness:'+  result.sweetness;
+            text += '<br>Temp:'+  result.temp;
+            if(toppings != '') {
+                text += '<br>Toppings:'+  result.toppings;
+            }
+            text += '<br>Payment Type:'+  result.payment;
+            text += '<br>Price:'+  result.price;
+            text += '<br>Time:'+  result.time;
+            text += '</p>';
+            text += '<button onclick="saveItem(' + result.id+ ');" class="item_button" id="item_' + result.id + '">'+'Submit'+'</button>';
+
+            text += '</div>';
+
+            console.log(text);
+        document.getElementById("setText").innerHTML = text;
+        //localStorage.setItem('price',document.getElementById("info-popup-price").innerHTML);
     } else {
         getItem(id);
     }
@@ -164,7 +194,7 @@ function displayList(result) {
         for (var i = 0; i < result.length; i++) {
             text += '<div class="menu-item">';
             text += '<img class="image" src="' + result[i].url + '" alt="' + result[i].name + '" id="img_' + result[i].id + '"/>';
-            text += '<button onclick="saveItem(' + result[i].id+ ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>' + result[i].price + '</button>';
+            text += '<button onclick="showInfo(' + result[i].id+ ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>' + result[i].price + '</button>';
             text += '</div>';
         }
         document.getElementById("flex-container").innerHTML = text;
@@ -179,6 +209,7 @@ function getItem(id) {
 
 // when the item is loaded, we render an edit form in the list.
 function itemLoaded(result, targetUrl) {
+    console.log(result);
   showInfo(result.id, result);
 }
 
