@@ -4,43 +4,57 @@
 {% include "header.html" %}
   <head>
     <title>Custom Drink Order Form</title>
-    <link rel="stylesheet" type="text/css" href="static/styles/customDrinkStyle.css?">
+    <link rel="stylesheet" type="text/css" href="static/styles/customDrinkStyle.css?Monday 15th of April 2019 05:10:00 PM">
     <meta charset="utf-8"/>
   </head>
   <body>
-    <div class="content">
-      <div class="grid-container">
+    <div class="jumbotron">
+        <img id = "logo" src="static/img/fukuLogo.png" >	
+        {% include "navbar.html" %}
+    </div>
+    <div class="content">   
+        <div class="grid-container">
         <div class="header">
           <h1 id="headtxt">Custom Drink Order Form</h1>
         </div>
             <form name="customDrinkForm" id="customDrinkForm">
                 <br><b>Size</b><br>
-                <input type="radio" name="size" id="Small" value="Small">Small (16 oz.) $3.45
+               <input type="radio" name="size" id="Small" value="Small">Small (16 oz.) $3.45 &nbsp
                 <input type="radio" name="size" id="Large" value="Large">Large (24 oz.) $4.20
                 <br><br><b>Tea</b><br>
                 <input type="radio" name="tea" id="Jasmine Green" value="Jasmine Green">Jasmine Green
                 <input type="radio" name="tea" id="Classic Black" value="Classic Black">Classic Black
                 <br><br><b>Flavor</b><br>
-                <input type="radio" name="flavor" value="Original">Original
-                <input type="radio" name="flavor" value="Almond">Almond
-                <input type="radio" name="flavor" value="Blueberry">Blueberry
-                <input type="radio" name="flavor" value="Coconut">Coconut
-                <input type="radio" name="flavor" value="Grapefruit">Grapefruit
-                <input type="radio" name="flavor" value="GreenApple">Green Apple
-                <input type="radio" name="flavor" value="Honey">Honey
-                <input type="radio" name="flavor" value="Honeydew">Honeydew
-                <input type="radio" name="flavor" value="Kiwi">Kiwi
-                <input type="radio" name="flavor" value="Lemon">Lemon
-                <input type="radio" name="flavor" value="Lychee">Lychee
-                <input type="radio" name="flavor" value="Mango">Mango
-                <input type="radio" name="flavor" value="PassionFruit">Passion Fruit
-                <input type="radio" name="flavor" value="Peach">Peach
-                <input type="radio" name="flavor" value="Peppermint">Peppermint
-                <input type="radio" name="flavor" value="Pineapple">Pineapple
-                <input type="radio" name="flavor" value="Plum">Plum
-                <input type="radio" name="flavor" value="Pomegranate">Pomegranate
-                <input type="radio" name="flavor" value="Red Guava">Red Guava
-                <input type="radio" name="flavor" value="Strawberry">Strawberry
+                <table>
+                    <tr class="row">
+                        <td class="element"><input type="radio" name="flavor" value="Original">Original</td> 
+                        <td class="element"><input type="radio" name="flavor" value="Almond">Almond</td>
+                        <td class="element"><input type="radio" name="flavor" value="Blueberry">Blueberry</td>
+                        <td class="element"><input type="radio" name="flavor" value="Coconut">Coconut</td>
+                        <td class="element"><input type="radio" name="flavor" value="Grapefruit">Grapefruit</td>
+                    </tr>
+                    <tr class="row">
+                        <td class="element"><input type="radio" name="flavor" value="GreenApple">Green Apple</td>
+                        <td class="element"><input type="radio" name="flavor" value="Honey">Honey</td>                    
+                        <td class="element"><input type="radio" name="flavor" value="Honeydew">Honeydew</td>
+                        <td class="element"><input type="radio" name="flavor" value="Kiwi">Kiwi</td>
+                        <td class="element"><input type="radio" name="flavor" value="Lemon">Lemon</td>
+                    </tr>
+                    <tr class="row">
+                        <td class="element"><input type="radio" name="flavor" value="Lychee">Lychee</td>
+                        <td class="element"><input type="radio" name="flavor" value="Mango">Mango</td>
+                        <td class="element"><input type="radio" name="flavor" value="PassionFruit">Passion Fruit</td>
+                        <td class="element"><input type="radio" name="flavor" value="Peach">Peach</td>
+                        <td class="element"><input type="radio" name="flavor" value="Peppermint">Peppermint</td>
+                    </tr>
+                    <tr class="row">
+                        <td class="element"><input type="radio" name="flavor" value="Pineapple">Pineapple</td>
+                        <td class="element"><input type="radio" name="flavor" value="Plum">Plum</td>
+                        <td class="element"><input type="radio" name="flavor" value="Pomegranate">Pomegranate</td>
+                        <td class="element"><input type="radio" name="flavor" value="Red Guava">Red Guava</td>
+                        <td class="element"><input type="radio" name="flavor" value="Strawberry">Strawberry</td>
+                    </tr>
+                </table>
                 <br><br><b>Milk</b><br>
                 <input type="radio" name="milk" value="Whole Milk">Whole
                 <input type="radio" name="milk" value="2% Milk">2%

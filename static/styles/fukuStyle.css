@@ -11,6 +11,11 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-repeat: no-repeat;
     background-size: cover;
+    background-image : url("../img/bobaTea.jpg");
+    border-style: solid;
+	border-color: black;
+	border-width: thin;
+    border-radius: 10px;
   }
   #gSignIn{
     float: right;
@@ -120,6 +125,8 @@ body {
   #about {
     background-color: #f8f9f9;
     border-radius: 10px;
+    margin-left: 3em;
+    margin-right: 3em;
   }
   
   #about p {
@@ -131,9 +138,18 @@ body {
     padding: 10px;
   }
   
+  #map_info{
+      margin-left: 3em;
+      width: 21em;
+  }
+
   #map_info p {
     font-size: 16px;
     padding: 10px;
+  }
+
+  #map{
+      margin-right: 3em;
   }
   
   #reviews {

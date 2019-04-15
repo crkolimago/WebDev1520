@@ -8,32 +8,33 @@
     <meta charset="utf-8"/>
     <title>Fuku Tea by Group 5</title>
     <link rel="icon" href="static/img/favicon.ico">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="static/styles/fukuStyle.css?Monday 15th of April 2019 05:09:00 PM"/>
 </head>
 
 <body>
-  <section>
-    <div id="header">
-      <h1>About</h1>
+    <div class="content">
+    <img id = "logo" src="static/img/fukuLogo.png" >
+    {% include "navbar.html" %}
     </div>
-  </section>
-  <section>
-    <div id="body">
-      <h3>Authors</h3>
-      <p>
-        Chris, Ryan, Dharma, Brandon
-      </p>
-      <h3>Inspiration</h3>
+    <script src="static/js/main.js"></script>
+    <div id="about">
+        <h1>About</h1>
+        <h3>Authors</h3>
         <p>
-          The wonderful bubble tea shop, Fuku Tea, located on Forbes Ave. (see main page for map).
+            Chris, Ryan, Dharma, Brandon
         </p>
+        <div id="body">
+            <h3>Inspiration</h3>
+            <p>
+                The wonderful bubble tea shop, Fuku Tea, located on Forbes Ave. (see main page for map).
+            </p>
+        </div>
+        <div id="footer">
+            <p>
+                Disclaimer: This is a project for the University of Pittsburgh's COE1520 class. Original source content is available at
+                <a href="https://www.fukutea.com/">https://www.fukutea.com/</a>.</p>
+            </p>
+        </div>
     </div>
-    <div id="footer">
-      <p>
-        Disclaimer: This is a project for the University of Pittsburgh's COE1520 class. Original source content is available at
-        <a href="https://www.fukutea.com/">https://www.fukutea.com/</a>.</p>
-      </p>
-    </div>
-  </section>
 </body>
 </html>

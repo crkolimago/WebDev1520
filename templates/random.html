@@ -1,13 +1,21 @@
- <html>
+<!DOCTYPE html>
+<html>
    {% include "header.html" %}
  <head>
- <link rel="stylesheet" href="static/styles/responsiveMenuCSS.css">
+ <link rel="stylesheet" href="static/styles/responsiveMenuCSS.css?Monday 15th of April 2019 05:11:00 PM">
  </head>
  <body>
-     {% include "navbar.html" %}
-     <div id="randomItem"></div>
+    <div class="content">
+        <img id = "logo" src="static/img/fukuLogo.png" >	
+        {% include "navbar.html" %}
+    </div>
+    <section>
+		<h1 id="sigdrink">Random Drink Generator</h1>
+	</section>
     <br><br>
      <button id="randomButton" onclick="Randomizer()">Randomize!</button>
      <script src="../static/js/random.js"></script>
  </body>
  </html>
+ <div id="randomItem"></div>
+    
