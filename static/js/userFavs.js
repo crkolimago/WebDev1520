@@ -23,7 +23,6 @@ function showInfo(id, result) {
         document.getElementById("form-name").value = document.getElementById("info-popup-name").innerHTML;
         document.getElementById("info-popup-price").innerHTML = '$'+result.price;
         document.getElementById("form-price").value = document.getElementById("info-popup-price").innerHTML;
-        document.getElementById("form-url").value = result.url;
         localStorage.setItem('price',document.getElementById("info-popup-price").innerHTML);
     } else {
         getItem(id);
@@ -42,7 +41,7 @@ function saveItem(id) {
         params['price'] = document.getElementById("item-price").value;
     }
     console.log("about to send request");
-    sendJsonRequest('save-item', objectToParameters(params), itemSaved);
+    sendJsonRequest('/save-item/<id>', objectToParameters(params), itemSaved);
 }
 
 function sendJsonRequest(targetUrl, parameters, callbackFunction) {
@@ -162,31 +161,22 @@ function itemSaved(result, targetUrl, params) {
 function displayList(result) {
     if (result && result.length) {
         let text = "";
-        let admin_menu = "";
+
 
         for (var i = 0; i < result.length; i++) {
             text += '<div class="menu-item">';
             text += '<img class="image" src="' + result[i].url + '" alt="' + result[i].name + '" id="img_' + result[i].id + '"/>';
-            text += '<button onclick="showInfo(' + result[i].id + ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>$' + result[i].price + '</button>';
+            text += '<button onclick="save_order(' + result[i].id+ ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>' + result[i].price + '</button>';
             text += '</div>';
-            admin_menu += '<div class="divs" ondrop="drop(event)" ondragover="allowDrop(event)">';
-            admin_menu += '<span id="drag_' + result[i].id + '" draggable="true" ondragstart="drag(event)">' + result[i].id + '</span>';
-            admin_menu += '</div>';
         }
         document.getElementById("flex-container").innerHTML = text;
-        if(document.getElementById('wrapper') != null) {
-            document.getElementById('wrapper').innerHTML = admin_menu;
-        }
     } else {
         document.getElementById("flex-container").innerHTML = 'No menu items.';
-        if(document.getElementById('wrapper') != null) {
-            document.getElementById('wrapper').innerHTML = 'No menu items.';
-        }
     }
 }
 
 function getItem(id) {
-  getData('/get-item/' + id, itemLoaded);
+  getData('/get-user-order/' + id, itemLoaded);
 }
 
 // when the item is loaded, we render an edit form in the list.
@@ -195,10 +185,10 @@ function itemLoaded(result, targetUrl) {
 }
 
 function loadItems() {
-    getData('/load-sl-items', displayList);
+    getData('/load-user-orders', displayList);
 }
 // when the page loads, let's load the initial items into the list.
-
+/*
 function allowDrop(allowdropevent) {
     allowdropevent.preventDefault();
 }
@@ -223,6 +213,7 @@ function updateMenu() {
     for(var i=0; i<menu.length; i++) {
         console.log(menu[i].firstChild.id.split('_')[1]);
     }
-}
+}*/
+
 
 loadItems();

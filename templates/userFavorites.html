@@ -1,4 +1,4 @@
-{% extends 'responsiveMenu.html' %} {% block content %}
+{% extends 'profile.html' %} {% block content %}
 <div id="flex-container"></div>
 <div id="info-popup">
     <div class="info-popup-item">
@@ -58,78 +58,9 @@
                 <li>
                     <input type="hidden" readonly="readonly" id="form-name" name="name"></input>
                     <input type="hidden" readonly="readonly" id="form-price" name="price"></input>
-                    <input type="hidden" readonly="readonly" id="form-url" name="url"></input>
                 </li>
             </ul>
     </form>
     </div>
 </div>
 {% endblock %} 
-
-
-{% block footer %}
-{% if admin == "true" %}
-<!--<button onclick="updateMenu();">Update</button>-->
-<form action="/save-data" method="post" enctype="multipart/form-data">
-	<ul class="adminForm-style">
-		<li>
-			<h3>New Item Upload</h3>
-		</li>
-		<li>
-			<label>Name</label>
-          <input type="text" name="name" id="item-name"/> 
-        </li>
-        <li>
-          <label>Price</label>
-          <input type="number" name="price" id="item-price" min="0" max="100" step="any" /> <!-- Price -->
-        </li>
-        <li>
-          <input type="file" name="file" id="item-file" />
-        </li>
-        <li>
-            <input type="submit" value="Upload"/>
-        </li>
-    </ul>
-</form>
-<form action="/edit-data" method="post">
-	<ul class="adminForm-style">
-        <li>
-            <h3>Edit Item</h3>
-        </li>
-        <li>
-            <label>Name</label>
-            <input type="text" name="name" id="item-name"/> 
-        </li>
-        <li>
-            <label>Price</label>
-            <input type="number" name="price" id="item-price" min="0" max="100" step="any" /> <!-- Price -->
-        </li>
-        <li>
-            <label>Id</label>
-            <input type="text" name="id" id="item-id"/> 
-        </li>
-        <li>
-            <input type="submit" value="Edit"/>
-        </li>
-    </ul>
-</form>
-<form action="/delete-item" method="post">
-	<ul class="adminForm-style">
-        <li>
-            <h3>Delete Item</h3>
-        </li>
-        <li>
-            <label>Id</label>
-            <input type="text" name="id" id="item-id"/> 
-        </li>
-        <li>
-            <input type="submit" value="Delete"/>
-        </li>
-    </ul>
-</form>
-<div id="wrapper"></div>
-<button onclick="deleteAll();"/>Delete All</button>
-{% else %}
-<div></div>
-{% endif %}
-{% endblock %}

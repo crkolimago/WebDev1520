@@ -3,7 +3,7 @@
 
 
 class Order(object):
-    def __init__(self, orderId="", name="", size="", tea="", flavor="", milk="", sweetness="", temp="",toppings="",price=0.0,payment="", time=""):
+    def __init__(self, orderId="", name="", size="", tea="", flavor="", milk="",sweetness="", temp="",toppings="",price=0.0,payment="", time="", url=""):
         self.orderId = orderId
         self.name = name
         self.size = size
@@ -16,6 +16,7 @@ class Order(object):
         self.price = price
         self.payment = payment
         self.time = time
+        self.url = url
 
     def to_dict(self):
         return {
@@ -30,5 +31,6 @@ class Order(object):
             'toppings': self.toppings,
             'price': self.price,
             'payment': self.payment,
-            'time': self.time
+            'time': self.time,
+            'url': self.url
         }

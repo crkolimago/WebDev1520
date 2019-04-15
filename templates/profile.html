@@ -2,6 +2,7 @@
 <html>
 <head>
   <link rel="stylesheet" href="../static/styles/profileStyle.css">
+  <link rel="stylesheet" href="static/styles/responsiveMenuCSS.css" />
   {% include "header.html" %}
 </head>
 <body>
@@ -17,19 +18,28 @@
 	<div class = "elements" id = "rewards">Reward Points: {{rewards}}</div>
 	<div class = "elements" id = "email">Email: {{emailAddress}}</div>
 </div>
-
-<div>
-	<h1 id= "favshead">
-		Your Favorites
-	</h1>
-	<table id="favs" >
-		<tr>
-			<td><img class="custDrinks" src="static/img/placeholder_drink.png" ></td>
-        </tr>
-	</table>
+<br>
+<br>
+<section>
+        <h1 id= "favshead">Your Favorites</h1>
+</section>
+<section>
+<div id="flex-container"></div>
+    </div>
 </div>
+<div id="wrapper"></div>
+</section>
 {% else %}
 Please login to see profile
 {% endif %}
+<script src="../static/js/userFavs.js">
+	</script>
+	<script src="../static/js/focus-visible.js">
+	</script>
+
+
+	<section id="ErrorArea"></section>
 </body>
+
+	
 </html>
