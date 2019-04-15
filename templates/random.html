@@ -1,11 +1,11 @@
  <html>
    {% include "header.html" %}
  <head>
- <link rel="stylesheet" href="static/styles/fukuStyle.css?Monday 18th of March 2019 08:01:00 PM">
- <link rel="stylesheet" href="../static/styles/responsiveMenuCSS.css">
- <title>Fuku Tea </title>
+ {% include "header.html" %}
+ <link rel="stylesheet" href="static/styles/responsiveMenuCSS.css">
  </head>
  <body>
+     {% include "navbar.html" %}
      <div id="randomItem"></div>
     <br><br>
      <button id="randomButton" onclick="Randomizer()">Randomize!</button>
