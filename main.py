@@ -36,7 +36,10 @@ def root():
 
 @app.route('/customDrink')
 def customDrink():
-    return render_template('customDrink.html')
+    if 'curUser' in session and userData.checkUser(session['curUser']):
+        return render_template('customDrink.html', user='true')
+    else:
+        return render_template('customDrink.html', user='false')
 
 
 @app.route('/info')

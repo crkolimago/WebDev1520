@@ -9,9 +9,10 @@
 
 {% include "navbar.html" %}
 
-<div id = "profileTitle"> Your Profile </div>
+
 
 {% if setup %}
+<div id = "profileTitle"> Your Profile </div>
 <img id = "picture" src = "{{picture}}">
 <div class = "userInfo">
 	<div class = "elements" id = "username">Username: {{userName}} {{lastname}}</div>
@@ -35,13 +36,14 @@
 </div>
 <div id="wrapper"></div>
 </section>
-{% else %}
-Please login to see profile
-{% endif %}
 <script src="../static/js/userFavs.js">
 	</script>
 	<script src="../static/js/focus-visible.js">
 	</script>
+{% else %}
+Please login to see profile
+{% endif %}
+
 
 
 	<section id="ErrorArea"></section>
