@@ -34,14 +34,13 @@ function saveItem(id) {
     let params = {};
     if (id) {
         console.log("not complete. line 4 of responsiveMenuJS");
+        params['name']='idk';
     }
     else {
-        console.log("new item");
-        params['name'] = document.getElementById("item-name").value;
-        params['price'] = document.getElementById("item-price").value;
+        console.log("sending order");
     }
     console.log("about to send request");
-    sendJsonRequest('/save-item/<id>', objectToParameters(params), itemSaved);
+    sendJsonRequest('/save-order/'+id+'', objectToParameters(params), itemSaved);
 }
 
 function sendJsonRequest(targetUrl, parameters, callbackFunction) {
@@ -149,7 +148,6 @@ function itemsDeleted(result) {
 function itemSaved(result, targetUrl, params) {
     if (result && result.ok) {
         console.log("itemSaved success.");
-        clearItemForm();
         loadItems();
     } else {
         console.log("Received error: " + result.error);
@@ -166,7 +164,7 @@ function displayList(result) {
         for (var i = 0; i < result.length; i++) {
             text += '<div class="menu-item">';
             text += '<img class="image" src="' + result[i].url + '" alt="' + result[i].name + '" id="img_' + result[i].id + '"/>';
-            text += '<button onclick="save_order(' + result[i].id+ ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>' + result[i].price + '</button>';
+            text += '<button onclick="saveItem(' + result[i].id+ ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>' + result[i].price + '</button>';
             text += '</div>';
         }
         document.getElementById("flex-container").innerHTML = text;

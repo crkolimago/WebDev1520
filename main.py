@@ -10,6 +10,7 @@ from menuitem import MenuItem
 from User import User
 from Order import Order
 from google.cloud import storage
+from google.cloud import datastore
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from flask import Flask, session, redirect, render_template, request, Response
@@ -235,7 +236,6 @@ def load_order_items():
     return Response(responseJson, mimetype='application/json')
 
 
-
 @app.route('/load-user-orders')
 def load_user_orders():
 
@@ -344,14 +344,28 @@ def get_item(itemid):
     d['id'] = itemid
     return Response(json.dumps(d), mimetype='application/json')
 
+# here we use a Flask shortcut to pull the itemid from the URL.
+@app.route('/save-order/<itemid>', methods=['POST'])
+def save_order(itemid):
+    log('retrieving item for ID: %s' % itemid)
+    item = userOrder.get_user_order(itemid, session['curUser'])
+    newItem = Order(random.randint(1, 999999999999), item.name, item.size, item.tea, item.flavor, item.milk, item.sweetness,
+                    item.temp, item.toppings, item.price, item.payment, str(datetime.datetime.now()), item.url)
+    orderData.create_order(newItem)
+    log("yeah buddy")
+    d = item.to_dict()
+    d['id'] = itemid
+    return Response(json.dumps(d), mimetype='application/json')
+
 
 @app.route('/get-user-order/<itemid>')
 def get_user_order(itemid):
     log('retrieving item for ID: %s' % itemid)
-    item = userOrder.get_user_order(itemid, session['curUser'])
+    item = userOrder.get_user_order(str(itemid), session['curUser'])
     d = item.to_dict()
     d['id'] = itemid
     return Response(json.dumps(d), mimetype='application/json')
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
