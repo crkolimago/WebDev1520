@@ -110,21 +110,32 @@ def customOrder():
 @app.route('/save-order', methods=['GET', 'POST'])
 def saveOrder():
     try:
+        log(request)
+        try:
+            toppings = request.form['toppings']
+        except KeyError:
+            toppings = ''
+
         # now sure how to generate unique IDs for every order
-        name = request.form.get('name', '')
-        money_spent = request.form.get('total', '')
-        size = request.form.get('size', '')
-        tea = request.form.get('tea', '')
-        flavor = request.form.get('flavor', '')
-        milk = request.form.get('milk', '')
-        sweetness = request.form.get('sweetness', '')
-        temp = request.form.get('temp', '')
-        toppings = request.form.get('toppings', '')
-        price = request.form.get('price', '')
-        payment = request.form.get('payment', '')
+        name = request.form['name']
+        # money_spent = request.form['total']
+        size = request.form['size']
+        try:
+            tea = request.form['tea']
+        except KeyError:
+            tea = ''
+        try:
+            flavor = request.form['flavor']
+        except KeyError:
+            flavor = ''
+        milk = request.form['milk']
+        sweetness = request.form['sweetness']
+        temp = request.form['temp']
+        price = request.form['price']
+        payment = request.form['payment']
         order = Order(None, name, size, tea, flavor, milk, sweetness, temp, toppings, price, payment)
         orderData.create_order(order)
-        json_result = {}
+
         """
         if 'curUser' in session:
             # user = userData.get_user(session['curUser'])
@@ -142,9 +153,8 @@ def saveOrder():
     """
     except Exception as exc:
         log(str(exc))
-        json_result['error'] = 'Order was not saved something went wrong'
 
-    return Response(json.dumps(json_result), mimetype='application/json')
+    return redirect('/menu.html')
 
 
 @app.route('/leaderBoard', methods=['GET', 'POST'])
@@ -400,22 +410,5 @@ def edit_data():
         item_name = d['name']
 
     save_item(item_price, item_name, item_url, item_id)
-
-    return redirect('/menu.html')
-
-
-@app.route('/save-sig-order', methods=['POST'])
-def save_sig_order():
-    log(request.form)
-
-    size = request.form['size']
-    sweetness = request.form['sweetness']
-    milk = request.form['milk']
-    temp = request.form['temp']
-
-    try:
-        toppings = request.form['toppings']
-    except KeyError:
-        toppings = None
 
     return redirect('/menu.html')
