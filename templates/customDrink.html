@@ -1,24 +1,14 @@
-<!DOCTYPE html>
+{% extends '_base.html' %}
+{% block content %}
 <html>
+{% include "header.html" %}
   <head>
     <title>Custom Drink Order Form</title>
-    <link rel="stylesheet" type="text/css" href="static/styles/customDrinkStyle.css?Sunday 24th of March 2019 9:02 PM">
+    <link rel="stylesheet" type="text/css" href="static/styles/customDrinkStyle.css?">
     <meta charset="utf-8"/>
   </head>
   <body>
     <div class="content">
-      <img id = "logo" src="static/img/fukuLogo.png" >
-      <div id="navbar">
-      <a class="navbutton" href="/">Home</a>
-      <a class="navbutton" href="/#userWelcome">About</a>
-      <a class="navbutton" href="/#map">Maps</a>
-      <a class="navbutton" href="/menu.html">Order Now</a>
-      <a class="navbutton" href="/customDrink">Custom Drink</a>
-      <a class="navbutton" href="/random">Random Drink</a>
-      <a class="navbutton" href="/profile">Profile</a>
-      <a class="navbutton" href="/leaderBoard">Leaderboard</a>
-      <a class="navbutton" href="/info.html">Info</a>
-    </div>
       <div class="grid-container">
         <div class="header">
           <h1 id="headtxt">Custom Drink Order Form</h1>
@@ -89,6 +79,9 @@
 										</div>
 									</div>
                 <br>
+                <input type="radio" name="payment" value="cash"> Cash 
+                <input type="radio" name="payment" value="rewards"> Rewards 
+                <br>
                 <button onclick="confirmDrink(customDrinkForm);return false">Submit Drink</button>
             </form>
 				<div class="cart">
@@ -108,10 +101,12 @@
           <div class="cart_button">
             <button onclick="clear_cart()">Clear Cart</button>
             <button onclick="submit_cart()">Submit Cart</button>
+            <button onclick="save_order()">Save Order</button>
           </div>
 	      </div><!-- cart div -->
 		  </div><!-- grid container div -->
     </div><!-- content div -->
-    <script src="static/js/customDrink.js?v5.0"></script>
+    <script src="static/js/customDrink.js?v4.0"></script>
   </body>
 <html>
+{% endblock %}
