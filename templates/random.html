@@ -1,21 +1,10 @@
  <html>
  <head>
- <link rel="stylesheet" href="static/styles/fukuStyle.css?Monday 18th of March 2019 08:01:00 PM">
- <link rel="stylesheet" href="../static/styles/responsiveMenuCSS.css">
- <title>Fuku Tea </title>
+ {% include "header.html" %}
+ <link rel="stylesheet" href="static/styles/responsiveMenuCSS.css">
  </head>
  <body>
-    <img id = "logo" src="static/img/fukuLogo.png" >
-    <div id="navbar">
-      <a class="navbutton" href="/">Home</a>
-      <a class="navbutton" href="/#userWelcome">About</a>
-      <a class="navbutton" href="/#map">Maps</a>
-      <a class="navbutton" href="/menu.html">Order Now</a>
-      <a class="navbutton" href="/customDrink">Custom Drink</a>
-      <a class="navbutton" href="/random">Random Drink</a>
-      <a class="navbutton" href="/profile">Profile</a>
-      <a class="navbutton" href="/info.html">Info</a>
-    </div>
+     {% include "navbar.html" %}
      <div id="randomItem"></div>
     <br><br>
      <button id="randomButton" onclick="Randomizer()">Randomize!</button>

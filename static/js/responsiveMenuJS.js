@@ -2,22 +2,26 @@ function hideInfo() {
     document.getElementById("info-popup").style.visibility = "hidden";
 }
 
+function add(num) {
+  let p = document.getElementById("info-popup-price");
+
+  let pp = parseFloat(p.innerHTML.split('$')[1]);
+  pp += num;
+  p.innerHTML = '$' + pp;
+}
+
+function sub() {
+  let p = document.getElementById("info-popup-price");
+  let pp = localStorage.getItem('price');
+  p.innerHTML = pp;
+}
+
 function showInfo(id, result) {
     if(result) {
-        // get list of radio buttons with name 'size'
-        var sz = document.forms['info-popup-form'].elements['size'];
-        console.log(sz);
-
-        // // loop through list
-        // for (var i=0, len=sz.length; i<len; i++) {
-        //     sz[i].onclick = function() { // assign onclick handler function to each
-        //         // put clicked radio button's value in total field
-        //         this.form.elements.total.value = this.value;
-        //     };
-        // }
         document.getElementById("info-popup").style.visibility = "visible";
         document.getElementById("info-popup-name").innerHTML = result.name;
         document.getElementById("info-popup-price").innerHTML = '$'+result.price;
+        localStorage.setItem('price',document.getElementById("info-popup-price").innerHTML);
     } else {
         getItem(id);
     }
