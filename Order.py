@@ -1,9 +1,9 @@
 # we'll use this separate file so that we don't have to tightly couple our 
 # data access code and our application.
-import datetime
+
 
 class Order(object):
-    def __init__(self, orderId="", name="", size="", tea="", flavor="", milk="", sweetness="", temp="",toppings="",price=0.0,payment=""):
+    def __init__(self, orderId="", name="", size="", tea="", flavor="", milk="", sweetness="", temp="",toppings="",price=0.0,payment="", time=""):
         self.orderId = orderId
         self.name = name
         self.size = size
@@ -15,7 +15,7 @@ class Order(object):
         self.toppings = toppings
         self.price = price
         self.payment = payment
-        self.time = datetime.datetime.now()
+        self.time = time
 
     def to_dict(self):
         return {

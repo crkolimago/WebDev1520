@@ -6,7 +6,7 @@ import config
 def convert_to_userObj(entity):
     """Convert the entity returned by datastore to a normal object."""
     order_id = entity.key.id_or_name
-    return Order(order_id, entity['name'],  entity['size'] ,entity['tea'] ,entity['flavor'] ,entity['milk'] ,entity['sweetness'] ,entity['temp'] ,entity['toppings'] ,entity['price'],entity['payment'])
+    return Order(order_id, entity['name'],  entity['size'] ,entity['tea'] ,entity['flavor'] ,entity['milk'] ,entity['sweetness'] ,entity['temp'] ,entity['toppings'] ,entity['price'],entity['payment'], entity['time'])
 
 
 def get_list_items():
@@ -15,7 +15,7 @@ def get_list_items():
 
     # we build a query
     query = client.query(kind=config.ORDER_ENTITY_TYPE)
-    query.order = ['time']
+    query.order = ['-time']
     # we execute the query
     order_items = list(query.fetch())
 
@@ -49,7 +49,7 @@ def load_key(client, item_id=None):
     return key
 
 
-def delete_list_item(order_id):
+def delete_order_item(order_id):
     """Delete the entity associated with the specified ID."""
     client = datastore.Client(config.PROJECT_ID)
     key = load_key(client, order_id)

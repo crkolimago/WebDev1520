@@ -14,6 +14,7 @@ from google.auth.transport import requests
 from flask import Flask, session, redirect, render_template, request, Response
 import six
 import config
+import datetime
 
 app = Flask(__name__)
 app.secret_key = config.KEY
@@ -133,7 +134,7 @@ def saveOrder():
         temp = request.form['temp']
         price = request.form['price']
         payment = request.form['payment']
-        order = Order(None, name, size, tea, flavor, milk, sweetness, temp, toppings, price, payment)
+        order = Order(None, name, size, tea, flavor, milk, sweetness, temp, toppings, price, payment,str(datetime.datetime.now()) )
         orderData.create_order(order)
 
         """
@@ -229,6 +230,23 @@ def load_order_items():
 
     responseJson = json.dumps(json_list)
     return Response(responseJson, mimetype='application/json')
+
+
+@app.route('/delete-order', methods=['POST'])
+def delete_order():
+    # retrieve the parameters from the request
+    order_id = request.form['id']
+    json_result = {}
+    try:
+        log('deleting item for ID: %s' % order_id)
+        adminData.delete_order_item(order_id)
+        json_result['ok'] = True
+    except Exception as exc:
+        log(str(exc))
+        json_result['error'] = 'The item was not removed.'
+
+    return Response(json.dumps(json_result), mimetype='application/json')
+
 
 @app.route('/load-sl-items')
 def load_sli_items():

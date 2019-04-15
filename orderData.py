@@ -18,7 +18,7 @@ def log(msg):
 def convert_to_orderObj(entity):
     """Convert the entity returned by datastore to a normal object."""
     order_id = entity.key.id_or_name
-    return Order(order_id, entity['name'], entity['size'], entity['tea'], entity['flavor'], entity['milk'], entity['sweetness'] ,entity['temp'] ,entity['toppings'] ,entity['price'],entity['payment'])
+    return Order(order_id, entity['name'], entity['size'], entity['tea'], entity['flavor'], entity['milk'], entity['sweetness'] ,entity['temp'] ,entity['toppings'] ,entity['price'],entity['payment'], entity['time'])
 
 
 def load_order_key(client, order_id):

@@ -49,7 +49,7 @@ function createXmlHttp() {
     }
     return xmlhttp;
 }
-/*
+
 function postParameters(xmlHttp, targetUrl, parameters) {
     if (xmlHttp) {
         console.log("Creating POST request to " + targetUrl);
@@ -59,7 +59,6 @@ function postParameters(xmlHttp, targetUrl, parameters) {
         xmlHttp.send(parameters);
     }
 }
-*/
 function getData(targetUrl, callbackFunction) {
     let xmlHttp = createXmlHttp();
     console.log("Creating GET request to: " + targetUrl);
@@ -141,7 +140,7 @@ function displayList(result, targetUrl) {
                 text += '<br>Tea:'+tea;
             }
             if(flavor != '') {
-                test += '<br>Flavor:'+flavor;
+                text += '<br>Flavor:'+flavor;
             }
             text += '<br>Milk:'+  result[i].milk;
             text += '<br>Sweetness:'+  result[i].sweetness;
@@ -153,7 +152,7 @@ function displayList(result, targetUrl) {
             text += '<br>Price:'+  result[i].price;
             text += '<br>Time:'+  result[i].time;
             text += '</p>';
-            //text += '<button onclick="deleteItem(\'' + result[i].id + '\');">Remove Order</button> ';
+            text += '<button onclick="deleteItem(\'' + result[i].id + '\');">Remove Order</button> ';
             text += '</div>';
         }
         document.getElementById("flex-container").innerHTML = text;
@@ -162,6 +161,21 @@ function displayList(result, targetUrl) {
     }
 }
 
+function deleteItem(id) {
+    let params = {"id": id};
+    sendJsonRequest('delete-order', objectToParameters(params), itemDeleted);
+}
+
+// when we delete an item, we use this to reload the list of items.
+function itemDeleted(result, targetUrl, params) {
+  if (result && result.ok) {
+    console.log("Deleted item.");
+    loadItems();
+  } else {
+    console.log("Received error: " + result.error);
+    showError(result.error);
+  }
+}
 
 function loadItems() {
     console.log("hey");
