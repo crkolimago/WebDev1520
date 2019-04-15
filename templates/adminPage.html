@@ -2,20 +2,27 @@
 <HTML>
 
 <head>
-	<link rel="stylesheet" href="../static/styles/fukuStyle.css">
-    <title>Fuku Tea </title>
-	<meta charset="utf-8" />
+	<link rel="stylesheet" href="static/styles/adminStyle.css">
+    {% include "header.html" %}
 </head>
 
 <body >
-
+    <section>
+        {% include "navbar.html" %}
+    </section>
 	<section>
-		<h1 >Admin Page</h1>
+		<h1>Admin Page</h1>
 	</section>
 
+    {% if admin == "true" %}
 	<section>
 		<div id="flex-container"></div>
 	</section>
+    {% else %}
+        <div>
+            <span id="access_restricted">Access Denied.</span>
+        </div>
+    {% endif %}
 
 	<section>
 		<h6><a href="/">Back</a></h6>

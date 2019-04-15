@@ -1,9 +1,8 @@
-  #navbar {
-    overflow: hidden;
-    background-color: none;
-    border-radius: 30px;
-    padding: 10px;
-  }
+#navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
   
   #navbar a {
     float: center;
@@ -15,7 +14,7 @@
     font-size: 24px;
     border-radius: 30px;
     background-color: #358e41;
-    margin: 10px;
+    margin: 4px 8px;
   }
   
   #navbar a:hover {

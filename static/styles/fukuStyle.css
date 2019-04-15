@@ -26,6 +26,7 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 10px;
     /*width: 15%;
     height:15%;*/
   }
@@ -150,3 +151,40 @@ body {
     padding: 10px;
   }
   
+.item_button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  /* show a hand cursor on hover; some argue that we
+  should keep the default arrow cursor for buttons */
+  cursor: pointer;
+}
+
+.item_button {
+   /* default for <button>, but useful for <a> */
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-family: Helvetica, sans-serif;
+  font-size: 14px;
+
+  /* create a small space when buttons wrap on 2 lines */
+  margin: 6px 0;
+
+  /* invisible border (will be colored on hover/focus) */
+  border: solid 1px transparent;
+  border-radius: 8px;
+
+  /* size comes from text & padding (no width/height) */
+  padding: 0.5em 1em;
+
+  /* make sure colors have enough contrast! */
+  color: #ffffff;
+  background-color: #4285f4;
+  
+  outline: none;
+
+  margin-left:auto; margin-right:0;
+}

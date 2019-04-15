@@ -1,25 +1,3 @@
-/*
-function deleteItem(id) {
-  if (confirm("Are you sure you want to delete?")) {
-    let params = {"id": id};
-    sendJsonRequest('delete-item', objectToParameters(params), itemDeleted);
-  }
-}
-function saveItem(id) {
-    console.log("saving item.");
-    let params = {};
-    if (id) {
-        console.log("not complete. line 4 of responsiveMenuJS");
-    }
-    else {
-        console.log("new item");
-        params['name'] = document.getElementById("item-name").value;
-        params['price'] = document.getElementById("item-price").value;
-    }
-    console.log("about to send request");
-    sendJsonRequest('save-item', objectToParameters(params), itemSaved);
-}*/
-
 function sendJsonRequest(targetUrl, parameters, callbackFunction) {
     let xmlHttp = createXmlHttp();
     xmlHttp.onreadystatechange = function() {
@@ -98,29 +76,6 @@ function objectToParameters(obj) {
     }
     return text;
 }
-/*
-// use this to clear the values in the "add item" form
-function clearItemForm() {
-    document.getElementById("item-name").value = '';
-    document.getElementById("item-price").value = '';
-}
-
-function deleteAll() {
-    if (confirm("Are you sure you want to delete?")) {
-        sendJsonRequest('delete-all', null, itemsDeleted);
-    }
-}*/
-/*
-// when we delete an item, we use this to reload the list of items.
-function itemsDeleted(result) {
-    if (result && result.ok) {
-        console.log("Deleted item.");
-        loadItems();
-    } else {
-        console.log("Received error: " + result.error);
-        showError(result.error);
-    }
-}*/
 
 
 function displayList(result, targetUrl) {
@@ -133,31 +88,33 @@ function displayList(result, targetUrl) {
             toppings = result[i].toppings;
 
             text += '<div class="order">';
-                
-            text += '<p> Drink:' + result[i].name;
-            text += '<br>Size:' + result[i].size;
+            text += '<p><b>Drink</b>:' + result[i].name;
+            text += '<br><b>Size</b>:' + result[i].size;
             if(tea != '') {
-                text += '<br>Tea:'+tea;
+                text += '<br><b>Tea</b>:'+tea;
             }
             if(flavor != '') {
-                text += '<br>Flavor:'+flavor;
+                text += '<br><b>Flavor</b>:'+flavor;
             }
-            text += '<br>Milk:'+  result[i].milk;
-            text += '<br>Sweetness:'+  result[i].sweetness;
-            text += '<br>Temp:'+  result[i].temp;
+            text += '<br><b>Milk</b>:'+  result[i].milk;
+            text += '<br><b>Sweetness</b>:'+  result[i].sweetness;
+            text += '<br><b>Temp</b>:'+  result[i].temp;
             if(toppings != '') {
-                text += '<br>Toppings:'+  result[i].toppings;
+                text += '<br><b>Toppings</b>:'+  result[i].toppings;
             }
-            text += '<br>Payment Type:'+  result[i].payment;
-            text += '<br>Price:'+  result[i].price;
-            text += '<br>Time:'+  result[i].time;
+            text += '<br><b>Payment</b>:'+  result[i].payment;
+            text += '<br><b>Price</b>:'+  result[i].price;
             text += '</p>';
             text += '<button onclick="deleteItem(\'' + result[i].id + '\');">Remove Order</button> ';
             text += '</div>';
         }
-        document.getElementById("flex-container").innerHTML = text;
+        if(document.getElementById("flex-container") != null) {
+            document.getElementById("flex-container").innerHTML = text;
+        }
     } else {
-        document.getElementById("flex-container").innerHTML = 'No Orders.';
+        if(document.getElementById("flex-container") != null) {
+            document.getElementById("flex-container").innerHTML = 'No Orders.';
+        }
     }
 }
 

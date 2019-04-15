@@ -1,13 +1,12 @@
 {% extends '_base.html' %}
 {% block content %}
 <html>
-{% include "header.html" %}
   <head>
-    <title>Custom Drink Order Form</title>
     <link rel="stylesheet" type="text/css" href="static/styles/customDrinkStyle.css?">
-    <meta charset="utf-8"/>
+    {% include "header.html" %}
   </head>
   <body>
+    {% include "navbar.html" %}
     <div class="content">
       <div class="grid-container">
         <div class="header">
