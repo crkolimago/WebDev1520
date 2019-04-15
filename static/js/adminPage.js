@@ -1,34 +1,10 @@
-function hideInfo() {
-    document.getElementById("info-popup").style.visibility = "hidden";
+/*
+function deleteItem(id) {
+  if (confirm("Are you sure you want to delete?")) {
+    let params = {"id": id};
+    sendJsonRequest('delete-item', objectToParameters(params), itemDeleted);
+  }
 }
-
-function add(num) {
-  let p = document.getElementById("info-popup-price");
-
-  let pp = parseFloat(p.innerHTML.split('$')[1]);
-  pp += num;
-  p.innerHTML = '$' + pp;
-}
-
-function sub() {
-  let p = document.getElementById("info-popup-price");
-  let pp = localStorage.getItem('price');
-  p.innerHTML = pp;
-}
-
-function showInfo(id, result) {
-    if(result) {
-        document.getElementById("info-popup").style.visibility = "visible";
-        document.getElementById("info-popup-name").innerHTML = result.name;
-        document.getElementById("form-name").value = document.getElementById("info-popup-name").innerHTML;
-        document.getElementById("info-popup-price").innerHTML = '$'+result.price;
-        document.getElementById("form-price").value = document.getElementById("info-popup-price").innerHTML;
-        localStorage.setItem('price',document.getElementById("info-popup-price").innerHTML);
-    } else {
-        getItem(id);
-    }
-}
-
 function saveItem(id) {
     console.log("saving item.");
     let params = {};
@@ -42,7 +18,7 @@ function saveItem(id) {
     }
     console.log("about to send request");
     sendJsonRequest('save-item', objectToParameters(params), itemSaved);
-}
+}*/
 
 function sendJsonRequest(targetUrl, parameters, callbackFunction) {
     let xmlHttp = createXmlHttp();
@@ -83,9 +59,9 @@ function postParameters(xmlHttp, targetUrl, parameters) {
         xmlHttp.send(parameters);
     }
 }
-
 function getData(targetUrl, callbackFunction) {
     let xmlHttp = createXmlHttp();
+    console.log("Creating GET request to: " + targetUrl);
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
             // note that you can check xmlHttp.status here for the HTTP response code
@@ -122,7 +98,7 @@ function objectToParameters(obj) {
     }
     return text;
 }
-
+/*
 // use this to clear the values in the "add item" form
 function clearItemForm() {
     document.getElementById("item-name").value = '';
@@ -133,8 +109,8 @@ function deleteAll() {
     if (confirm("Are you sure you want to delete?")) {
         sendJsonRequest('delete-all', null, itemsDeleted);
     }
-}
-
+}*/
+/*
 // when we delete an item, we use this to reload the list of items.
 function itemsDeleted(result) {
     if (result && result.ok) {
@@ -144,84 +120,68 @@ function itemsDeleted(result) {
         console.log("Received error: " + result.error);
         showError(result.error);
     }
-}
-
-function itemSaved(result, targetUrl, params) {
-    if (result && result.ok) {
-        console.log("itemSaved success.");
-        clearItemForm();
-        loadItems();
-    } else {
-        console.log("Received error: " + result.error);
-        showError(result.error);
-    }
-}
+}*/
 
 
-function displayList(result) {
+function displayList(result, targetUrl) {
     if (result && result.length) {
         let text = "";
-        let admin_menu = "";
 
         for (var i = 0; i < result.length; i++) {
-            text += '<div class="menu-item">';
-            text += '<img class="image" src="' + result[i].url + '" alt="' + result[i].name + '" id="img_' + result[i].id + '"/>';
-            text += '<button onclick="showInfo(' + result[i].id + ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>$' + result[i].price + '</button>';
+            tea = result[i].tea;
+            flavor = result[i].flavor;
+            toppings = result[i].toppings;
+
+            text += '<div class="order">';
+                
+            text += '<p> Drink:' + result[i].name;
+            text += '<br>Size:' + result[i].size;
+            if(tea != '') {
+                text += '<br>Tea:'+tea;
+            }
+            if(flavor != '') {
+                text += '<br>Flavor:'+flavor;
+            }
+            text += '<br>Milk:'+  result[i].milk;
+            text += '<br>Sweetness:'+  result[i].sweetness;
+            text += '<br>Temp:'+  result[i].temp;
+            if(toppings != '') {
+                text += '<br>Toppings:'+  result[i].toppings;
+            }
+            text += '<br>Payment Type:'+  result[i].payment;
+            text += '<br>Price:'+  result[i].price;
+            text += '<br>Time:'+  result[i].time;
+            text += '</p>';
+            text += '<button onclick="deleteItem(\'' + result[i].id + '\');">Remove Order</button> ';
             text += '</div>';
-            admin_menu += '<div class="divs" ondrop="drop(event)" ondragover="allowDrop(event)">';
-            admin_menu += '<span id="drag_' + result[i].id + '" draggable="true" ondragstart="drag(event)">' + result[i].id + '</span>';
-            admin_menu += '</div>';
         }
         document.getElementById("flex-container").innerHTML = text;
-        if(document.getElementById('wrapper') != null) {
-            document.getElementById('wrapper').innerHTML = admin_menu;
-        }
     } else {
-        document.getElementById("flex-container").innerHTML = 'No menu items.';
-        if(document.getElementById('wrapper') != null) {
-            document.getElementById('wrapper').innerHTML = 'No menu items.';
-        }
+        document.getElementById("flex-container").innerHTML = 'No Orders.';
     }
 }
 
-function getItem(id) {
-  getData('/get-item/' + id, itemLoaded);
+function deleteItem(id) {
+    let params = {"id": id};
+    sendJsonRequest('delete-order', objectToParameters(params), itemDeleted);
 }
 
-// when the item is loaded, we render an edit form in the list.
-function itemLoaded(result, targetUrl) {
-  showInfo(result.id, result);
+// when we delete an item, we use this to reload the list of items.
+function itemDeleted(result, targetUrl, params) {
+  if (result && result.ok) {
+    console.log("Deleted item.");
+    loadItems();
+  } else {
+    console.log("Received error: " + result.error);
+    showError(result.error);
+  }
 }
 
 function loadItems() {
-    getData('/load-sl-items', displayList);
+    console.log("hey");
+    getData('/load-order-items', displayList);
+    console.log("hey now");
 }
 // when the page loads, let's load the initial items into the list.
-
-function allowDrop(allowdropevent) {
-    allowdropevent.preventDefault();
-}
-
-function drag(dragevent) {
-    dragevent.dataTransfer.setData("text", dragevent.target.id);
-}
-
-function drop(dropevent) {
-    dropevent.preventDefault();
-    var data = dropevent.dataTransfer.getData("text");
-    var cur = document.getElementById(data);
-    var parent = cur.parentElement;
-    var tgt = dropevent.currentTarget.firstElementChild;
-    dropevent.currentTarget.replaceChild(cur, tgt);
-    parent.appendChild(tgt);
-}
-
-function updateMenu() {
-    let menu = document.getElementById('wrapper').childNodes;
-
-    for(var i=0; i<menu.length; i++) {
-        console.log(menu[i].firstChild.id.split('_')[1]);
-    }
-}
-
+console.log("hey");
 loadItems();

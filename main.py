@@ -4,6 +4,7 @@ import json
 import random
 import userData
 import orderData
+import adminData
 from menuitem import MenuItem
 from User import User
 from Order import Order
@@ -13,6 +14,7 @@ from google.auth.transport import requests
 from flask import Flask, session, redirect, render_template, request, Response
 import six
 import config
+import datetime
 
 app = Flask(__name__)
 app.secret_key = config.KEY
@@ -20,10 +22,10 @@ app.secret_key = config.KEY
 
 @app.route('/')
 def root():
-    if 'curUser' in session:
+    return render_template("fukuPage.html")
+    """ if 'curUser' in session:
         return render_template("fukuPage.html", userName=userData.get_user(session['curUser']).userName)
-    else:
-        return render_template("fukuPage.html")
+    else:"""
 
 
 @app.route('/customDrink')
@@ -38,8 +40,9 @@ def info():
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    if 'curUser' in session:
-        return render_template("profile.html", userName=userData.get_user(session['curUser']).userName, emailAddress=userData.get_user(session['curUser']).userEmail, rewards=0, setup="true")
+    if 'curUser' in session and userData.checkUser(session['curUser']):
+        temp = userData.get_user(session['curUser'])
+        return render_template("profile.html", userName=temp.userName, emailAddress=temp.userEmail, rewards=0, setup="true", picture=temp.userPicture, lastname=temp.userLastName)
     else:
         return render_template("profile.html")
 
@@ -65,14 +68,15 @@ def tokenSignIn():
         else:
             userEmail = idinfo['email']
             userName = idinfo['given_name']
-            newUser = User(userId, userEmail, userName, 0, 0)
+            userPicture = idinfo['picture']
+            userLastName = idinfo['family_name']
+            newUser = User(userId, userEmail, userName, 0, 0, userPicture, userLastName)
             log('saving for user: %s' % userName)
             userData.create_user(newUser)
     except ValueError:
         pass
     session['curUser'] = userId
     return render_template("fukuPage.html")
-    # return render_template("fukuPage.html", userName=userName)
 
 
 @app.route('/tokenSignOut', methods=['POST'])
@@ -82,32 +86,11 @@ def tokenSignOut():
     return render_template("fukuPage.html")
 
 
-@app.route('/checkSignedIn')
-def checkSignedIn():
-    global CUR_USER
-    if (CUR_USER is not None):
-        return True
-    else:
-        return False
-
-
 def log(msg):
     """Log a simple message."""
     # Look at: https://console.cloud.google.com/logs to see your logs.
     # Make sure you have "stdout" selected.
     print('main: %s' % msg)
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == "GET":
-        return render_template("login.html")
-    elif request.method == "POST":
-        userName = "Welcome back " + request.form["userName"] + "!"
-        password = request.form["password"]
-        return render_template("fukuPage.html", userName=userName, password=password)
-    else:
-        return "Hello"
 
 
 @app.route('/order', methods=['GET', 'POST'])
@@ -127,23 +110,34 @@ def customOrder():
 
 @app.route('/save-order', methods=['GET', 'POST'])
 def saveOrder():
-    json_result = {}
     try:
-        # now sure how to generate unique IDs for every order
-        money_spent = request.form.get('total', '')
-        size = request.form.get('size', '')
-        tea = request.form.get('tea', '')
-        flavor = request.form.get('flavor', '')
-        milk = request.form.get('milk', '')
-        sweetness = request.form.get('sweetness', '')
-        temp = request.form.get('temp', '')
-        toppings = request.form.get('toppings', '')
-        price = request.form.get('price', '')
-        order = Order(None, size, tea, flavor, milk, sweetness, temp, toppings, price)
-        orderData.create_order(order) # not sure if works, it doesn't
-        log("help")
-        orderData.save_order(order)
+        log(request)
+        try:
+            toppings = request.form['toppings']
+        except KeyError:
+            toppings = ''
 
+        # now sure how to generate unique IDs for every order
+        name = request.form['name']
+        # money_spent = request.form['total']
+        size = request.form['size']
+        try:
+            tea = request.form['tea']
+        except KeyError:
+            tea = ''
+        try:
+            flavor = request.form['flavor']
+        except KeyError:
+            flavor = ''
+        milk = request.form['milk']
+        sweetness = request.form['sweetness']
+        temp = request.form['temp']
+        price = request.form['price']
+        payment = request.form['payment']
+        order = Order(None, name, size, tea, flavor, milk, sweetness, temp, toppings, price, payment,str(datetime.datetime.now()) )
+        orderData.create_order(order)
+
+        """
         if 'curUser' in session:
             # user is a datastore entity not a User python object
             user = userData.get_entity(session['curUser'])
@@ -157,12 +151,12 @@ def saveOrder():
             log("user not signed in")
 
         json_result['ok'] = True
-
+    """
     except Exception as exc:
         log(str(exc))
-        json_result['error'] = 'Order was not saved something went wrong'
 
-    return Response(json.dumps(json_result), mimetype='application/json')
+    return redirect('/menu.html')
+
 
 '''
 @app.route('/leaderBoard', methods=['GET', 'POST'])
@@ -193,11 +187,15 @@ def get_leaderboard_data():
 
     # responseJson = json.dumps({ 'Name': user.userName, })
     return Response(responseJson)
-
 '''
 @app.route('/random', methods=['GET', 'POST'])
 def randomizer():
     return render_template("random.html")
+
+
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+    return render_template("adminPage.html")
 
 
 @app.route('/load-random')
@@ -216,6 +214,44 @@ def load_random():
     return Response(responseJson, mimetype='application/json')
 
 
+@app.route('/load-order-items')
+def load_order_items():
+
+    # first we load the list items
+
+    log('loading list orders.')
+    order_list = adminData.get_list_items()
+    json_list = []
+
+    # TODO: then we load the photo urls based on id
+
+    # then we convert it into a normal list of dicts so that we can easily turn it
+    # into JSON
+    for order in order_list:
+        d = order.to_dict()
+        d['id'] = str(order.orderId)
+        json_list.append(d)
+
+    responseJson = json.dumps(json_list)
+    return Response(responseJson, mimetype='application/json')
+
+
+@app.route('/delete-order', methods=['POST'])
+def delete_order():
+    # retrieve the parameters from the request
+    order_id = request.form['id']
+    json_result = {}
+    try:
+        log('deleting item for ID: %s' % order_id)
+        adminData.delete_order_item(order_id)
+        json_result['ok'] = True
+    except Exception as exc:
+        log(str(exc))
+        json_result['error'] = 'The item was not removed.'
+
+    return Response(json.dumps(json_result), mimetype='application/json')
+
+
 @app.route('/load-sl-items')
 def load_sli_items():
 
@@ -224,8 +260,6 @@ def load_sli_items():
     log('loading list items.')
     sli_list = slidata.get_list_items()
     json_list = []
-
-    # TODO: then we load the photo urls based on id
 
     # then we convert it into a normal list of dicts so that we can easily turn it
     # into JSON
@@ -240,11 +274,10 @@ def load_sli_items():
 
 @app.route('/menu.html')
 def menu():
-    global CUR_USER
-    if CUR_USER is None or CUR_USER.userId != '107547848533480653521' or CUR_USER.userId != '112301482083727417023':
-        return render_template('menu.html', admin="false")
-    else:
+    if 'curUser' in session and (userData.get_user(session['curUser']).userId == '107547848533480653521' or userData.get_user(session['curUser']).userId == '112301482083727417023'):
         return render_template('menu.html', admin="true")
+    else:
+        return render_template('menu.html', admin="false")
 
 
 @app.route('/delete-all', methods=['POST'])
@@ -271,17 +304,14 @@ def delete_all():
 def delete_item():
     # retrieve the parameters from the request
     sli_id = request.form['id']
-    json_result = {}
     try:
         log('deleting item for ID: %s' % sli_id)
         slidata.delete_list_item(sli_id)
-        json_result['ok'] = True
 
     except Exception as exc:
         log(str(exc))
-        json_result['error'] = 'The item was not removed.'
 
-    return Response(json.dumps(json_result), mimetype='application/json')
+    return redirect('/menu.html')
 
 
 # here we use a Flask shortcut to pull the itemid from the URL.
@@ -293,6 +323,16 @@ def get_item(itemid):
     d['id'] = itemid
     return Response(json.dumps(d), mimetype='application/json')
 
+
+"""
+@app.route('/get-order/<itemid>')
+def get_order(itemid):
+    log('retrieving order for ID: %s' % itemid)
+    item = adminData.get_list_item(itemid)
+    d = item.to_dict()
+    d['id'] = itemid
+    return Response(json.dumps(d), mimetype='application/json')
+"""
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
@@ -335,13 +375,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in config.ALLOWED_EXTENSIONS
 
 
-def save_item(price, name, url):
-
-    # TODO: check if price is null
-
-    item_id = None
-    if 'id' in request.form:
-        item_id = request.form['id']
+def save_item(price, name, url, item_id):
 
     result = ""
 
@@ -375,5 +409,32 @@ def save_data():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_url = upload_file(file.read(), filename, file.content_type)
-        save_item(request.form['price'], request.form['name'], file_url)
+        save_item(request.form['price'], request.form['name'], file_url, None)
         return redirect('/menu.html')
+
+
+@app.route('/edit-data', methods=['POST'])
+def edit_data():
+    # log(request.form)
+
+    item_id = request.form['id']
+    item_price = request.form['price']
+    item_name = request.form['name']
+
+    item = slidata.get_list_item(item_id)
+
+    d = item.to_dict()
+
+    # log("price: " + d['price'] + ", name: " + d['name'] + ", url: " + d['url'])
+
+    item_url = d['url']
+
+    if item_price == '':
+        item_price = d['price']
+
+    if item_name == '':
+        item_name = d['name']
+
+    save_item(item_price, item_name, item_url, item_id)
+
+    return redirect('/menu.html')

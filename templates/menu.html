@@ -1,16 +1,74 @@
 {% extends 'responsiveMenu.html' %} {% block content %}
-<!-- {% include "header.html" %} -->
 <div id="flex-container"></div>
 <div id="info-popup">
-        <div class="info-popup-item" id="info-popup-name"></div>
-        <div class="info-popup-item" id="info-popup-price"></div>
-        <button class="item_button" id="saveButton" onclick="hideInfo();">Save</button>
+    <div class="info-popup-item">
+        <form id="info-popup-form" action="/save-order" onreset="hideInfo()" method="post">
+            <ul id="info-popup-form-list">
+                <li class="info-popup-form-item">
+                    <div class="info-popup-item" id="info-popup-name"></div>
+                </li>
+                <li class="info-popup-form-item">
+                  <span class="bold">Size</span><br>
+                  <input type="radio" name="size" value="Small" onclick="sub()" checked>Small</input>
+                  <input type="radio" name="size" value="Large" onclick="add(1)">Large</input>
+                </li>
+                <li class="info-popup-form-item">
+                  <span class="bold">Sweetness</span><br>
+                  <input type="radio" name="sweetness" value="None" checked>None</input>
+                  <input type="radio" name="sweetness" value="Light">Light</input>
+                  <input type="radio" name="sweetness" value="Normal">Normal</input>
+                  <input type="radio" name="sweetness" value="Extra">Extra</input>
+                </li>
+                <li class="info-popup-form-item">
+                  <span class="bold">Milk</span><br>
+                  <input type="radio" name="milk" value="2" onclick="sub()" checked>2%</input>
+                  <input type="radio" name="milk" value="Whole" onclick="sub()">Whole</input>
+                  <input type="radio" name="milk" value="HalfHalf" onclick="sub()">Half&Half</input>
+                  <input type="radio" name="milk" value="Soy" onclick="add(0.50)">Soy (+$.50)</input>
+                </li>
+                <li class="info-popup-form-item">
+                  <span class="bold">Temperature</span><br>
+                  <input type="radio" name="temp" value="Cold" checked>Cold</input>
+                  <input type="radio" name="temp" value="Hot">Hot</input>
+                </li>
+                <li class="info-popup-form-item">
+                  <span class="bold">Toppings</span><br>
+                  <input type="checkbox" name="toppings" value="tapioca">Tapioca</input>
+                  <input type="checkbox" name="toppings" value="pudding">Pudding</input>
+                  <input type="checkbox" name="toppings" value="redbean">Red Bean</input>
+                  <input type="checkbox" name="toppings" value="grassjelly">Grass Jelly</input>
+                  <input type="checkbox" name="toppings" value="agar">Agar</input>
+                  <input type="checkbox" name="toppings" value="poppingboba">Popping Boba</input>
+                  <input type="checkbox" name="toppings" value="jelly">Jelly</input>
+                </li>
+                <li class="info-popup-form-item">
+                  <span class="bold">Payment</span><br>
+                  <input type="radio" name="payment" value="Cash" checked>Cash</input>
+                  <input type="radio" name="payment" value="Rewards">Rewards</input>
+                </li>
+                <li>
+                    <input type="submit" value="submit" class="item_button"></input>
+                </li>
+                <li>
+                    <input type="reset" value="clear" class="item_button"></input>
+                </li>
+                <li>
+                    <div class="info-popup-item" id="info-popup-price"></div>
+                </li>
+                <li>
+                    <input type="hidden" readonly="readonly" id="form-name" name="name"></input>
+                    <input type="hidden" readonly="readonly" id="form-price" name="price"></input>
+                </li>
+            </ul>
+    </form>
+    </div>
 </div>
 {% endblock %} 
 
 
 {% block footer %}
 {% if admin == "true" %}
+<!--<button onclick="updateMenu();">Update</button>-->
 <form action="/save-data" method="post" enctype="multipart/form-data">
 	<ul class="adminForm-style">
 		<li>
@@ -30,9 +88,46 @@
         <li>
             <input type="submit" value="Upload"/>
         </li>
-      </ul>
-    </form>
-    <button onclick="deleteAll();"/>Clear</button>
+    </ul>
+</form>
+<form action="/edit-data" method="post">
+	<ul class="adminForm-style">
+        <li>
+            <h3>Edit Item</h3>
+        </li>
+        <li>
+            <label>Name</label>
+            <input type="text" name="name" id="item-name"/> 
+        </li>
+        <li>
+            <label>Price</label>
+            <input type="number" name="price" id="item-price" min="0" max="100" step="any" /> <!-- Price -->
+        </li>
+        <li>
+            <label>Id</label>
+            <input type="text" name="id" id="item-id"/> 
+        </li>
+        <li>
+            <input type="submit" value="Edit"/>
+        </li>
+    </ul>
+</form>
+<form action="/delete-item" method="post">
+	<ul class="adminForm-style">
+        <li>
+            <h3>Delete Item</h3>
+        </li>
+        <li>
+            <label>Id</label>
+            <input type="text" name="id" id="item-id"/> 
+        </li>
+        <li>
+            <input type="submit" value="Delete"/>
+        </li>
+    </ul>
+</form>
+<div id="wrapper"></div>
+<button onclick="deleteAll();"/>Delete All</button>
 {% else %}
 <div></div>
 {% endif %}

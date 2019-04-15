@@ -1,5 +1,12 @@
 body {
   background-color: #abebb4;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+html{
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 #sigdrink {
@@ -9,7 +16,7 @@ body {
 }
 
 #info-popup {
-  position: absolute;
+  position: fixed;
   z-index: 2;
   background: white;
   border: 1px solid black;
@@ -20,7 +27,7 @@ body {
   bottom: 0;
   left: 0;
   width: 25%;
-  height: 75%;
+  height: 90%;
   visibility: hidden;
   display: flex;
   flex-direction: column;
@@ -202,4 +209,40 @@ randomButton:hover {
     background-image: -o-linear-gradient(top, #45B50D, #1C730F);
     background-image: linear-gradient(to bottom, #45B50D, #1C730F);
     text-decoration: none;
+}
+
+#wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  margin: 30px;
+}
+
+.divs {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    width:100px;
+    height:50px;
+    padding: 10px;
+    border:1px solid black;
+}
+
+#info-popup-form-list {
+  list-style: none;
+}
+
+.bold{font-weight: bold;}
+
+.info-popup-form-item {
+  margin-bottom: 10px;
+}
+
+#info-popup-price {
+    font-size: 30px;
+}
+
+#info-popup-name {
+    font-size: 30px;
 }

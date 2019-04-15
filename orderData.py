@@ -1,9 +1,7 @@
+# Look at: https://console.cloud.google.com/datastore to see your entities.
 from google.cloud import datastore
 from Order import Order
 import config
-
-# Look at: https://console.cloud.google.com/datastore to see your entities.
-
 # We need to identify the entity type for our list items.
 # Note that this data type is arbitrary and can be whatever you like
 
@@ -18,10 +16,10 @@ def log(msg):
 def convert_to_orderObj(entity):
     """Convert the entity returned by datastore to a normal object."""
     order_id = entity.key.id_or_name
-    return Order(order_id, entity['name'], entity['size'], entity['tea'], entity['flavor'], entity['milk'], entity['sweetness'], entity['temp'], entity['toppings'], entity['price'])
+    return Order(order_id, entity['name'], entity['size'], entity['tea'], entity['flavor'], entity['milk'], entity['sweetness'], entity['temp'], entity['toppings'], entity['price'], entity['payment'], entity['time'])
 
 
-def load_order_key(client, order_id=None):
+def load_order_key(client, order_id):
     """Load a datastore key using a particular client, and if known, the ID.
     Note the ID should be an int - we're allowing datastore to generate them in
     this example."""
@@ -42,11 +40,29 @@ def load_order_entity(client, order_id):
     return entity
 
 
+def get_list_items():
+    """Retrieve the list items we've already stored."""
+    client = datastore.Client(config.PROJECT_ID)
+
+    # we build a query
+    query = client.query(kind=config.ORDER_ENTITY_TYPE)
+    # we execute the query
+    order_items = list(query.fetch())
+    # the code below converts the datastore entities to plain old objects -
+    # this is good for decoupling the rest of our app from datastore.
+    result = list()
+    for order_item in order_items:
+        result.append(convert_to_orderObj(order_item))
+
+    log('list retrieved. %s items' % len(result))
+    return result
+
+
 def checkorder(order_id):
     # Retrieve the list items we've already stored.
     client = datastore.Client(config.PROJECT_ID)
     # we build a query
-    query = client.query(kind=config.order_ENTITY_TYPE)
+    query = client.query(kind=config.ORDER_ENTITY_TYPE)
     # we execute the query
     orders = list(query.fetch())
     # the code below converts the datastore entities to plain old objects
@@ -64,11 +80,11 @@ def checkorder(order_id):
 
 
 def create_order(order):
-    """Create a new order item entity from the specified object."""
+    """Create a new order list item entity from the specified object."""
     client = datastore.Client(config.PROJECT_ID)
     key = load_order_key(client, order.orderId)
     entity = datastore.Entity(key)
-    # entity['orderId'] = key
+    entity['name'] = order.name
     entity['size'] = order.size
     entity['tea'] = order.tea
     entity['flavor'] = order.flavor
@@ -76,7 +92,9 @@ def create_order(order):
     entity['sweetness'] = order.sweetness
     entity['temp'] = order.temp
     entity['toppings'] = order.toppings
+    entity['payment'] = order.payment
     entity['price'] = order.price
+    entity['time'] = order.time
     client.put(entity)
     log('saved new entity for ID: %s' % key.id_or_name)
 

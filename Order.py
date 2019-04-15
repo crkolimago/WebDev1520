@@ -3,8 +3,9 @@
 
 
 class Order(object):
-    def __init__(self, orderId="", size="", tea="", flavor="", milk="", sweetness="", temp="", toppings="", price=0.0):
+    def __init__(self, orderId="", name="", size="", tea="", flavor="", milk="", sweetness="", temp="",toppings="",price=0.0,payment="", time=""):
         self.orderId = orderId
+        self.name = name
         self.size = size
         self.tea = tea
         self.flavor = flavor
@@ -13,10 +14,13 @@ class Order(object):
         self.temp = temp
         self.toppings = toppings
         self.price = price
+        self.payment = payment
+        self.time = time
 
     def to_dict(self):
         return {
             'orderId': self.orderId,
+            'name': self.name,
             'size': self.size,
             'tea': self.tea,
             'flavor': self.flavor,
@@ -25,4 +29,6 @@ class Order(object):
             'temp': self.temp,
             'toppings': self.toppings,
             'price': self.price,
+            'payment': self.payment,
+            'time': self.time
         }
