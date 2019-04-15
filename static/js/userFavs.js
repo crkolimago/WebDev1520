@@ -44,7 +44,6 @@ function showInfo(id, result) {
             }
             text += '<br>Payment Type:'+  result.payment;
             text += '<br>Price:'+  result.price;
-            text += '<br>Time:'+  result.time;
             text += '</p>';
             text += '<button onclick="saveItem(' + result.id+ ');" class="item_button" id="item_' + result.id + '">'+'Submit'+'</button>';
 
