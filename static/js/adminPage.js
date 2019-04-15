@@ -104,6 +104,7 @@ function displayList(result, targetUrl) {
             }
             text += '<br><b>Payment</b>:'+  result[i].payment;
             text += '<br><b>Price</b>:'+  result[i].price;
+            text += '<br><b>Time:</b>'+  result[i].time;
             text += '</p>';
             text += '<button onclick="deleteItem(\'' + result[i].id + '\');">Remove Order</button> ';
             text += '</div>';

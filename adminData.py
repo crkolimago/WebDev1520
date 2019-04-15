@@ -18,6 +18,7 @@ def get_list_items():
     query.order = ['time']
     # we execute the query
     order_items = list(query.fetch())
+    log(order_items)
 
     # the code below converts the datastore entities to plain old objects -
     # this is good for decoupling the rest of our app from datastore.

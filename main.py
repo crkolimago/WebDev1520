@@ -151,13 +151,6 @@ def saveOrder():
             url = request.form['url']
         except KeyError:
             url = "https://storage.googleapis.com/fukutea-menu-images/8bit.jpg"
-        order = Order(None, name, size, tea, flavor, milk, sweetness, temp,
-                      toppings, price, payment, str(datetime.datetime.now()), url)
-        orderData.create_order(order)
-        userOrder.create_order(order,  session['curUser'])
-        order_list = displayUserOrders()
-        for order in order_list:
-            log(str(order.to_dict()))
 
         if 'curUser' in session and userData.checkUser(session['curUser']):
             user = userData.get_user(session['curUser'])
@@ -189,9 +182,13 @@ def saveOrder():
             # alert cannot pay with Rewards
             pass
 
-        order = Order(None, name, size, tea, flavor, milk,
-                      sweetness, temp, toppings, price, payment)
+        order = Order(None, name, size, tea, flavor, milk, sweetness, temp,
+                      toppings, price, payment, str(datetime.datetime.now()), url)
         orderData.create_order(order)
+        userOrder.create_order(order,  session['curUser'])
+        order_list = displayUserOrders()
+        for order in order_list:
+            log(str(order.to_dict()))
     except Exception as exc:
         log(str(exc))
 
