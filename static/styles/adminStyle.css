@@ -1,0 +1,25 @@
+body {
+  background-color: #abebb4;
+}
+
+#flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.order {
+  flex-basis: auto;
+  margin: 10px;
+  padding: 10px;
+  background-color: #F7F7F7;
+  flex-shrink: 0;
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+}
+
+#access_restricted {
+    font-family: cursive;
+    font-size: 36 px;
+}

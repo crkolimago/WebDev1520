@@ -1,13 +1,44 @@
 function hideInfo() {
-    document.getElementById("info-popup").style.visibility = "hidden";
+    document.getElementById("info-popup-form").style.visibility = "hidden";
 }
 
 function add(num) {
   let p = document.getElementById("info-popup-price");
 
   let pp = parseFloat(p.innerHTML.split('$')[1]);
+
   pp += num;
-  p.innerHTML = '$' + pp;
+
+  let res = 'Price: $' + pp.toFixed(2);
+
+  p.innerHTML = res;
+}
+
+function getUser(id) {
+    getData('/currentUser/' + id, displayUser);
+}
+
+// when the item is loaded, we render an edit form in the list.
+function itemLoaded(result, targetUrl) {
+  showInfo(result.id, result);
+}
+
+function displayUser(res, targetUrl) {
+    if(res.userName === 'empty') {
+        alert("You must be logged in to place an order!");
+    } else {
+        showInfo(res.itemid);
+    }
+}
+
+function countDecimalPlaces(number) { 
+  var str = "" + number;
+  var index = str.indexOf('.');
+  if (index >= 0) {
+    return str.length - index - 1;
+  } else {
+    return 0;
+  }
 }
 
 function sub() {
@@ -18,10 +49,10 @@ function sub() {
 
 function showInfo(id, result) {
     if(result) {
-        document.getElementById("info-popup").style.visibility = "visible";
+        document.getElementById("info-popup-form").style.visibility = "visible";
         document.getElementById("info-popup-name").innerHTML = result.name;
         document.getElementById("form-name").value = document.getElementById("info-popup-name").innerHTML;
-        document.getElementById("info-popup-price").innerHTML = '$'+result.price;
+        document.getElementById("info-popup-price").innerHTML = 'Price: $'+result.price;
         document.getElementById("form-price").value = document.getElementById("info-popup-price").innerHTML;
         localStorage.setItem('price',document.getElementById("info-popup-price").innerHTML);
     } else {
@@ -166,9 +197,10 @@ function displayList(result) {
         for (var i = 0; i < result.length; i++) {
             text += '<div class="menu-item">';
             text += '<img class="image" src="' + result[i].url + '" alt="' + result[i].name + '" id="img_' + result[i].id + '"/>';
-            text += '<button onclick="showInfo(' + result[i].id + ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>$' + result[i].price + '</button>';
+            text += '<button onclick="getUser(' + result[i].id + ');" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>$' + result[i].price + '</button>';
             text += '</div>';
-            admin_menu += '<div class="divs" ondrop="drop(event)" ondragover="allowDrop(event)">';
+            admin_menu += '<div class="divs" ondragover="allowDrop(event)">';
+            admin_menu += '<span>' + result[i].name + ':</span>';
             admin_menu += '<span id="drag_' + result[i].id + '" draggable="true" ondragstart="drag(event)">' + result[i].id + '</span>';
             admin_menu += '</div>';
         }
@@ -203,7 +235,7 @@ function allowDrop(allowdropevent) {
 }
 
 function drag(dragevent) {
-    dragevent.dataTransfer.setData("text", dragevent.target.id);
+    dragevent.dataTransfer.setData("text", dragevent.target.id.split('_')[1]);
 }
 
 function drop(dropevent) {

@@ -134,29 +134,33 @@ function displayList(result, targetUrl) {
             toppings = result[i].toppings;
 
             text += '<div class="order">';
-            text += '<p> Drink:' + result[i].name;
-            text += '<br>Size:' + result[i].size;
+            text += '<p><b>Drink</b>:' + result[i].name;
+            text += '<br><b>Size</b>:' + result[i].size;
             if(tea != '') {
-                text += '<br>Tea:'+tea;
+                text += '<br><b>Tea</b>:'+tea;
             }
             if(flavor != '') {
-                test += '<br>Flavor:'+flavor;
+                text += '<br><b>Flavor</b>:'+flavor;
             }
-            text += '<br>Milk:'+  result[i].milk;
-            text += '<br>Sweetness:'+  result[i].sweetness;
-            text += '<br>Temp:'+  result[i].temp;
+            text += '<br><b>Milk</b>:'+  result[i].milk;
+            text += '<br><b>Sweetness</b>:'+  result[i].sweetness;
+            text += '<br><b>Temp</b>:'+  result[i].temp;
             if(toppings != '') {
-                text += '<br>Toppings:'+  result[i].toppings;
+                text += '<br><b>Toppings</b>:'+  result[i].toppings;
             }
-            text += '<br>Payment Type:'+  result[i].payment;
-            text += '<br>Price:'+  result[i].price;
+            text += '<br><b>Payment</b>:'+  result[i].payment;
+            text += '<br><b>Price</b>:'+  result[i].price;
             text += '</p>';
             //text += '<button onclick="deleteItem(\'' + result[i].id + '\');">Remove Order</button> ';
             text += '</div>';
         }
-        document.getElementById("flex-container").innerHTML = text;
+        if(document.getElementById("flex-container") != null) {
+            document.getElementById("flex-container").innerHTML = text;
+        }
     } else {
-        document.getElementById("flex-container").innerHTML = 'No Orders.';
+        if(document.getElementById("flex-container") != null) {
+            document.getElementById("flex-container").innerHTML = 'No Orders.';
+        }
     }
 }
 

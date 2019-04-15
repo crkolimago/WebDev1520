@@ -15,19 +15,19 @@ html{
   font-size: 48px;
 }
 
-#info-popup {
-  position: fixed;
+#info-popup-form {
+  position: absolute;
   z-index: 2;
   background: white;
   border: 1px solid black;
   border-radius: 10px;
   margin: auto;
+  margin-top: 5%;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  width: 25%;
-  height: 90%;
+  width: 30%;
   visibility: hidden;
   display: flex;
   flex-direction: column;
@@ -130,8 +130,6 @@ html{
   font: inherit;
   color: inherit;
   background-color: transparent;
-  /* show a hand cursor on hover; some argue that we
-  should keep the default arrow cursor for buttons */
   cursor: pointer;
 }
 
@@ -245,4 +243,8 @@ randomButton:hover {
 
 #info-popup-name {
     font-size: 30px;
+}
+
+#note {
+    font-size: 10px;
 }

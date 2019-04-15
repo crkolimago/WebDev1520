@@ -5,6 +5,7 @@ import random
 import userData
 import orderData
 import adminData
+from Empty import Empty
 from menuitem import MenuItem
 from User import User
 from Order import Order
@@ -21,7 +22,10 @@ app.secret_key = config.KEY
 
 @app.route('/')
 def root():
-    return render_template("fukuPage.html")
+    if 'curUser' in session and (userData.get_user(session['curUser']).userId == '107547848533480653521' or userData.get_user(session['curUser']).userId == '112301482083727417023'):
+        return render_template("fukuPage.html", admin="true")
+    else:
+        return render_template("fukuPage.html", admin="false")
     """ if 'curUser' in session:
         return render_template("fukuPage.html", userName=userData.get_user(session['curUser']).userName)
     else:"""
@@ -32,7 +36,7 @@ def customDrink():
     return render_template('customDrink.html')
 
 
-@app.route('/info.html')
+@app.route('/info')
 def info():
     return render_template('info.html')
 
@@ -41,7 +45,7 @@ def info():
 def profile():
     if 'curUser' in session and userData.checkUser(session['curUser']):
         temp = userData.get_user(session['curUser'])
-        return render_template("profile.html", userName=temp.userName, emailAddress=temp.userEmail, rewards=0, setup="true", picture=temp.userPicture, lastname=temp.userLastName)
+        return render_template("profile.html", userName=temp.userName, emailAddress=temp.userEmail, rewards=temp.userPoints, setup="true", picture=temp.userPicture, lastname=temp.userLastName)
     else:
         return render_template("profile.html")
 
@@ -69,20 +73,21 @@ def tokenSignIn():
             userName = idinfo['given_name']
             userPicture = idinfo['picture']
             userLastName = idinfo['family_name']
-            newUser = User(userId, userEmail, userName, 0, 0, userPicture, userLastName)
+            newUser = User(userId, userEmail, userName, 0,
+                           0, userPicture, userLastName)
             log('saving for user: %s' % userName)
             userData.create_user(newUser)
     except ValueError:
         pass
     session['curUser'] = userId
-    return render_template("fukuPage.html")
+    return redirect('/')
 
 
 @app.route('/tokenSignOut', methods=['POST'])
 def tokenSignOut():
     session.clear()
     log("user has been signed out")
-    return render_template("fukuPage.html")
+    return redirect('/')
 
 
 def log(msg):
@@ -133,28 +138,45 @@ def saveOrder():
         temp = request.form['temp']
         price = request.form['price']
         payment = request.form['payment']
-        order = Order(None, name, size, tea, flavor, milk, sweetness, temp, toppings, price, payment)
+
+        if 'curUser' in session and userData.checkUser(session['curUser']):
+            user = userData.get_user(session['curUser'])
+            try:
+                if payment == 'Cash':
+                    old_points = user.userPoints
+                    old_money = user.userMoneySpent
+                    new_points = int(old_points) + config.POINTS_PER_DRINK
+                    try:
+                        new_money = float(old_money) + float(price.split('$')[1])
+                    except IndexError:
+                        new_money = float(old_money) + float(price)
+                    uuser = User(user.userId, user.userEmail, user.userName,
+                                 new_points, new_money, user.userPicture, user.userLastName)
+                    userData.save_user(uuser)
+                else:
+                    old_points = user.userPoints
+                    if old_points >= config.COST_PER_DRINK:
+                        new_points = int(old_points) - config.COST_PER_DRINK
+                        uuser = User(user.userId, user.userEmail, user.userName, new_points,
+                                     user.userMoneySpent, user.userPicture, user.userLastName)
+                        userData.save_user()
+                    else:
+                        # alert you dont have enough points
+                        pass
+            except AttributeError:
+                log("Check around line 140 in main.py and add them to your config file.")
+        elif payment == 'Rewards':
+            # alert cannot pay with Rewards
+            pass
+
+        order = Order(None, name, size, tea, flavor, milk,
+                      sweetness, temp, toppings, price, payment)
         orderData.create_order(order)
 
-        """
-        if 'curUser' in session:
-            # user = userData.get_user(session['curUser'])
-            user = userData.get_entity(session['curUser'])
-            user['userPoints'] += 1
-            user['userMoneySpent'] += float(money_spent)
-            userObject = userData.convert_to_userObj(user)
-            userObject.userPoints = user['userPoints']
-            userObject.userMoneySpent = user['userMoneySpent']
-            userData.save_user(userObject)
-        else:
-            log("user not signed in")
-
-        json_result['ok'] = True
-    """
     except Exception as exc:
         log(str(exc))
 
-    return redirect('/menu.html')
+    return redirect('/menu')
 
 
 @app.route('/leaderBoard', methods=['GET', 'POST'])
@@ -188,9 +210,13 @@ def get_leaderboard_data():
 def randomizer():
     return render_template("random.html")
 
+
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    return render_template("adminPage.html")
+    if 'curUser' in session and (userData.get_user(session['curUser']).userId == '107547848533480653521' or userData.get_user(session['curUser']).userId == '112301482083727417023'):
+        return render_template('adminPage.html', admin="true")
+    else:
+        return render_template('adminPage.html', admin="false")
 
 
 @app.route('/load-random')
@@ -250,7 +276,7 @@ def load_sli_items():
     return Response(responseJson, mimetype='application/json')
 
 
-@app.route('/menu.html')
+@app.route('/menu')
 def menu():
     if 'curUser' in session and (userData.get_user(session['curUser']).userId == '107547848533480653521' or userData.get_user(session['curUser']).userId == '112301482083727417023'):
         return render_template('menu.html', admin="true")
@@ -289,7 +315,7 @@ def delete_item():
     except Exception as exc:
         log(str(exc))
 
-    return redirect('/menu.html')
+    return redirect('/menu')
 
 
 # here we use a Flask shortcut to pull the itemid from the URL.
@@ -373,18 +399,18 @@ def save_data():
     log(request.form)
     if 'file' not in request.files:
         log('No file part')
-        return redirect('/menu.html')
+        return redirect('/menu')
     file = request.files['file']
     # if user does not select file, browser also
     # submit a empty part without filename
     if file.filename == '':
         log('No selected file')
-        return redirect('/menu.html')
+        return redirect('/menu')
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_url = upload_file(file.read(), filename, file.content_type)
         save_item(request.form['price'], request.form['name'], file_url, None)
-        return redirect('/menu.html')
+        return redirect('/menu')
 
 
 @app.route('/edit-data', methods=['POST'])
@@ -411,4 +437,18 @@ def edit_data():
 
     save_item(item_price, item_name, item_url, item_id)
 
-    return redirect('/menu.html')
+    return redirect('/menu')
+
+
+@app.route('/currentUser/<itemid>')
+def get_current_user(itemid):
+    if 'curUser' in session and userData.checkUser(session['curUser']):
+        user = userData.get_user(session['curUser'])
+        d = user.to_dict()
+        d['itemid'] = itemid
+    else:
+        e = Empty()
+        d = e.to_dict()
+        d['itemid'] = itemid
+
+    return Response(json.dumps(d), mimetype='application/json')
