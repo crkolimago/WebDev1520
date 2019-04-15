@@ -111,17 +111,17 @@ def customOrder():
 def saveOrder():
     try:
         # now sure how to generate unique IDs for every order
-        name = request.form.get('name', '')
-        money_spent = request.form.get('total', '')
-        size = request.form.get('size', '')
-        tea = request.form.get('tea', '')
-        flavor = request.form.get('flavor', '')
-        milk = request.form.get('milk', '')
-        sweetness = request.form.get('sweetness', '')
-        temp = request.form.get('temp', '')
-        toppings = request.form.get('toppings', '')
-        price = request.form.get('price', '')
-        payment = request.form.get('payment', '')
+        name = request.form['name']
+        money_spent = request.form['total']
+        size = request.form['size']
+        tea = request.form['tea']
+        flavor = request.form['flavor']
+        milk = request.form['milk']
+        sweetness = request.form['sweetness']
+        temp = request.form['temp']
+        toppings = request.form['toppings']
+        price = request.form['price']
+        payment = request.form['payment']
         order = Order(None, name, size, tea, flavor, milk, sweetness, temp, toppings, price, payment)
         orderData.create_order(order)
         json_result = {}
@@ -298,6 +298,7 @@ def get_order(itemid):
     d = item.to_dict()
     d['id'] = itemid
     return Response(json.dumps(d), mimetype='application/json')"""
+    
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
 

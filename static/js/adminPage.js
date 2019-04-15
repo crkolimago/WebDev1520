@@ -130,7 +130,7 @@ function displayList(result, targetUrl) {
         //work on formatting the orders to display
         for (var i = 0; i < result.length; i++) {
             text += '<div class="order">';
-            text += '<p> Drink:' + result[i].name + '<br>Size:' + result[i].size + '<br>Tea:'+  result[i].tea+'<br>Flavor:'+  result[i].flavor+'<br>Milk:'+  result[i].milk+'<br>Sweetness:'+  result[i].sweetness+'<br>Temp:'+  result[i].temp+'<br>Toppings:'+  result[i].toppings +'<br>Payment Type:'+  result[i].payment+'<br>Price:'+  result[i].price +'</p>';
+            text += '<p> Drink:' + result[i].name + '<br>Size:' + result[i].size + '<br>Tea:'+  result[i].tea+'<br>Flavor:'+  result[i].flavor+'<br>Milk:'+  result[i].milk+'<br>Sweetness:'+  result[i].sweetness+'<br>Temp:'+  result[i].temp+'<br>Toppings:'+  result[i].toppings +'<br>Payment Type:'+  result[i].payment+'<br>Price:'+  result[i].price +'<br>Time:'+  result[i].time +'</p>';
             //text += '<button onclick="deleteItem(\'' + result[i].id + '\');">Remove Order</button> ';
             text += '</div>';
         }

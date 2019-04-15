@@ -96,6 +96,7 @@ def create_order(order):
     entity['toppings'] = order.toppings
     entity['payment'] = order.payment
     entity['price'] = order.price
+    entity['time'] = order.time
     client.put(entity)
     log('saved new entity for ID: %s' % key.id_or_name)
 

@@ -182,7 +182,7 @@ function submit_cart() {
     var ul = document.getElementById('customDrinkInCart');
     var items = ul.getElementsByTagName('li');
     var pprice = parseFloat(items[items.length-1].textContent);
-    var product = pprice * quantity;
+   // var product = pprice * quantity;
     subtotal += pprice;
     //subtotal += product;
     //console.log(product);
