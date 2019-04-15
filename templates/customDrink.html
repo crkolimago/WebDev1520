@@ -100,7 +100,11 @@
           <div class="cart_button">
             <button onclick="clear_cart()">Clear Cart</button>
             <button onclick="submit_cart()">Submit Cart</button>
+            {% if user == "true" %}
+            
             <button onclick="save_order()">Save Order</button>
+            {% endif %}
+
           </div>
 	      </div><!-- cart div -->
 		  </div><!-- grid container div -->
