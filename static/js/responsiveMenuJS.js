@@ -20,7 +20,9 @@ function showInfo(id, result) {
     if(result) {
         document.getElementById("info-popup").style.visibility = "visible";
         document.getElementById("info-popup-name").innerHTML = result.name;
+        document.getElementById("form-name").value = document.getElementById("info-popup-name").innerHTML;
         document.getElementById("info-popup-price").innerHTML = '$'+result.price;
+        document.getElementById("form-price").value = document.getElementById("info-popup-price").innerHTML;
         localStorage.setItem('price',document.getElementById("info-popup-price").innerHTML);
     } else {
         getItem(id);

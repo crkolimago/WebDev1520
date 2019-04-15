@@ -7,12 +7,14 @@
     {% include "header.html" %}
 </head>
 <body>
-   
 
-    <div id="gSignIn" class="g-signin2"  data-onsuccess="onSuccess"></div>
+
+    <!--<div id="gSignIn" class="g-signin2"  data-onsuccess="onSuccess"></div>-->
+    <div id="my-signin2"></div>
     <div class="content">
     <img id = "logo" src="static/img/fukuLogo.png" >
     {% include "navbar.html" %}
+    <script src="static/js/main.js"></script>
     <div id="about">
       <h3>About</h3>
       <p>
@@ -40,7 +42,8 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div> 
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADHDwizwJ-NtJV-QnSStaGmlZIa2f38dI&callback=initMap"></script>
 </body>

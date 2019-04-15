@@ -2,7 +2,7 @@
 <div id="flex-container"></div>
 <div id="info-popup">
     <div class="info-popup-item">
-        <form id="info-popup-form" action="/save-sig-order" onreset="hideInfo()" method="post">
+        <form id="info-popup-form" action="/save-order" onreset="hideInfo()" method="post">
             <ul id="info-popup-form-list">
                 <li class="info-popup-form-item">
                     <div class="info-popup-item" id="info-popup-name"></div>
@@ -41,6 +41,11 @@
                   <input type="checkbox" name="toppings" value="poppingboba">Popping Boba</input>
                   <input type="checkbox" name="toppings" value="jelly">Jelly</input>
                 </li>
+                <li class="info-popup-form-item">
+                  <span class="bold">Payment</span><br>
+                  <input type="radio" name="payment" value="Cash" checked>Cash</input>
+                  <input type="radio" name="payment" value="Rewards">Rewards</input>
+                </li>
                 <li>
                     <input type="submit" value="submit" class="item_button"></input>
                 </li>
@@ -49,6 +54,10 @@
                 </li>
                 <li>
                     <div class="info-popup-item" id="info-popup-price"></div>
+                </li>
+                <li>
+                    <input type="hidden" readonly="readonly" id="form-name" name="name"></input>
+                    <input type="hidden" readonly="readonly" id="form-price" name="price"></input>
                 </li>
             </ul>
     </form>

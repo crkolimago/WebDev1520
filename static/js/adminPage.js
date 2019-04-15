@@ -127,10 +127,32 @@ function itemsDeleted(result) {
 function displayList(result, targetUrl) {
     if (result && result.length) {
         let text = "";
-        //work on formatting the orders to display
+
         for (var i = 0; i < result.length; i++) {
+            tea = result[i].tea;
+            flavor = result[i].flavor;
+            toppings = result[i].toppings;
+
             text += '<div class="order">';
-            text += '<p> Drink:' + result[i].name + '<br>Size:' + result[i].size + '<br>Tea:'+  result[i].tea+'<br>Flavor:'+  result[i].flavor+'<br>Milk:'+  result[i].milk+'<br>Sweetness:'+  result[i].sweetness+'<br>Temp:'+  result[i].temp+'<br>Toppings:'+  result[i].toppings +'<br>Payment Type:'+  result[i].payment+'<br>Price:'+  result[i].price +'<br>Time:'+  result[i].time +'</p>';
+                
+            text += '<p> Drink:' + result[i].name;
+            text += '<br>Size:' + result[i].size;
+            if(tea != '') {
+                text += '<br>Tea:'+tea;
+            }
+            if(flavor != '') {
+                test += '<br>Flavor:'+flavor;
+            }
+            text += '<br>Milk:'+  result[i].milk;
+            text += '<br>Sweetness:'+  result[i].sweetness;
+            text += '<br>Temp:'+  result[i].temp;
+            if(toppings != '') {
+                text += '<br>Toppings:'+  result[i].toppings;
+            }
+            text += '<br>Payment Type:'+  result[i].payment;
+            text += '<br>Price:'+  result[i].price;
+            text += '<br>Time:'+  result[i].time;
+            text += '</p>';
             //text += '<button onclick="deleteItem(\'' + result[i].id + '\');">Remove Order</button> ';
             text += '</div>';
         }
