@@ -172,9 +172,8 @@ def saveOrder():
                         new_points = int(old_points) - config.COST_PER_DRINK
                         uuser = User(user.userId, user.userEmail, user.userName, new_points,
                                      user.userMoneySpent, user.userPicture, user.userLastName)
-                        userData.save_user()
+                        userData.save_user(uuser)
                     else:
-                        # alert you dont have enough points
                         pass
             except AttributeError:
                 log("Check around line 140 in main.py and add them to your config file.")
@@ -407,7 +406,7 @@ def save_order(itemid):
                     new_points = int(old_points) - config.COST_PER_DRINK
                     uuser = User(user.userId, user.userEmail, user.userName, new_points,
                                     user.userMoneySpent, user.userPicture, user.userLastName)
-                    userData.save_user()
+                    userData.save_user(uuser)
                 else:
                     # alert you dont have enough points
                     pass

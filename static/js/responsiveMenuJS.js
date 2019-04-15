@@ -18,10 +18,6 @@ function getUser(id) {
     getData('/currentUser/' + id, displayUser);
 }
 
-// when the item is loaded, we render an edit form in the list.
-function itemLoaded(result, targetUrl) {
-  showInfo(result.id, result);
-}
 
 function displayUser(res, targetUrl) {
     if(res.userName === 'empty') {
