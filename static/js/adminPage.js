@@ -103,10 +103,10 @@ function displayList(result, targetUrl) {
                 text += '<br><b>Toppings</b>:'+  result[i].toppings;
             }
             text += '<br><b>Payment</b>:'+  result[i].payment;
-            text += '<br><b>Price</b>:'+  result[i].price;
+            text += '<br><b>Price</b>:'+  result[i].price.split('$')[1];
             text += '<br><b>Time:</b>'+  result[i].time;
             text += '</p>';
-            text += '<button onclick="deleteItem(\'' + result[i].id + '\');">Remove Order</button> ';
+            text += '<button class="delete" onclick="deleteItem(\'' + result[i].id + '\');">Remove Order</button> ';
             text += '</div>';
         }
         if(document.getElementById("flex-container") != null) {

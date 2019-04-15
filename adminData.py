@@ -15,7 +15,7 @@ def get_list_items():
 
     # we build a query
     query = client.query(kind=config.ORDER_ENTITY_TYPE)
-    query.order = ['time']
+    # query.order = ['time']
     # we execute the query
     order_items = list(query.fetch())
     log(order_items)

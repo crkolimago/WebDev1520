@@ -386,6 +386,37 @@ def get_item(itemid):
 def save_order(itemid):
     log('retrieving item for ID: %s' % itemid)
     item = userOrder.get_user_order(itemid, session['curUser'])
+
+    if 'curUser' in session and userData.checkUser(session['curUser']):
+        user = userData.get_user(session['curUser'])
+        try:
+            if item.payment == 'Cash':
+                old_points = user.userPoints
+                old_money = user.userMoneySpent
+                new_points = int(old_points) + config.POINTS_PER_DRINK
+                try:
+                    new_money = float(old_money) + float(item.price.split('$')[1])
+                except IndexError:
+                    new_money = float(old_money) + float(item.price)
+                uuser = User(user.userId, user.userEmail, user.userName,
+                                new_points, new_money, user.userPicture, user.userLastName)
+                userData.save_user(uuser)
+            else:
+                old_points = user.userPoints
+                if old_points >= config.COST_PER_DRINK:
+                    new_points = int(old_points) - config.COST_PER_DRINK
+                    uuser = User(user.userId, user.userEmail, user.userName, new_points,
+                                    user.userMoneySpent, user.userPicture, user.userLastName)
+                    userData.save_user()
+                else:
+                    # alert you dont have enough points
+                    pass
+        except AttributeError:
+                log("Check around line 140 in main.py and add them to your config file.")
+    elif item.payment == 'Rewards':
+        # alert cannot pay with Rewards
+        pass
+
     newItem = Order(random.randint(1, 999999999999), item.name, item.size, item.tea, item.flavor, item.milk, item.sweetness,
                     item.temp, item.toppings, item.price, item.payment, str(datetime.datetime.now()), item.url)
     orderData.create_order(newItem)

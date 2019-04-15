@@ -14,12 +14,29 @@ body {
   padding: 10px;
   background-color: #F7F7F7;
   flex-shrink: 0;
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 250px;
   border: 1px solid black;
 }
 
 #access_restricted {
     font-family: cursive;
     font-size: 36 px;
+}
+
+.delete {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.delete {
+    background-color: black;
+    color: white;
+    font-size: 20x;
+    margin: 4px;
+    border-radius: 8px;
 }

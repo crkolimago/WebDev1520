@@ -5,7 +5,7 @@ function displayRand(result, targetUrl) {
         for (var i = 0; i < result.length; i++) {
             text += '<div class="menu-item">';
             text += '<img class="image" src="' + result[i].url + '" alt="' + result[i].name + '" id="img_' + result[i].id + '"/>';
-            text += '<button onclick="showInfo();" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>Price:$' + result[i].price + '</button>';
+            text += '<button onclick="link();" class="item_button" id="item_' + result[i].id + '">' + result[i].name + '<br>Price:$' + result[i].price + '</button>';
             text += '</div>';
         }
         console.log("updatin random: " + text);
@@ -13,6 +13,10 @@ function displayRand(result, targetUrl) {
     } else {
         document.getElementById("randomItem").innerHTML = 'Press Random to get a Random Drink!';
     }
+}
+
+function link() {
+    getData('/menu');
 }
 
 function Randomizer() {
