@@ -65,7 +65,7 @@ def tokenSignIn():
         else:
             userEmail = idinfo['email']
             userName = idinfo['given_name']
-            newUser = User(userId, userEmail, userName)
+            newUser = User(userId, userEmail, userName, 0, 0)
             log('saving for user: %s' % userName)
             userData.create_user(newUser)
     except ValueError:
@@ -141,11 +141,11 @@ def saveOrder():
         price = request.form.get('price', '')
         order = Order(None, size, tea, flavor, milk, sweetness, temp, toppings, price)
         orderData.create_order(order) # not sure if works, it doesn't
-        
         orderData.save_order(order)
 
         if 'curUser' in session:
             # user = userData.get_user(session['curUser'])
+            # user is a datastore entity not a User python object
             user = userData.get_entity(session['curUser'])
             user['userPoints'] += 1
             user['userMoneySpent'] += float(money_spent)
@@ -169,10 +169,13 @@ def saveOrder():
 def leaderBoard():
     if request.method == "GET":
         userList = userData.get_list_items()
+        # this doesn't work when there's multiple users
         for user in userList:
+            userEntity = userData.get_entity(user.userId)
             userName = user.userName
-            userPoints = user.userPoints
-            userMoneySpent = user.userMoneySpent
+            userPoints = userEntity['userPoints']
+            userMoneySpent = userEntity['userMoneySpent']
+        # need to find a way to render template with many variables
         return render_template("leaderBoard.html", userName=userName, userPoints=userPoints, userMoneySpent=userMoneySpent)
 
 

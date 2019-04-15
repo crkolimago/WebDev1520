@@ -68,7 +68,7 @@ def create_order(order):
     client = datastore.Client(config.PROJECT_ID)
     key = load_order_key(client, order.orderId)
     entity = datastore.Entity(key)
-    entity['orderId'] = order.orderId
+    entity['orderId'] = key
     entity['size'] = order.size
     entity['tea'] = order.tea
     entity['flavor'] = order.flavor
@@ -78,7 +78,7 @@ def create_order(order):
     entity['toppings'] = order.toppings
     entity['price'] = order.price
     client.put(entity)
-    log('saved new entity for ID: %s' % key.id_or_name)
+    log('saved new entity for ID: %s' % key)
 
 
 def save_order(order):
