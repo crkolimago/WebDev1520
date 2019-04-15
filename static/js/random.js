@@ -16,7 +16,7 @@ function displayRand(result, targetUrl) {
 }
 
 function link() {
-    getData('/menu');
+    window.location.replace("https://fukuteashop.appspot.com");
 }
 
 function Randomizer() {
