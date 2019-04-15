@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!--<meta name="google-signin-client_id" content="723893521330-94000c9m5sl45f9ibc08hbccpfj9r6uo.apps.googleusercontent.com">-->
-    <meta name="google-signin-client_id" content="1079172216469-4ld6c47p1ua6e4dlkjp5bd8r68dc3lb7.apps.googleusercontent.com">
+    {% include "signin-meta.html" %}
     <link rel="stylesheet" href="static/styles/fukuStyle.css">
     {% include "header.html" %}
 </head>
@@ -12,11 +11,6 @@
     <div id="gSignIn" class="g-signin2"  data-onsuccess="onSuccess"></div>
     <br>
   <div class="content">
-    <div id="userWelcome">
-        {%if userName%}
-        Welcome back, {{userName}}
-        {%endif%}
-        </div> 
     <img id = "logo" src="static/img/fukuLogo.png" >
     {% include "navbar.html" %}
     <div id="about">
