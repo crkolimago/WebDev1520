@@ -3,7 +3,7 @@
 
 
 class Order(object):
-    def __init__(self, orderId="", size="", tea="", flavor="", milk="", sweetness="", temp="", toppings="", price=0):
+    def __init__(self, orderId="", size="", tea="", flavor="", milk="", sweetness="", temp="", toppings="", price=0.0):
         self.orderId = orderId
         self.size = size
         self.tea = tea

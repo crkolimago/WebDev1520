@@ -18,7 +18,7 @@ def log(msg):
 def convert_to_orderObj(entity):
     """Convert the entity returned by datastore to a normal object."""
     order_id = entity.key.id_or_name
-    return Order(order_id, entity['orderEmail'], entity['orderName'])
+    return Order(order_id, entity['name'], entity['size'], entity['tea'], entity['flavor'], entity['milk'], entity['sweetness'], entity['temp'], entity['toppings'], entity['price'])
 
 
 def load_order_key(client, order_id=None):
@@ -27,7 +27,7 @@ def load_order_key(client, order_id=None):
     this example."""
     key = None
     if order_id:
-        key = client.key(config.ORDER_ENTITY_TYPE, order_id)
+        key = client.key(config.ORDER_ENTITY_TYPE, int(order_id))
     else:
         # this will generate an ID
         key = client.key(config.ORDER_ENTITY_TYPE)
@@ -38,7 +38,7 @@ def load_order_entity(client, order_id):
     """Load a datastore entity using a particular client, and the ID."""
     key = load_order_key(client, order_id)
     entity = client.get(key)
-    log('retrieved entity for ' + str(order_id))
+    log('retrieved entity for ' + order_id)
     return entity
 
 
@@ -68,7 +68,7 @@ def create_order(order):
     client = datastore.Client(config.PROJECT_ID)
     key = load_order_key(client, order.orderId)
     entity = datastore.Entity(key)
-    entity['orderId'] = key
+    # entity['orderId'] = key
     entity['size'] = order.size
     entity['tea'] = order.tea
     entity['flavor'] = order.flavor
@@ -78,7 +78,7 @@ def create_order(order):
     entity['toppings'] = order.toppings
     entity['price'] = order.price
     client.put(entity)
-    log('saved new entity for ID: %s' % key)
+    log('saved new entity for ID: %s' % key.id_or_name)
 
 
 def save_order(order):
@@ -87,7 +87,7 @@ def save_order(order):
     entity = load_order_entity(client, order.orderId)
     entity.update(order.to_dict())
     client.put(entity)
-    log('entity saved for ID: %s' % str(order.orderId))
+    log('entity saved for ID: %s' % order.orderId)
 
 
 def get_order(order_id):

@@ -18,6 +18,7 @@ def log(msg):
 def convert_to_userObj(entity):
     """Convert the entity returned by datastore to a normal object."""
     user_id = entity.key.id_or_name
+    log(entity["user_id"])
     return User(user_id, entity['userEmail'], entity['userName'], entity['userPoints'], entity['userMoneySpent'])
 
 

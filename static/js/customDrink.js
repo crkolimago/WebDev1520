@@ -90,8 +90,6 @@ function confirmDrink(form) {
 
   drink.toppings = toppingsList;
   for (var t in toppingsList) {
-    if (t != "No Toppings") 
-      //toppingString = toppingString.concat(toppingsList[t] + ", ");
     drink.price += .50;
     price += .50;
   }
@@ -106,16 +104,9 @@ function confirmDrink(form) {
     for (var property in drink) {
       drink_as_string += drink[property] + ', ';
     }
-    //console.log(drink_as_string);
     var table = document.getElementById('cart_table');
     var row = table.insertRow(1);
     var item_cell = row.insertCell(0);
-    var quantity_cell = row.insertCell(1);
-    var quantity_input = document.createElement('input');
-    quantity_input.type='number';
-    quantity_input.setAttribute('min',0);
-    quantity_input.setAttribute('max',30);
-		quantity_input.value = 1;
 
     item_cell.innerHTML = 'Custom Drink: ';
     var drink_list = document.createElement('ul');
@@ -129,7 +120,6 @@ function confirmDrink(form) {
     item_cell.appendChild(drink_list);
     item_cell.setAttribute('id', 'custom_drink');
     item_cell.setAttribute('class', 'shopping_cart_item');
-    quantity_cell.appendChild(quantity_input);
 
     drinks.push(drink);
     drink = new Drink('', '', '', '', '', '', [], 0);
@@ -148,7 +138,6 @@ function addTopping(topping) {
     toppingsList.push(topping);
     toppingString = toppingString.concat(topping + ", ");
   }
-  //console.log(toppingsList);
 }
 
 function clear_cart() {
@@ -167,16 +156,10 @@ function submit_cart() {
   var subtotal = 0;
 
   for (var i = 1; i < table.rows.length; i++) {
-    //var quantity = table.rows[i].lastChild.value;
-    //var quantity = table.rows[i].cells[1].value;
     var ul = document.getElementById('customDrinkInCart');
     var items = ul.getElementsByTagName('li');
     var pprice = parseFloat(items[items.length-1].textContent);
-    //var product = pprice * quantity;
     subtotal += pprice;
-    //subtotal += product;
-    //console.log(product);
-    //console.log(subtotal);
   }
 
   var tax = subtotal * 0.06;
@@ -223,8 +206,6 @@ function save_order() {
 function itemSaved(result, targetUrl, params) {
   if (result && result.ok) {
     console.log("Saved item.");
-    //clearItemForm();
-    //loadItems();
   } else {
     console.log("Received error: " + result.error);
     showError(result.error);

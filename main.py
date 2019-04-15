@@ -141,10 +141,10 @@ def saveOrder():
         price = request.form.get('price', '')
         order = Order(None, size, tea, flavor, milk, sweetness, temp, toppings, price)
         orderData.create_order(order) # not sure if works, it doesn't
+        log("help")
         orderData.save_order(order)
 
         if 'curUser' in session:
-            # user = userData.get_user(session['curUser'])
             # user is a datastore entity not a User python object
             user = userData.get_entity(session['curUser'])
             user['userPoints'] += 1
@@ -164,7 +164,7 @@ def saveOrder():
 
     return Response(json.dumps(json_result), mimetype='application/json')
 
-
+'''
 @app.route('/leaderBoard', methods=['GET', 'POST'])
 def leaderBoard():
     if request.method == "GET":
@@ -194,7 +194,7 @@ def get_leaderboard_data():
     # responseJson = json.dumps({ 'Name': user.userName, })
     return Response(responseJson)
 
-
+'''
 @app.route('/random', methods=['GET', 'POST'])
 def randomizer():
     return render_template("random.html")
