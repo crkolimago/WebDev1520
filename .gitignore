@@ -1,7 +1,4 @@
 config.py
-config.pyc
-menuitem.pyc
-order.pyc
-orderData.pyc
-slidata.pyc
-userData.pyc
+*.pyc
+/templates/sigin-meta.html
+.gitignore

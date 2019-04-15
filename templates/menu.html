@@ -1,5 +1,4 @@
 {% extends 'responsiveMenu.html' %} {% block content %}
-<!-- {% include "header.html" %} -->
 <div id="flex-container"></div>
 <div id="info-popup">
     <div class="info-popup-item">
@@ -10,8 +9,8 @@
                 </li>
                 <li class="info-popup-form-item">
                   <span class="bold">Size</span><br>
-                  <input type="radio" name="size" value="Small" checked>Small</input>
-                  <input type="radio" name="size" value="Large">Large</input>
+                  <input type="radio" name="size" value="Small" onclick="sub()" checked>Small</input>
+                  <input type="radio" name="size" value="Large" onclick="add(1)">Large</input>
                 </li>
                 <li class="info-popup-form-item">
                   <span class="bold">Sweetness</span><br>
@@ -22,10 +21,10 @@
                 </li>
                 <li class="info-popup-form-item">
                   <span class="bold">Milk</span><br>
-                  <input type="radio" name="milk" value="2" checked>2%</input>
-                  <input type="radio" name="milk" value="Whole">Whole</input>
-                  <input type="radio" name="milk" value="HalfHalf">Half&Half</input>
-                  <input type="radio" name="milk" value="Soy">Soy (+$.50)</input>
+                  <input type="radio" name="milk" value="2" onclick="sub()" checked>2%</input>
+                  <input type="radio" name="milk" value="Whole" onclick="sub()">Whole</input>
+                  <input type="radio" name="milk" value="HalfHalf" onclick="sub()">Half&Half</input>
+                  <input type="radio" name="milk" value="Soy" onclick="add(0.50)">Soy (+$.50)</input>
                 </li>
                 <li class="info-popup-form-item">
                   <span class="bold">Temperature</span><br>

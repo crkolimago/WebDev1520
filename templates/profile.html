@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
-  {% include "header.html" %}
 <head>
   <link rel="stylesheet" href="../static/styles/profileStyle.css">
+  {% include "header.html" %}
 </head>
 <body>
+
+{% include "navbar.html" %}
 
 <div id = "profileTitle"> Your Profile </div>
 
@@ -22,8 +24,8 @@
 	</h1>
 	<table id="favs" >
 		<tr>
-			<td><img class="custDrinks" id = "drink1" src="static/img/black_and_gold.jpg" ></td>
-			<td><img class="custDrinks" id = "drink2" src="static/img/matcha_latte.jpg" ></td>
+			<td><img class="custDrinks" src="static/img/placeholder_drink.png" ></td>
+        </tr>
 	</table>
 </div>
 {% else %}

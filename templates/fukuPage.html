@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
+<head>
+    {% include "signin-meta.html" %}
+    <link rel="stylesheet" href="static/styles/fukuStyle.css">
+    {% include "header.html" %}
+</head>
 <body>
     <script src="static/js/main.js"></script>
     <div id="gSignIn" class="g-signin2"  data-onsuccess="onSuccess"></div>
-    {% include "header.html" %}
-  <div class="content">
+    <div class="content">
+    <img id = "logo" src="static/img/fukuLogo.png" >
+    {% include "navbar.html" %}
     <div id="about">
       <h3>About</h3>
       <p>
@@ -14,7 +20,7 @@
         , there truly is something for everybody at Fuku Tea.
       </p>
       <p>
-        Check out our menu and place an order <a href="/order">here</a>.
+        Check out our menu and place an order <a href="/menu.html">here</a>.
       </p>
     </div>
     <div id="inner_content">
