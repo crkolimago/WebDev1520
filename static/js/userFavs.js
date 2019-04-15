@@ -1,5 +1,5 @@
 function hideInfo() {
-    document.getElementById("info-popup").style.visibility = "hidden";
+    document.getElementById("info-popup-form").style.visibility = "hidden";
 }
 
 function add(num) {
@@ -17,11 +17,10 @@ function sub() {
 }
 
 function showInfo(id, result) {
-     
     if(result) {
         console.log("got here");
         console.log(result.name);
-        document.getElementById("info-popup").style.visibility = "visible";
+        document.getElementById("info-popup-form").style.visibility = "visible";
         let text="";
             tea = result.tea;
             flavor = result.flavor;
@@ -178,6 +177,7 @@ function itemsDeleted(result) {
 function itemSaved(result, targetUrl, params) {
     if (result && result.ok) {
         console.log("itemSaved success.");
+        hideInfo();
         loadItems();
     } else {
         console.log("Received error: " + result.error);
